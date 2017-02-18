@@ -1,70 +1,79 @@
 <%@page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
     $(function () {
-       $('#learningWords').val(${user.learningWords});
-       $('#trainingWords').val(${user.trainingWords});
+        $("#epoches").val([
+            <c:forEach items="${user.epochList}" var="epoch">
+            "${epoch.id}",
+            </c:forEach>
+        ]);
+        $("#types").val([
+            <c:forEach items="${user.typeList}" var="type">
+            "${type.id}",
+            </c:forEach>
+        ]);
+        $("#styles").val([
+            <c:forEach items="${user.styleList}" var="style">
+            "${style.id}",
+            </c:forEach>
+        ]);
+        $('select').select2();
     });
 </script>
-<div class="row">
-    <div class="col-lg-12">
-        <ul class="nav nav-tabs navtab-bg nav-justified">
-            <li class="active tab">
-                <a href="#home-2" data-toggle="tab" aria-expanded="false">
-                    <span class="visible-xs"><i class="fa fa-home"></i></span>
-                    <span class="hidden-xs">Натройки обучения</span>
-                </a>
-            </li>
-            <li class="tab">
-                <a href="#profile-2" data-toggle="tab" aria-expanded="false">
-                    <span class="visible-xs"><i class="fa fa-user"></i></span>
-                    <span class="hidden-xs">Настройки аккаунта</span>
-                </a>
-            </li>
-        </ul>
+    <div class="">
         <div class="tab-content">
             <div class="tab-pane active" id="home-2">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div id="home-2-msg"></div>
-                        <form class="form-horizontal" role="form">
+                <div class="col-md-6">
+                        <div id="home-2-msg">
+                            <c:if test="${!empty success}">
+                                <div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
+                                    <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+                                        ${success}
+                                </div>
+                            </c:if>
+                        </div>
+                        <form class="form-horizontal" role="form" id="preferencesForm">
                             <div class="form-group">
                                 <div class="col-md-10">
-                                    <label>Количество слов в режиме обучения:</label>
-                                    <select class="selectpicker show-tick" data-style="btn-white" id="learningWords">
-                                        <option value="5">5</option>
-                                        <option value="7">7</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="25">25</option>
+                                    <label>Эпохи:</label>
+                                    <select id="epoches" multiple="multiple" style="width:100%">
+                                        <c:forEach items="${epochList}" var="epoch">
+                                            <option value="${epoch.id}">${epoch.name} (${epoch.startYear} - ${epoch.finishYear})</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="col-md-10">
-                                    <label>Количество слов в режиме тренировки:</label>
-                                    <select class="selectpicker show-tick" data-style="btn-white" id="trainingWords">
-                                        <option value="5">5</option>
-                                        <option value="7">7</option>
-                                        <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="25">25</option>
+                                    <label>Типы:</label>
+                                    <select id="types" multiple="multiple" style="width:100%">
+                                        <c:forEach items="${typeList}" var="type">
+                                            <option value="${type.id}">${type.name}</option>
+                                        </c:forEach>
                                     </select>
                                 </div>
                             </div>
+
                             <div class="form-group">
                                 <div class="col-md-10">
-                                    <button type="button" class="btn btn-inverse waves-effect waves-light"
-                                            onclick="settings.saveEducation();">Сохранить</button>
+                                    <label>Стили:</label>
+                                    <select id="styles" multiple="multiple" style="width:100%">
+                                        <c:forEach items="${styleList}" var="style">
+                                            <option value="${style.id}">${style.name}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                             </div>
+
+                            <button type="button" class="btn btn-primary waves-effect waves-light"
+                                    onclick="settings.savePreferences();">Сохранить</button>
                         </form>
-                    </div>
                 </div>
             </div>
             <div class="tab-pane" id="profile-2">
-                <div class="row">
-                    <div class="col-md-6">
+                <div class="col-md-6">
                         <div id="password-msg"></div>
                         <form id="changePasswordForm" class="form-horizontal">
                             <fieldset>
@@ -90,36 +99,26 @@
                                     </div>
                                 </div>
                             </fieldset>
-                            <button type="button" class="btn btn-inverse waves-effect waves-light"
+                            <button type="button" class="btn btn-primary waves-effect waves-light"
                                     onclick="settings.changePassword();">Изменить пароль</button>
                         </form>
-                    </div>
-                    <div class="col-md-6">
-                        <div id="email-msg"></div>
-                            <form id="changeEmailForm">
-                                <div class="form-group">
-                                    <div class="col-md-10">
-                                        <label>Текущий email:</label>
-                                        <pre id="currentEmail">${user.email}</pre>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-10">
-                                        <label for="email">Новый email:</label>
-                                        <input name="email" id="email" type="email" class="form-control"
-                                               placeholder="Введите новый email" required="required"/>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-md-10 m-t-15">
-                                        <button type="button" class="btn btn-inverse waves-effect waves-light"
-                                                onclick="settings.saveEmail();">Изменить email</button>
-                                    </div>
-                                </div>
-                            </form>
-                    </div>
                 </div>
             </div>
         </div>
+        <div class="col-md-3">
+            <ul class="nav nav-pills nav-stacked">
+                <li class="active tab">
+                    <a href="#home-2" data-toggle="tab" aria-expanded="false">
+                        <span class="visible-xs"><i class="fa fa-home"></i></span>
+                        <span class="hidden-xs">Мои предпочтения</span>
+                    </a>
+                </li>
+                <li class="tab">
+                    <a href="#profile-2" data-toggle="tab" aria-expanded="false">
+                        <span class="visible-xs"><i class="fa fa-user"></i></span>
+                        <span class="hidden-xs">Смена пароля</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     </div>
-</div>

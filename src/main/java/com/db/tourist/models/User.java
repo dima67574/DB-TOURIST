@@ -1,6 +1,8 @@
 package com.db.tourist.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -38,6 +40,18 @@ public class User extends BaseEntity {
 
     @Column(name = "first_auth", columnDefinition = "boolean default true", nullable = false)
     private Boolean firstAuth;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_epoch", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "epoch_id"))
+    private List<Epoch> epochList = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_type", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
+    private List<Type> typeList = new ArrayList<>();
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_style", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "style_id"))
+    private List<Style> styleList = new ArrayList<>();
 
     public User() {
         banned = false;
@@ -130,5 +144,29 @@ public class User extends BaseEntity {
 
     public void setFirstAuth(Boolean firstAuth) {
         this.firstAuth = firstAuth;
+    }
+
+    public List<Epoch> getEpochList() {
+        return epochList;
+    }
+
+    public void setEpochList(List<Epoch> epochList) {
+        this.epochList = epochList;
+    }
+
+    public List<Type> getTypeList() {
+        return typeList;
+    }
+
+    public void setTypeList(List<Type> typeList) {
+        this.typeList = typeList;
+    }
+
+    public List<Style> getStyleList() {
+        return styleList;
+    }
+
+    public void setStyleList(List<Style> styleList) {
+        this.styleList = styleList;
     }
 }

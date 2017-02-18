@@ -34,15 +34,16 @@
 
     <script src="${resPath}/scripts/main.js"></script>
 
+    <link href="${resPath}/vendor/select2/select2.min.css" rel="stylesheet">
+
+    <script src="${resPath}/vendor/select2/select2.full.min.js"></script>
+
     <!-- Parsly js -->
     <script type="text/javascript" src="${resPath}/vendor/parsleyjs/parsley.min.js"></script>
     <script type="text/javascript" src="${resPath}/vendor/parsleyjs/i18n/ru.js"></script>
 
     <script type="text/javascript">
         jQuery(document).ready(function($) {
-            <c:if test="${!empty firstAuth}">
-                $('#firstAuthModal').modal('show');
-            </c:if>
             $('form').parsley();
         });
     </script>
@@ -67,25 +68,5 @@
     </div>
 
     <jsp:include page="footer.jsp"/>
-
-    <c:if test="${firstAuth}">
-    <div class="modal fade" tabindex="-1" role="dialog" id="firstAuthModal">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">Укажите Ваши предпочтения</h4>
-                </div>
-                <div class="modal-body">
-                    <p>One fine body&hellip;</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
-                    <button type="button" class="btn btn-primary">Сохранить</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    </c:if>
 </body>
 </html>

@@ -83,9 +83,10 @@ public class UserServiceImpl implements UserService {
         String url = request.getRequestURL().toString();
         String domain = url.substring(0, url.length() - request.getRequestURI().length())
                 + request.getContextPath() + "/";
-        String text = "Здравствуйте, " + user.getLogin() + ".<br/>" +
-                "Для восстановления доступа к аккаунту на " + siteName + " перейдите по " +
-                "<a href=\"" + domain + "restore/confirm/" + user.getToken() + "\">ссылке</a>";
+        String lnk = domain + "restore/confirm/" + user.getToken();
+        String text = "Уважаемый, " + user.getName() + " " + user.getPatronymic() + ".<br/>" +
+                "Для восстановления доступа к Вашему профилю на " + siteName + " перейдите по ссылке " +
+                "<a href=\"" + lnk + "\">"+lnk+"</a>";
         try {
             emailSender.sendMail(siteName, user.getEmail(), "Восстановление доступа", text);
         } catch (MessagingException e) {
