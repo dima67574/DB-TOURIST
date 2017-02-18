@@ -2,8 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<div class="col-sm-6">
+<div class="col-sm-4">
 <form:form modelAttribute="user" class="form-horizontal m-t-20" action="/registration" method="POST">
+    <c:if test="${!empty error}">
+        <div class="alert alert-danger alert-styled-left alert-bordered">
+            <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Close</span></button>
+            ${error}
+        </div>
+    </c:if>
     <spring:bind path="name">
         <div class="form-group ">
             <div class="col-xs-12">
@@ -69,13 +75,13 @@
 
     <div class="form-group ">
         <div class="col-xs-12">
-            <input name="password2" type="password" class="form-control" placeholder="Пароль еще раз"
+            <input name="password2" type="password" value="${user.password}" class="form-control" placeholder="Пароль еще раз"
                    required="required" data-parsley-equalto="#password"/>
         </div>
     </div>
     <div class="form-group ">
         <div class="col-xs-6">
-            <input name="code" type="text" class="form-control" placeholder="Код с изображения"
+            <input name="captcha" type="text" class="form-control" placeholder="Код с изображения"
                    required="required"/>
         </div>
         <div class="col-xs-6">

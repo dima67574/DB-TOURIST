@@ -14,9 +14,9 @@
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <form-login login-page="/admin/login" login-processing-url="/admin/login"
                     default-target-url="/admin" authentication-failure-url="/admin/login?error=1"
-                    username-parameter="login" password-parameter="password"
-                    authentication-details-source-ref="customAuthDetailsSource" />
+                    username-parameter="login" password-parameter="password" />
         <logout logout-url="/admin/logout" logout-success-url="/admin/login?logout" />
+        <remember-me key="xzvCOBOV7bNRaAe" token-validity-seconds="31556926"/>
     </http>
 
     <http auto-config="true">
@@ -24,16 +24,14 @@
         <intercept-url pattern="/**" access="permitAll"/>
         <form-login login-page="/login" login-processing-url="/login"
                     default-target-url="/" authentication-failure-url="/login?error=1"
-                    username-parameter="login" password-parameter="password"
-                    authentication-details-source-ref="customAuthDetailsSource" />
-        <logout logout-url="/logout" />
+                    username-parameter="login" password-parameter="password" />
+        <logout logout-url="/logout" logout-success-url="/" />
+        <remember-me key="eAdBJv6V3v6eOaB" token-validity-seconds="31556926"/>
     </http>
 
     <authentication-manager alias="authenticationManager">
         <authentication-provider ref="customAuthenticationProvider"/>
     </authentication-manager>
 
-    <beans:bean id="encoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-        <beans:constructor-arg name="strength" value="11"/>
-    </beans:bean>
+    <beans:bean id="encoder" class="org.springframework.security.authentication.encoding.Md5PasswordEncoder" />
 </beans:beans>

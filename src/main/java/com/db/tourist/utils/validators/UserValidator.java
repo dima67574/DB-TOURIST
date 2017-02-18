@@ -45,5 +45,13 @@ public class UserValidator implements Validator{
                 || oldUser == null && existUser != null) {
             errors.rejectValue("email", null, "Пользователь с данным email адресом уже существует");
         }
+
+        //Телефон
+        String phone = user.getPhoneNumber();
+        existUser = userRepository.findByPhoneNumber(phone);
+        if(oldUser != null && existUser != null && !user.getPhoneNumber().equals(oldUser.getPhoneNumber())
+                || oldUser == null && existUser != null) {
+            errors.rejectValue("phoneNumber", null, "Пользователь с таким номером телефона уже существует");
+        }
     }
 }

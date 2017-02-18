@@ -39,4 +39,6 @@ public interface UserService {
     Integer changePassword(String oldPassowrd, String password);
 
     Boolean changePassword(User user, String password, Boolean resetToken);
+
+    void authentication(User user);
 }

@@ -22,6 +22,7 @@ public class MainController {
     @RequestMapping(value = "/admin", method = RequestMethod.GET)
     public ModelAndView main() {
         View view = new View("main", true);
+        view.addObject("title", "Главная");
         return view;
     }
 }

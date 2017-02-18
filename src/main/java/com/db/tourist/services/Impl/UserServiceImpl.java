@@ -8,10 +8,12 @@ import com.db.tourist.utils.EmailSender;
 import com.db.tourist.utils.auth.UserPrincipal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.authentication.encoding.Md5PasswordEncoder;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -28,7 +30,7 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private Md5PasswordEncoder encoder;
 
     @Autowired
     private EmailSender emailSender;
@@ -52,7 +54,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user) {
         user.setRole(roleRepository.findByName("ROLE_USER"));
-        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setPassword(encoder.encodePassword(user.getPassword(), null));
         return userRepository.save(user);
     }
 
@@ -95,7 +97,6 @@ public class UserServiceImpl implements UserService {
     public Boolean checkRegistrationToken(String token) {
         User user = userRepository.findByToken(token);
         if(user != null) {
-            user.setEnabled(true);
             user.setToken(null);
             userRepository.save(user);
             return true;
@@ -118,7 +119,7 @@ public class UserServiceImpl implements UserService {
     public Integer changePassword(String oldPassowrd, String password) {
         User user = getUser();
         if(oldPassowrd != null) {
-            if (!bCryptPasswordEncoder.matches(oldPassowrd, user.getPassword())) {
+            if (!encoder.isPasswordValid(user.getPassword(), oldPassowrd, null)) {
                 return 1;
             }
         }
@@ -127,10 +128,10 @@ public class UserServiceImpl implements UserService {
 
     public Boolean changePassword(User user, String password, Boolean resetToken) {
         //Если новый и старый пароли совпадают
-        if (bCryptPasswordEncoder.matches(password, user.getPassword())) {
+        if (encoder.isPasswordValid(user.getPassword(), password, null)) {
             return false;
         }
-        user.setPassword(bCryptPasswordEncoder.encode(password));
+        user.setPassword(encoder.encodePassword(password, null));
         if(resetToken != null && resetToken){
             user.setToken(null);
         }
@@ -161,5 +162,11 @@ public class UserServiceImpl implements UserService {
         } else {
             return false;
         }
+    }
+
+    public void authentication(User user) {
+        UserPrincipal principal = makeUserPrincipal(user);
+        Authentication newAuth = new UsernamePasswordAuthenticationToken(principal, user.getPassword(), principal.getAuthorities());
+        SecurityContextHolder.getContext().setAuthentication(newAuth);
     }
 }

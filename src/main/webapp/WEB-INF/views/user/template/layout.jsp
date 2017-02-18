@@ -11,8 +11,6 @@
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <link href="${resPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
     <!-- Bootstrap Core CSS -->
     <link href="${resPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -27,12 +25,32 @@
 
     <link href="${resPath}/styles/main.css" rel="stylesheet">
 
+    <!-- jQuery -->
+    <script src="${resPath}/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${resPath}/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+
     <script src="${resPath}/scripts/main.js"></script>
+
+    <!-- Parsly js -->
+    <script type="text/javascript" src="${resPath}/vendor/parsleyjs/parsley.min.js"></script>
+    <script type="text/javascript" src="${resPath}/vendor/parsleyjs/i18n/ru.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            <c:if test="${!empty firstAuth}">
+                $('#firstAuthModal').modal('show');
+            </c:if>
+            $('form').parsley();
+        });
+    </script>
 </head>
 <body>
     <jsp:include page="header.jsp"/>
     <!-- Page Content -->
-    <div class="container">
+    <div class="container" style="padding-top: 70px;">
 
         <!-- Page Header -->
         <div class="row">
@@ -48,12 +66,26 @@
         </div>
     </div>
 
+    <jsp:include page="footer.jsp"/>
 
-<!-- jQuery -->
-<script src="${resPath}/vendor/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="${resPath}/vendor/bootstrap/js/bootstrap.min.js"></script>
-
+    <c:if test="${firstAuth}">
+    <div class="modal fade" tabindex="-1" role="dialog" id="firstAuthModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">Укажите Ваши предпочтения</h4>
+                </div>
+                <div class="modal-body">
+                    <p>One fine body&hellip;</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                    <button type="button" class="btn btn-primary">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    </c:if>
 </body>
 </html>

@@ -41,9 +41,14 @@
                             <input name="remember" type="checkbox" value="Запомнить меня">Запомнить меня
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-lg btn-success btn-block">Войти</button>
+                    <button type="submit" class="btn btn-primary btn-block">Войти</button>
                 </fieldset>
             </form>
+        </div>
+    </div>
+    <div class="form-group m-t-30 m-b-0">
+        <div class="col-sm-12 text-center">
+            <a href="/" class="text-dark"><i class="fa fa-toggle-left"></i> На главную</a>
         </div>
     </div>
 </div>

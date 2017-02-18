@@ -25,6 +25,19 @@
     <!-- Custom Fonts -->
     <link href="${resPath}/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <link href="${resPath}/styles/main.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="${resPath}/vendor/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="${resPath}/vendor/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="${resPath}/vendor/metisMenu/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="${resPath}/dist/js/sb-admin-2.js"></script>
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,6 +46,16 @@
     <![endif]-->
 
     <script src="${resPath}/scripts/main.js"></script>
+
+    <!-- Parsly js -->
+    <script type="text/javascript" src="${resPath}/vendor/parsleyjs/parsley.min.js"></script>
+    <script type="text/javascript" src="${resPath}/vendor/parsleyjs/i18n/ru.js"></script>
+
+    <script type="text/javascript">
+        jQuery(document).ready(function($) {
+            $('form').parsley();
+        });
+    </script>
 </head>
 <body>
 
@@ -54,24 +77,14 @@
                 </div>
             </div>
             <div class="row">
-                <jsp:include page="${content}"/>
+                <div class="col-lg-3 col-md-6">
+                    <jsp:include page="${content}"/>
+                </div>
             </div>
         </div>
     </c:otherwise>
 </c:choose>
 </div>
-
-<!-- jQuery -->
-<script src="${resPath}/vendor/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="${resPath}/vendor/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- Metis Menu Plugin JavaScript -->
-<script src="${resPath}/vendor/metisMenu/metisMenu.min.js"></script>
-
-<!-- Custom Theme JavaScript -->
-<script src="${resPath}/dist/js/sb-admin-2.js"></script>
 
 </body>
 </html>

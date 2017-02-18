@@ -33,15 +33,15 @@ public class User extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Role role;
 
-    @Column(name = "enabled", columnDefinition = "boolean default false", nullable = false)
-    private Boolean enabled;
-
     @Column(name = "banned", columnDefinition = "boolean default false", nullable = false)
     private Boolean banned;
 
+    @Column(name = "first_auth", columnDefinition = "boolean default true", nullable = false)
+    private Boolean firstAuth;
+
     public User() {
         banned = false;
-        enabled = false;
+        firstAuth = true;
     }
 
     public String getLogin() {
@@ -84,14 +84,6 @@ public class User extends BaseEntity {
         this.token = token;
     }
 
-    public Boolean getEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(Boolean enabled) {
-        this.enabled = enabled;
-    }
-
     public Boolean getBanned() {
         return banned;
     }
@@ -130,5 +122,13 @@ public class User extends BaseEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public Boolean getFirstAuth() {
+        return firstAuth;
+    }
+
+    public void setFirstAuth(Boolean firstAuth) {
+        this.firstAuth = firstAuth;
     }
 }
