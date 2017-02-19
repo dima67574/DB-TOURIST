@@ -131,3 +131,74 @@ function updateColHtml(t, rowId, colId, content) {
 function updateColText(t, rowId, colId, content) {
     t.cell( rowId, colId ).data(content).draw();
 }
+
+var totalFileLength, totalUploaded, fileCount, filesUploaded;
+function onUploadComplete(url, objectId) {
+    totalUploaded += document.getElementById('files').files[filesUploaded].size;
+    filesUploaded++;
+    if (filesUploaded < fileCount) {
+        uploadNext(url, objectId);
+    } else {
+        var bar = document.getElementById('bar');
+        bar.style.width = '100%';
+        bar.innerHTML = '100%';
+        setTimeout(function () {
+            location.reload();
+        }, 500);
+    }
+}
+
+function onFileSelect(e) {
+    var files = e.target.files;
+    var output = [];
+    fileCount = files.length;
+    totalFileLength = 0;
+    for (var i = 0; i < fileCount; i++) {
+        var file = files[i];
+        output.push(file.name, ' (', file.size, ' байт)');
+        output.push('<br/>');
+        totalFileLength += file.size;
+    }
+    document.getElementById('selectedFiles').innerHTML = output.join('');
+    $('#uploadButton').prop("disabled",fileCount <= 0);
+}
+
+function onUploadProgress(e) {
+    if (e.lengthComputable) {
+        var percentComplete = parseInt((e.loaded + totalUploaded) * 100 / totalFileLength);
+        var bar = document.getElementById('bar');
+        bar.style.width = percentComplete + '%';
+        bar.innerHTML = percentComplete + ' %';
+    }
+}
+
+function onUploadFailed(e) {
+    alert("Ошибка загрузки");
+}
+
+function uploadNext(url, objectId) {
+    var xhr = new XMLHttpRequest();
+    var fd = new FormData();
+    var file = document.getElementById('files').files[filesUploaded];
+    fd.append("multipartFile", file);
+    fd.append("objectId", objectId);
+    xhr.upload.addEventListener("progress", onUploadProgress, false);
+    xhr.addEventListener("load", function () {
+        onUploadComplete(url, objectId);
+    }, false);
+    xhr.addEventListener("error", onUploadFailed, false);
+    xhr.open("POST", url);
+    xhr.send(fd);
+}
+
+function startUpload(url, objectId) {
+    totalUploaded = filesUploaded = 0;
+    uploadNext(url, objectId);
+}
+function deletePicture(photo) {
+    $.post("/admin/photo/delete", {photo: photo}, function (data) {
+        if(data) {
+            location.reload();
+        }
+    });
+}

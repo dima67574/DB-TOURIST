@@ -4,7 +4,7 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li>
-                <a href="/admin/epoch"><i class="fa fa-calendar fa-fw"></i> Эпохи</a>
+                <a href="/admin/epoches"><i class="fa fa-calendar fa-fw"></i> Эпохи</a>
             </li>
             <li>
                 <a href="/admin/style"><i class="fa fa-folder fa-fw"></i> Стили</a>
@@ -16,7 +16,7 @@
                 <a href="/admin/style"><i class="fa fa-tasks fa-fw"></i> Объекты</a>
             </li>
             <li>
-                <a href="/admin/user"><i class="fa fa-users fa-fw"></i> Пользователи</a>
+                <a href="/admin/users"><i class="fa fa-users fa-fw"></i> Пользователи</a>
             </li>
             <li>
                 <a href="#"><i class="fa fa-map-marker fa-fw"></i> Административное деление<span class="fa arrow"></span></a>
@@ -36,7 +36,7 @@
                 <a href="/admin/comment"><i class="fa fa-volume-down fa-fw"></i> Отзывы <span class="label label-primary">2</span></a>
             </li>
             <li>
-                <a href="/admin/page"><i class="fa fa-file-text-o fa-fw"></i> Статические страницы</a>
+                <a href="/admin/pages"><i class="fa fa-file-text-o fa-fw"></i> Статические страницы</a>
             </li>
         </ul>
     </div>

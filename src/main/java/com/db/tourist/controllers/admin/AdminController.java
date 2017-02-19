@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-public class MainController {
+public class AdminController {
     @RequestMapping(value = "/admin/login", method = RequestMethod.GET)
     public ModelAndView login(String error, String logout) {
         View view = new View("login", true);

@@ -39,3 +39,82 @@ footer {
     color: grey;
     text-decoration: none;
 }
+.dataTables_filter{
+    margin-bottom: 15px;
+}
+.dt-button{
+    float:right;
+}
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+.photo-card > img {
+    border: 1px solid #eee;
+    transition: .5s
+}
+
+.photo-card:hover > img {
+    opacity: .8;
+    background-color: #FFF;
+    transition: .5s
+}
+
+.photo-card .photo-del {
+    position: absolute;
+    opacity: 0;
+    top: 2px;
+    right: 2px;
+    background: #2771bc;
+    padding: 2px 8px 3px 8px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.photo-card {
+    transition: .5s;
+    overflow: hidden;
+    position: relative;
+    display: inline-block
+}
+
+.photo-card .photo-desc {
+    display: block;
+    filter: alpha(opacity=80);
+    opacity: 0;
+    background-color: #428bca;
+    margin: 0;
+    color: #FFF;
+    /*font-size: 12px;*/
+    padding: 10px;
+    position: absolute;
+    bottom: 19px;
+    left: 0;
+    right: 0;
+    transition: .3s
+}
+
+.photo-card:hover .photo-desc {
+    opacity: .9
+}
+
+.photo-card:hover .photo-del {
+    opacity: .9
+}

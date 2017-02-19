@@ -22,14 +22,18 @@ public class StaticPageController {
     public ModelAndView page(@PathVariable("page") String page) {
         View view = new View("staticPage");
         StaticPage staticPage = staticPageService.findOneByUrl(page);
-        view.addObject("page", staticPage);
-        view.addObject("title", staticPage.getTitle());
+        if(staticPage != null) {
+            view.addObject("staticPage", staticPage);
+            view.addObject("title", staticPage.getTitle());
+        } else {
+            view.addObject("title", "Страница не найдена");
+        }
         return view;
     }
 
     @RequestMapping(value = "/admin/pages", method = RequestMethod.GET)
     public ModelAndView pagesList(HttpServletRequest request) {
-        View view = new View("admin/staticPages/list");
+        View view = new View("staticPages/list", true);
         view.addObject("title", "Статические страницы");
         view.addObject("pages", staticPageService.findAll());
         view.addObject("url", staticPageService.getRequestUrl(request));
@@ -44,7 +48,7 @@ public class StaticPageController {
 
     @RequestMapping(value = "/admin/pages/add", method = RequestMethod.GET)
     public ModelAndView pageAdd(HttpServletRequest request) {
-        View view = new View("admin/staticPages/edit");
+        View view = new View("staticPages/edit", true);
         view.addObject("title", "Создание страницы");
         view.addObject("page", new StaticPage());
         view.addObject("url", staticPageService.getRequestUrl(request));
@@ -61,7 +65,7 @@ public class StaticPageController {
 
     @RequestMapping(value = "/admin/pages/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable("id") Long id, HttpServletRequest request) {
-        View view = new View("admin/staticPages/edit");
+        View view = new View("staticPages/edit", true);
         view.addObject("title", "Редактирование страницы");
         view.addObject("page", staticPageService.findOne(id));
         view.addObject("url", staticPageService.getRequestUrl(request));

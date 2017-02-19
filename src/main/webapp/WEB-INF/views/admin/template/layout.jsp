@@ -11,8 +11,6 @@
     <meta charset="utf-8">
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 
-    <link href="${resPath}/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-
     <!-- Bootstrap Core CSS -->
     <link href="${resPath}/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -38,6 +36,11 @@
     <!-- Custom Theme JavaScript -->
     <script src="${resPath}/dist/js/sb-admin-2.js"></script>
 
+    <!-- DataTables JavaScript -->
+    <script src="${resPath}/vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="${resPath}/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
+    <script src="${resPath}/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script src="${resPath}/vendor/datatables-plugins/dataTables.buttons.min.js"></script>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -46,7 +49,9 @@
     <![endif]-->
 
     <script src="${resPath}/scripts/main.js"></script>
+    <link href="${resPath}/vendor/select2/select2.min.css" rel="stylesheet">
 
+    <script src="${resPath}/vendor/select2/select2.full.min.js"></script>
     <!-- Parsly js -->
     <script type="text/javascript" src="${resPath}/vendor/parsleyjs/parsley.min.js"></script>
     <script type="text/javascript" src="${resPath}/vendor/parsleyjs/i18n/ru.js"></script>
@@ -77,9 +82,8 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-3 col-md-6">
-                    <jsp:include page="${content}"/>
-                </div>
+
+                <jsp:include page="${content}"/>
             </div>
         </div>
     </c:otherwise>

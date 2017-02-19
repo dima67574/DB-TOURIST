@@ -1,8 +1,8 @@
 package com.db.tourist.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "epoch")
@@ -18,6 +18,9 @@ public class Epoch extends BaseEntity {
 
     @Column(name = "finish_year")
     private Integer finishYear;
+
+    @OneToMany(mappedBy = "epoch", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    private List<Photo> photos = new ArrayList<>();
 
     public Epoch() {
     }
@@ -56,5 +59,13 @@ public class Epoch extends BaseEntity {
 
     public void setFinishYear(Integer finishYear) {
         this.finishYear = finishYear;
+    }
+
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
     }
 }

@@ -38,9 +38,6 @@ public class User extends BaseEntity {
     @Column(name = "banned", columnDefinition = "boolean default false", nullable = false)
     private Boolean banned;
 
-    @Column(name = "first_auth", columnDefinition = "boolean default true", nullable = false)
-    private Boolean firstAuth;
-
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_epoch", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "epoch_id"))
     private List<Epoch> epochList = new ArrayList<>();
@@ -55,7 +52,10 @@ public class User extends BaseEntity {
 
     public User() {
         banned = false;
-        firstAuth = true;
+    }
+
+    public String getFio() {
+        return surname + " " + name.substring(0, 1) + ". " + patronymic.substring(0, 1) + ".";
     }
 
     public String getLogin() {
@@ -136,14 +136,6 @@ public class User extends BaseEntity {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
-    }
-
-    public Boolean getFirstAuth() {
-        return firstAuth;
-    }
-
-    public void setFirstAuth(Boolean firstAuth) {
-        this.firstAuth = firstAuth;
     }
 
     public List<Epoch> getEpochList() {
