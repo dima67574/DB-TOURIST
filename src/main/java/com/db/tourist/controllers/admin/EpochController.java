@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -33,6 +34,43 @@ public class EpochController {
         view.addObject("title", "Эпохи");
         view.addObject("epoches", epochRepository.findAll());
         return view;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/epoches/delete", method = RequestMethod.POST)
+    public void deleteUser(@RequestParam("id") Long epochId) {
+        epochRepository.delete(epochId);
+    }
+
+    @RequestMapping(value = "/admin/epoches/add", method = RequestMethod.GET)
+    public ModelAndView epochesAdd() {
+        View view = new View("epoche/edit", true);
+        view.addObject("title", "Создание эпохи");
+        view.addObject("epoch", new Epoch());
+        return view;
+    }
+
+    @RequestMapping(value = "/admin/epoches/add", method = RequestMethod.POST)
+    public String epochesPost(@ModelAttribute("epoch") Epoch epoch, RedirectAttributes redirectAttributes) {
+        Epoch e = epochRepository.save(epoch);
+        redirectAttributes.addFlashAttribute("success", "Эпоха успешно создана. Теперь вы можете добавить фотографии");
+        return "redirect:/admin/epoches/photo/" + e.getId();
+    }
+
+    @RequestMapping(value = "/admin/epoches/edit/{id}", method = RequestMethod.GET)
+    public ModelAndView edit(@PathVariable("id") Long id, HttpServletRequest request) {
+        View view = new View("epoche/edit", true);
+        view.addObject("title", "Редактирование эпохи");
+        view.addObject("epoch", epochRepository.findOne(id));
+        return view;
+    }
+
+    @RequestMapping(value = "/admin/epoches/edit/{id}", method = RequestMethod.POST)
+    public String editPost(Epoch epoch, RedirectAttributes redirectAttributes) {
+        if(epochRepository.save(epoch) != null) {
+            redirectAttributes.addFlashAttribute("success", "Эпоха успешно отредактирована");
+        }
+        return "redirect:/admin/epoches";
     }
 
     @RequestMapping(value = "/admin/epoches/photo/{id}", method = RequestMethod.GET)

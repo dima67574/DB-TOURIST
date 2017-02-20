@@ -19,13 +19,13 @@
             columnDefs: [{
                 orderable: false,
                 width: '30px',
-                targets: [ 3 ]
+                targets: [ 4 ]
             }]
         });
 
         $('#remove_modal').on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).data('id');
-            $(this).find(".remove-btn").attr("onclick", "dataTables.removeRow('usersTable', '/admin/pages/delete', "+id+", ['message-area', 'Страница успешно удалена', 'success']);");
+            $(this).find(".remove-btn").attr("onclick", "dataTables.removeRow('usersTable', '/admin/epoches/delete', "+id+", ['message-area', 'Эпоха успешно удалена', 'success']);");
         });
     });
 
@@ -45,6 +45,7 @@
                     <th>Название</th>
                     <th>Дата начала</th>
                     <th>Дата окончания</th>
+                    <th>Описание</th>
                     <th class="text-center">Действия</th>
                 </tr>
                 </thead>
@@ -55,6 +56,7 @@
                             <td>${p.name}</td>
                             <td>${p.startYear}</td>
                             <td>${p.finishYear}</td>
+                            <td>${p.description}</td>
                             <td class="text-center row-actions">
                                 <div class="dropdown">
                                     <a href="#" class="dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -62,7 +64,7 @@
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
                                         <li><a href="/admin/epoches/photo/${p.id}">Перейти в фотоальбом</a></li>
-                                        <li><a href="/admin/pages/edit/${p.id}">Редактировать</a></li>
+                                        <li><a href="/admin/epoches/edit/${p.id}">Редактировать</a></li>
                                         <li><a href="javascript:void(0);" data-toggle="modal" data-target="#remove_modal" class="remove-lnk" data-id="${p.id}">Удалить</a></li>
                                     </ul>
                                 </div>
@@ -82,7 +84,7 @@
             </div>
 
             <div class="modal-body">
-                Вы действительно хотите удалить эту страницу?
+                Вы действительно хотите удалить эту эпоху?
             </div>
 
             <div class="modal-footer">

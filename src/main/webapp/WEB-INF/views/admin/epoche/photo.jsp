@@ -3,9 +3,35 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script src="/resources/vendor/bootpag/jquery.bootpag.min.js"></script>
+<script>
+    $(function () {
+        $(".fancybox").fancybox({
+            openEffect: "none",
+            closeEffect: "none"
+        });
+    });
+</script>
+
+
+<link rel="stylesheet" href="/resources/vendor/fancybox/jquery.fancybox.min.css" media="screen">
+<script src="/resources/vendor/fancybox/jquery.fancybox.min.js"></script>
+
+
 <div class="col-md-12" style="margin-bottom: 15px;">
+    <c:if test="${!empty success}">
+        <div class="msg-wrapper alert alert-success alert-styled-left alert-arrow-left alert-bordered">
+            <button type="button" class="close" data-dismiss="alert"><span>×</span><span class="sr-only">Закрыть</span></button>
+                ${success}
+        </div>
+    </c:if>
+<a href="/admin/epoches" class="btn btn-default" style="text-align: center">К списку эпох</a>
 <a href="#" data-toggle="modal" data-target="#upload_modal" class="btn btn-primary" style="text-align: center">Добавить фотографии в альбом</a>
 </div>
+
+
+<div class="container" style="margin-left: 0px;">
+    <div class="row">
+        <div class='list-group gallery'>
 <c:forEach var="p" items="${epoch.photos}" varStatus="i">
     <c:set var="photosCount" scope="page" value="16"/>
     <c:set var="totalPages" scope="page" value="${fn:length(epoch.photos) / photosCount}"/>
@@ -14,16 +40,21 @@
     <c:if test="${newPage == 0}">
         <div id="page${page}" style="${i.index > 0 ? 'display:none' : ''}" class="photo-page">
     </c:if>
-        <div class="col-lg-3 col-md-4 col-xs-6 thumb">
-            <a class="thumbnail photo-card" href="#">
-                <img class="img-responsive" src="/photo?name=thumb_${p.file}" alt="" style="width:230px;height: 145px;">
-                <div class="photo-del" title="Удалить фото" data-toggle="modal" data-target="#remove_modal" data-id="${p.file}">x</div>
-            </a>
-        </div>
+    <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
+        <a class="thumbnail photo-card fancybox" rel="ligthbox" href="/photo?name=${p.file}">
+            <img class="img-responsive" src="/photo?name=thumb_${p.file}" alt="" style="width:230px;height: 145px;">
+            <div class="photo-del" title="Удалить фото" data-toggle="modal" data-target="#remove_modal" data-id="${p.file}">x</div>
+        </a>
+    </div>
     <c:if test="${newPage == photosCount - 1 || fn:length(epoch.photos) == (i.index + 1)}">
         </div>
     </c:if>
 </c:forEach>
+
+        </div>
+    </div>
+</div>
+
 
 <script>
     $(function () {
