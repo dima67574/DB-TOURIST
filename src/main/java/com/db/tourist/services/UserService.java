@@ -22,6 +22,8 @@ public interface UserService {
 
     User save(User user);
 
+    User update(User user);
+
     List<User> findAll();
 
     void delete(Long userId);
@@ -29,10 +31,6 @@ public interface UserService {
     User findOne(Long userId);
 
     Boolean lockUser(Long id, Boolean lockStatus);
-
-    Boolean sendRegistrationRequest(User user, HttpServletRequest request);
-
-    Boolean checkRegistrationToken(String token);
 
     Boolean sendRestoreRequest(User user, HttpServletRequest request);
 

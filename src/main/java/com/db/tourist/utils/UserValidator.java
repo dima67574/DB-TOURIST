@@ -1,4 +1,4 @@
-package com.db.tourist.utils.validators;
+package com.db.tourist.utils;
 
 import com.db.tourist.models.User;
 import com.db.tourist.repositories.UserRepository;

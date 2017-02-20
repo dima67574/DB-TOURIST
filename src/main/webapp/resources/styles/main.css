@@ -75,7 +75,7 @@ footer {
     transition: .5s
 }
 
-.photo-card .photo-del {
+.photo-card a.photo-del {
     position: absolute;
     opacity: 0;
     top: 2px;
@@ -115,6 +115,6 @@ footer {
     opacity: .9
 }
 
-.photo-card:hover .photo-del {
+.photo-card:hover a.photo-del {
     opacity: .9
 }

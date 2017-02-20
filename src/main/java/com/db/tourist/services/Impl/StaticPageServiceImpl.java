@@ -39,4 +39,15 @@ public class StaticPageServiceImpl implements StaticPageService {
     public StaticPage findOneByUrl(String url) {
         return staticPageRepository.findOneByUrl(url);
     }
+
+    public StaticPage update(StaticPage page) {
+        StaticPage p = staticPageRepository.findOne(page.getId());
+        if(p != null) {
+            p.setTitle(page.getTitle());
+            p.setText(page.getText());
+            p.setUrl(page.getUrl());
+            return staticPageRepository.save(p);
+        }
+        return null;
+    }
 }

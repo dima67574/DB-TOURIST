@@ -32,7 +32,7 @@ public class StaticPageController {
     }
 
     @RequestMapping(value = "/admin/pages", method = RequestMethod.GET)
-    public ModelAndView pagesList(HttpServletRequest request) {
+    public ModelAndView list(HttpServletRequest request) {
         View view = new View("staticPages/list", true);
         view.addObject("title", "Статические страницы");
         view.addObject("pages", staticPageService.findAll());
@@ -42,12 +42,12 @@ public class StaticPageController {
 
     @ResponseBody
     @RequestMapping(value = "/admin/pages/delete", method = RequestMethod.POST)
-    public void deleteUser(@RequestParam("id") Long pageId) {
+    public void delete(@RequestParam("id") Long pageId) {
         staticPageService.delete(pageId);
     }
 
     @RequestMapping(value = "/admin/pages/add", method = RequestMethod.GET)
-    public ModelAndView pageAdd(HttpServletRequest request) {
+    public ModelAndView add(HttpServletRequest request) {
         View view = new View("staticPages/edit", true);
         view.addObject("title", "Создание страницы");
         view.addObject("page", new StaticPage());
@@ -56,7 +56,7 @@ public class StaticPageController {
     }
 
     @RequestMapping(value = "/admin/pages/add", method = RequestMethod.POST)
-    public String faqAddPost(@ModelAttribute("page") StaticPage staticPage, RedirectAttributes redirectAttributes) {
+    public String add(@ModelAttribute("page") StaticPage staticPage, RedirectAttributes redirectAttributes) {
         staticPage.setCreateDate(new Date());
         staticPageService.save(staticPage);
         redirectAttributes.addFlashAttribute("success", "Страница успешно создана");
@@ -73,13 +73,8 @@ public class StaticPageController {
     }
 
     @RequestMapping(value = "/admin/pages/edit/{id}", method = RequestMethod.POST)
-    public String editPost(StaticPage page, RedirectAttributes redirectAttributes) {
-        StaticPage p = staticPageService.findOne(page.getId());
-        if(p != null) {
-            p.setTitle(page.getTitle());
-            p.setText(page.getText());
-            p.setUrl(page.getUrl());
-            staticPageService.save(p);
+    public String edit(StaticPage page, RedirectAttributes redirectAttributes) {
+        if(staticPageService.update(page) != null) {
             redirectAttributes.addFlashAttribute("success", "Страница успешно отредактирована");
         }
         return "redirect:/admin/pages";

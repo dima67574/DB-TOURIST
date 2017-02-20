@@ -16,10 +16,6 @@ public class Type extends BaseEntity {
     public Type() {
     }
 
-    public Type(Long id) {
-        super.setId(id);
-    }
-
     public String getName() {
         return name;
     }

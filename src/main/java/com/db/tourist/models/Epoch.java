@@ -22,11 +22,11 @@ public class Epoch extends BaseEntity {
     @OneToMany(mappedBy = "epoch", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
     private List<Photo> photos = new ArrayList<>();
 
-    public Epoch() {
-    }
+    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "user_epoch", joinColumns = @JoinColumn(name = "epoch_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private List<User> userList = new ArrayList<>();
 
-    public Epoch(Long id) {
-        super.setId(id);
+    public Epoch() {
     }
 
     public String getName() {
@@ -67,5 +67,13 @@ public class Epoch extends BaseEntity {
 
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+    }
+
+    public List<User> getUserList() {
+        return userList;
+    }
+
+    public void setUserList(List<User> userList) {
+        this.userList = userList;
     }
 }

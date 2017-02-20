@@ -1,4 +1,4 @@
-package com.db.tourist.models;
+package com.db.tourist.utils;
 
 import org.springframework.web.multipart.MultipartFile;
 

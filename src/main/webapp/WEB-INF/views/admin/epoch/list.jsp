@@ -12,7 +12,7 @@
                     text: 'Создать эпоху',
                     className: 'btn btn-primary',
                     action: function(e, dt, node, config) {
-                        window.location.href = "/admin/epoches/add"
+                        window.location.href = "/admin/epoch/add"
                     }
                 }
             ],
@@ -25,7 +25,7 @@
 
         $('#remove_modal').on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).data('id');
-            $(this).find(".remove-btn").attr("onclick", "dataTables.removeRow('usersTable', '/admin/epoches/delete', "+id+", ['message-area', 'Эпоха успешно удалена', 'success']);");
+            $(this).find(".remove-btn").attr("onclick", "dataTables.removeRow('usersTable', '/admin/epoch/delete', "+id+", ['message-area', 'Эпоха успешно удалена', 'success']);");
         });
     });
 
@@ -50,8 +50,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <c:if test="${!empty epoches}">
-                    <c:forEach var="p" items="${epoches}">
+                <c:if test="${!empty epochs}">
+                    <c:forEach var="p" items="${epochs}">
                         <tr id="row${p.id}">
                             <td>${p.name}</td>
                             <td>${p.startYear}</td>
@@ -63,8 +63,8 @@
                                         <i class="fa fa-cog"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/epoches/photo/${p.id}">Перейти в фотоальбом</a></li>
-                                        <li><a href="/admin/epoches/edit/${p.id}">Редактировать</a></li>
+                                        <li><a href="/admin/epoch/photo/${p.id}">Перейти в фотоальбом</a></li>
+                                        <li><a href="/admin/epoch/edit/${p.id}">Редактировать</a></li>
                                         <li><a href="javascript:void(0);" data-toggle="modal" data-target="#remove_modal" class="remove-lnk" data-id="${p.id}">Удалить</a></li>
                                     </ul>
                                 </div>

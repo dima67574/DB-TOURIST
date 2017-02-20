@@ -61,7 +61,7 @@
             </div>
         </fieldset>
         <button type="submit" class="btn btn-primary waves-effect waves-light">Сохранить</button>
-        <a class="btn btn-default left-btn" href="/admin/epoches">Отмена</a>
+        <a class="btn btn-default left-btn" href="/admin/epoch">Отмена</a>
     </form:form>
     <br/>
 </div>

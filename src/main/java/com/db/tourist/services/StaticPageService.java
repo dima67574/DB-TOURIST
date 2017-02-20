@@ -16,5 +16,7 @@ public interface StaticPageService {
 
     StaticPage save(StaticPage page);
 
+    StaticPage update(StaticPage page);
+
     StaticPage findOneByUrl(String url);
 }

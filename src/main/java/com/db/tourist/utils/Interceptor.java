@@ -23,17 +23,14 @@ public class Interceptor implements HandlerInterceptor {
     public void postHandle(HttpServletRequest req, HttpServletResponse res, Object handler, ModelAndView modelAndView)
             throws Exception {
 
-        //layout variables
         if(modelAndView!= null && modelAndView.getViewName().equals("layout")) {
             try {
                 User user = userService.getUser();
 
-                //for users
                 if (user != null && user.getRole().getName().equals("ROLE_USER")) {
                     //modelAndView.addObject("test", 123);
                 }
 
-                //for admins
                 if (user != null && user.getRole().getName().equals("ROLE_ADMIN")) {
                     //modelAndView.addObject("test", 321);
                 }

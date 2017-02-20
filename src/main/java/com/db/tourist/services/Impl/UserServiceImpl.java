@@ -45,6 +45,23 @@ public class UserServiceImpl implements UserService {
         return ((UserPrincipal) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
     }
 
+    public User update(User user) {
+        User updUser = userRepository.findOne(user.getId());
+        if(updUser != null) {
+            updUser.setName(user.getName());
+            updUser.setSurname(user.getSurname());
+            updUser.setPatronymic(user.getPatronymic());
+            updUser.setPhoneNumber(user.getPhoneNumber());
+            updUser.setEmail(user.getEmail());
+            updUser.setLogin(user.getLogin());
+            if(user.getRole() != null) {
+                updUser.setRole(user.getRole());
+            }
+            return userRepository.save(updUser);
+        }
+        return null;
+    }
+
     public UserPrincipal makeUserPrincipal(User user) {
         Set<GrantedAuthority> grantedAuthorities = new HashSet<>();
         grantedAuthorities.add(new SimpleGrantedAuthority(user.getRole().getName()));
@@ -56,24 +73,6 @@ public class UserServiceImpl implements UserService {
         user.setRole(roleRepository.findByName("ROLE_USER"));
         user.setPassword(encoder.encodePassword(user.getPassword(), null));
         return userRepository.save(user);
-    }
-
-    public Boolean sendRegistrationRequest(User user, HttpServletRequest request) {
-        user.setToken(UUID.randomUUID().toString());
-        userRepository.save(user);
-
-        String url = request.getRequestURL().toString();
-        String domain = url.substring(0, url.length() - request.getRequestURI().length())
-                + request.getContextPath() + "/";
-        String text = "Здравствуйте, " + user.getLogin() + ".<br/>" +
-                "Для завершения регистрации на " + siteName + " перейдите по " +
-                "<a href=\"" + domain + "registration/confirm/" + user.getToken() + "\">ссылке</a>";
-        try {
-            emailSender.sendMail(siteName, user.getEmail(), "Подтверждение регистрации", text);
-        } catch (MessagingException e) {
-            return false;
-        }
-        return true;
     }
 
     public Boolean sendRestoreRequest(User user, HttpServletRequest request) {
@@ -93,16 +92,6 @@ public class UserServiceImpl implements UserService {
             return false;
         }
         return true;
-    }
-
-    public Boolean checkRegistrationToken(String token) {
-        User user = userRepository.findByToken(token);
-        if(user != null) {
-            user.setToken(null);
-            userRepository.save(user);
-            return true;
-        }
-        return false;
     }
 
     public User findByEmail(String email) {

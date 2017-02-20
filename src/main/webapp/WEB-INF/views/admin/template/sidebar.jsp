@@ -4,7 +4,7 @@
     <div class="sidebar-nav navbar-collapse">
         <ul class="nav" id="side-menu">
             <li>
-                <a href="/admin/epoches"><i class="fa fa-calendar fa-fw"></i> Эпохи</a>
+                <a href="/admin/epoch"><i class="fa fa-calendar fa-fw"></i> Эпохи</a>
             </li>
             <li>
                 <a href="/admin/style"><i class="fa fa-folder fa-fw"></i> Стили</a>

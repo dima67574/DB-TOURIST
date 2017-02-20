@@ -3,7 +3,7 @@
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script>
     $(function () {
-        $("#epoches").val([
+        $("#epochs").val([
             <c:forEach items="${user.epochList}" var="epoch">
             "${epoch.id}",
             </c:forEach>
@@ -37,7 +37,7 @@
                             <div class="form-group">
                                 <div class="col-md-10">
                                     <label>Эпохи:</label>
-                                    <select id="epoches" multiple="multiple" style="width:100%">
+                                    <select id="epochs" multiple="multiple" style="width:100%">
                                         <c:forEach items="${epochList}" var="epoch">
                                             <option value="${epoch.id}">${epoch.name} (${epoch.startYear} - ${epoch.finishYear})</option>
                                         </c:forEach>

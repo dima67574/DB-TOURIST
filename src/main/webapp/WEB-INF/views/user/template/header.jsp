@@ -51,8 +51,10 @@
                         <li>
                             <a href="/settings"><i class="fa fa-gear fa-fw"></i> Настройки</a>
                         </li>
+                        <c:if test="${isAdmin}">
                         <li><a href="/admin"><i class="fa fa-toggle-right fa-fw"></i> Админ-панель</a>
                         </li>
+                        </c:if>
                         <li class="divider"></li>
                         <li><a href="#" onclick="$('#logoutForm').submit();"><i class="fa fa-sign-out fa-fw"></i> Выход</a>
                         </li>

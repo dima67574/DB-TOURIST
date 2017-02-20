@@ -16,10 +16,6 @@ public class Style extends BaseEntity {
     public Style() {
     }
 
-    public Style(Long id) {
-        super.setId(id);
-    }
-
     public String getName() {
         return name;
     }

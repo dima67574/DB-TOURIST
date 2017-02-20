@@ -53,10 +53,10 @@ var settings = {
     savePreferences: function () {
         var form = $('#preferencesForm');
         if (form.parsley().isValid()) {
-            var epoches = $('#epoches').val();
+            var epochs = $('#epochs').val();
             var types = $('#types').val();
             var styles = $('#styles').val();
-            $.post('/settings/savePreferences', {epoches: epoches, types: types, styles: styles}, function (response) {
+            $.post('/settings/savePreferences', {epochs: epochs, types: types, styles: styles}, function (response) {
                 if(response) {
                     message('home-2-msg', 'Предпочтения успешно сохранены', 'success');
                 } else {

@@ -38,7 +38,7 @@ public class User extends BaseEntity {
     @Column(name = "banned", columnDefinition = "boolean default false", nullable = false)
     private Boolean banned;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_epoch", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "epoch_id"))
     private List<Epoch> epochList = new ArrayList<>();
 
