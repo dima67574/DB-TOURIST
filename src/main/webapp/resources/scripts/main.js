@@ -1,17 +1,3 @@
-function captch_refresh(el) {
-    var src = $(el).attr('src');
-    if (src) {
-        var queryPos = src.indexOf('?');
-        if (queryPos != -1) {
-            src = src.substring(0, queryPos);
-        }
-    } else {
-        src = "/captcha";
-    }
-    $(el).attr('src', src + '?' + Math.random());
-    return false;
-}
-
 $(function () {
     $.extend($.fn.dataTable.defaults, {
         language: datable_russian
@@ -40,14 +26,6 @@ var datable_russian = {
         "sortDescending": ": активировать для сортировки столбца по убыванию"
     }
 };
-
-function message(el, msg, classes) {
-    var txt = '<div class="alert alert-' + classes + ' ' +
-        'alert-styled-left alert-arrow-left alert-bordered"> <button type="button" class="close" data-dismiss="alert">' +
-        '<span>×</span><span class="sr-only">Закрыть</span></button> <span class="alrt-msg">' + msg + '</span></div>';
-    $('#' + el).html(txt);
-    $(window).scrollTop(0);
-}
 
 var settings = {
     savePreferences: function () {
@@ -116,6 +94,28 @@ var dataTables = {
             message(msg[0], msg[1], msg[2]);
         });
     }
+}
+
+function captch_refresh(el) {
+    var src = $(el).attr('src');
+    if (src) {
+        var queryPos = src.indexOf('?');
+        if (queryPos != -1) {
+            src = src.substring(0, queryPos);
+        }
+    } else {
+        src = "/captcha";
+    }
+    $(el).attr('src', src + '?' + Math.random());
+    return false;
+}
+
+function message(el, msg, classes) {
+    var txt = '<div class="alert alert-' + classes + ' ' +
+        'alert-styled-left alert-arrow-left alert-bordered"> <button type="button" class="close" data-dismiss="alert">' +
+        '<span>×</span><span class="sr-only">Закрыть</span></button> <span class="alrt-msg">' + msg + '</span></div>';
+    $('#' + el).html(txt);
+    $(window).scrollTop(0);
 }
 
 function getColHtml(t, rowId, colId) {
@@ -195,6 +195,7 @@ function startUpload(url, objectId) {
     totalUploaded = filesUploaded = 0;
     uploadNext(url, objectId);
 }
+
 function deletePicture(photo) {
     $.post("/admin/photo/delete", {photo: photo}, function (data) {
         if(data) {
