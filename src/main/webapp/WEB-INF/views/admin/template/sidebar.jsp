@@ -13,7 +13,7 @@
                 <a href="/admin/type"><i class="fa fa-folder fa-fw"></i> Типы</a>
             </li>
             <li>
-                <a href="/admin/style"><i class="fa fa-tasks fa-fw"></i> Объекты</a>
+                <a href="/admin/object"><i class="fa fa-tasks fa-fw"></i> Объекты</a>
             </li>
             <li>
                 <a href="/admin/users"><i class="fa fa-users fa-fw"></i> Пользователи</a>

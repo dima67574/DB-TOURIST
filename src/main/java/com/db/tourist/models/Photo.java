@@ -11,6 +11,12 @@ public class Photo extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Epoch epoch;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Style style;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Type type;
+
     public Photo() {
     }
 
@@ -28,5 +34,21 @@ public class Photo extends BaseEntity {
 
     public void setEpoch(Epoch epoch) {
         this.epoch = epoch;
+    }
+
+    public Style getStyle() {
+        return style;
+    }
+
+    public void setStyle(Style style) {
+        this.style = style;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
     }
 }
