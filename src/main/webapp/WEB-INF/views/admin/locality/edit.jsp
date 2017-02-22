@@ -18,31 +18,44 @@
 <div class="col-md-12">
     <div id="home-2-msg"></div>
     <div id="password-msg"></div>
-    <form:form modelAttribute="district" class="form-horizontal" method="POST">
+    <form:form modelAttribute="locality" class="form-horizontal" method="POST">
         <fieldset>
             <spring:bind path="name">
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <label for="name">Название района:</label>
+                        <label for="name">Название населенного пункта:</label>
                         <form:input path="name" class="form-control" placeholder="Введите название"
                                     required="required"/>
                         <form:errors class="validation-error-label" path="name"/>
                     </div>
                 </div>
             </spring:bind>
-            <spring:bind path="region.id">
+
+            <div class="form-group ">
+                <div class="col-xs-12">
+                    <label>Область:</label>
+                    <select name="regionId" id="regionId" class="form-control" required>
+                        <c:forEach var="p" items="${regionList}">
+                            <option value="${p.key}">${p.value}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+
+            <spring:bind path="district.id">
                 <div class="form-group ">
                     <div class="col-xs-12">
-                        <label for="region.id">Область:</label>
-                        <form:select path="region.id" class="form-control" required="required">
-                            <form:options items="${regionList}"/>
+                        <label for="district.id">Район:</label>
+                        <form:select path="district.id" class="form-control" required="required">
+                            <form:options items="${districtList}"/>
                         </form:select>
                     </div>
                 </div>
             </spring:bind>
+
         </fieldset>
         <button type="submit" class="btn btn-primary waves-effect waves-light">Сохранить</button>
-        <a class="btn btn-default left-btn" href="/admin/district">Отмена</a>
+        <a class="btn btn-default left-btn" href="/admin/locality">Отмена</a>
     </form:form>
     <br/>
 </div>

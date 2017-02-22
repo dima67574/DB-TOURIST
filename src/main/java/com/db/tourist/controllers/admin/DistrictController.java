@@ -36,7 +36,6 @@ public class DistrictController {
         return map;
     }
 
-
     @RequestMapping(value = "/admin/district", method = RequestMethod.GET)
     public ModelAndView list() {
         View view = new View("district/list", true);
