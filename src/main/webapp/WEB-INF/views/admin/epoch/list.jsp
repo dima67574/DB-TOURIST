@@ -6,7 +6,7 @@
     $(function() {
         table = $('#usersTable').dataTable({
             dom: "Bfrtip",
-            "order": [[ 2, "desc" ]],
+            "order": [[ 2, "asc" ]],
             buttons: [
                 {
                     text: 'Создать эпоху',

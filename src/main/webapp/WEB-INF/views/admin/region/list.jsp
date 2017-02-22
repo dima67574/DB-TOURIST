@@ -9,23 +9,23 @@
             "order": [[ 0, "asc" ]],
             buttons: [
                 {
-                    text: 'Создать тип',
+                    text: 'Создать область',
                     className: 'btn btn-primary',
                     action: function(e, dt, node, config) {
-                        window.location.href = "/admin/type/add"
+                        window.location.href = "/admin/region/add"
                     }
                 }
             ],
             columnDefs: [{
                 orderable: false,
                 width: '30px',
-                targets: [ 2 ]
+                targets: [ 1 ]
             }]
         });
 
         $('#remove_modal').on('show.bs.modal', function(e) {
             var id = $(e.relatedTarget).data('id');
-            $(this).find(".remove-btn").attr("onclick", "dataTables.removeRow('usersTable', '/admin/type/delete', "+id+", ['message-area', 'Тип успешно удален', 'success']);");
+            $(this).find(".remove-btn").attr("onclick", "dataTables.removeRow('usersTable', '/admin/region/delete', "+id+", ['message-area', 'Область успешно удалена', 'success']);");
         });
     });
 
@@ -42,25 +42,22 @@
             <table id="usersTable" class="table table-striped table-bordered">
                 <thead>
                 <tr>
-                    <th>Название</th>
-                    <th>Описание</th>
+                    <th>Название области</th>
                     <th class="text-center">Действия</th>
                 </tr>
                 </thead>
                 <tbody>
-                <c:if test="${!empty types}">
-                    <c:forEach var="p" items="${types}">
+                <c:if test="${!empty regions}">
+                    <c:forEach var="p" items="${regions}">
                         <tr id="row${p.id}">
                             <td>${p.name}</td>
-                            <td>${p.description}</td>
                             <td class="text-center row-actions">
                                 <div class="dropdown">
                                     <a href="#" class="dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
                                         <i class="fa fa-cog"></i>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-right">
-                                        <li><a href="/admin/type/photo/${p.id}">Перейти в фотоальбом</a></li>
-                                        <li><a href="/admin/type/edit/${p.id}">Редактировать</a></li>
+                                        <li><a href="/admin/region/edit/${p.id}">Редактировать</a></li>
                                         <li><a href="javascript:void(0);" data-toggle="modal" data-target="#remove_modal" class="remove-lnk" data-id="${p.id}">Удалить</a></li>
                                     </ul>
                                 </div>
@@ -80,7 +77,7 @@
             </div>
 
             <div class="modal-body">
-                Вы действительно хотите удалить этот тип?
+                Вы действительно хотите удалить эту область?
             </div>
 
             <div class="modal-footer">

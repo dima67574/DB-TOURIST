@@ -5,7 +5,7 @@
     $(function() {
         table = $('#usersTable').dataTable({
             dom: "frtip",
-            "order": [[ 0, "desc" ]],
+            "order": [[ 0, "asc" ]],
             columnDefs: [{
                 orderable: false,
                 width: '30px',

@@ -6,7 +6,7 @@
     $(function() {
         table = $('#usersTable').dataTable({
             dom: "Bfrtip",
-            "order": [[ 1, "desc" ]],
+            "order": [[ 0, "asc" ]],
             buttons: [
                 {
                     text: 'Создать стиль',
