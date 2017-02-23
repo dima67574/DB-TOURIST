@@ -12,6 +12,15 @@
 <script>
     $(function () {
         $('select').select2();
+        $('#regionId').on('change', function () {
+            $.get("/admin/district/getDistricts", {regionId: $('#regionId').val()}, function (d) {
+                $('#districtId').empty().select2({
+                    data: $.map(d, function (item) {
+                        return {id: item.id, text: item.name};
+                    })
+                });
+            });
+        });
     });
 </script>
 
@@ -36,17 +45,17 @@
                     <label>Область:</label>
                     <select name="regionId" id="regionId" class="form-control" required>
                         <c:forEach var="p" items="${regionList}">
-                            <option value="${p.key}">${p.value}</option>
+                            <option value="${p.key}"${p.key == locality.district.region.id ? ' selected' : ''}>${p.value}</option>
                         </c:forEach>
                     </select>
                 </div>
             </div>
 
             <spring:bind path="district.id">
-                <div class="form-group ">
+                <div class="form-group">
                     <div class="col-xs-12">
                         <label for="district.id">Район:</label>
-                        <form:select path="district.id" class="form-control" required="required">
+                        <form:select path="district.id" id="districtId" class="form-control" required="required">
                             <form:options items="${districtList}"/>
                         </form:select>
                     </div>

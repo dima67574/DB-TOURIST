@@ -5,6 +5,9 @@ import com.db.tourist.models.Region;
 import com.db.tourist.services.DistrictService;
 import com.db.tourist.services.RegionService;
 import com.db.tourist.utils.View;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -34,6 +37,20 @@ public class DistrictController {
             map.put(Objects.toString(r.getId()), r.getName());
         }
         return map;
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/district/getDistricts", produces = {"application/json; charset=UTF-8"}, method = RequestMethod.GET)
+    public String getCustomers(@RequestParam("regionId") Long regionId) throws JSONException {
+        List<District> districts = districtService.findByRegionId(regionId);
+        JSONArray array = new JSONArray();
+        for(District u: districts) {
+            JSONObject item = new JSONObject();
+            item.put("name", u.getName());
+            item.put("id", u.getId());
+            array.put(item);
+        }
+        return array.toString();
     }
 
     @RequestMapping(value = "/admin/district", method = RequestMethod.GET)

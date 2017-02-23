@@ -12,4 +12,6 @@ public interface DistrictService {
     District findOne(Long id);
 
     District save(District district);
+
+    List<District> findByRegionId(Long id);
 }

@@ -29,4 +29,8 @@ public class DistrictServiceImpl implements DistrictService {
     public District save(District district) {
         return districtRepository.save(district);
     }
+
+    public List<District> findByRegionId(Long id) {
+        return districtRepository.findByRegionId(id);
+    }
 }
