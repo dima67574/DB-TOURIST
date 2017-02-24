@@ -1,8 +1,8 @@
 package com.db.tourist.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "style")
@@ -14,11 +14,15 @@ public class Style extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "style", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
-    private List<Photo> photos = new ArrayList<>();
+    private Set<Photo> photos = new HashSet<>();
 
     @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_style", joinColumns = @JoinColumn(name = "style_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> userList = new ArrayList<>();
+    private Set<User> userList = new HashSet<>();
+
+    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "object_style", joinColumns = @JoinColumn(name = "style_id"), inverseJoinColumns = @JoinColumn(name = "object_id"))
+    private Set<Object> objectList = new HashSet<>();
 
     public Style() {
     }
@@ -39,19 +43,27 @@ public class Style extends BaseEntity {
         this.description = description;
     }
 
-    public List<Photo> getPhotos() {
+    public Set<Photo> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<Photo> photos) {
+    public void setPhotos(Set<Photo> photos) {
         this.photos = photos;
     }
 
-    public List<User> getUserList() {
+    public Set<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(Set<User> userList) {
         this.userList = userList;
+    }
+
+    public Set<Object> getObjectList() {
+        return objectList;
+    }
+
+    public void setObjectList(Set<Object> objectList) {
+        this.objectList = objectList;
     }
 }

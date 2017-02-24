@@ -12,4 +12,6 @@ public interface LocalityService {
     Locality findOne(Long id);
 
     Locality save(Locality locality);
+
+    List<Locality> findByDistrictId(Long id);
 }

@@ -11,8 +11,16 @@
 
 <script>
     $(function () {
-        $('select').select2();
-        $('#regionId').on('change', function () {
+        <c:if test="${empty locality.district.region.id}">
+            $('#districtId').prop('disabled', true);
+        </c:if>
+
+        $('#districtId').select2({
+            placeholder: "Выберите район"
+        });
+        $('#regionId').select2({
+            placeholder: "Выберите область"
+        }).on('change', function () {
             $.get("/admin/district/getDistricts", {regionId: $('#regionId').val()}, function (d) {
                 $('#districtId').empty().select2({
                     data: $.map(d, function (item) {
@@ -20,6 +28,7 @@
                     })
                 });
             });
+            $('#districtId').prop('disabled', false);
         });
     });
 </script>
@@ -44,8 +53,9 @@
                 <div class="col-xs-12">
                     <label>Область:</label>
                     <select name="regionId" id="regionId" class="form-control" required>
+                        <option></option>
                         <c:forEach var="p" items="${regionList}">
-                            <option value="${p.key}"${p.key == locality.district.region.id ? ' selected' : ''}>${p.value}</option>
+                            <option value="${p.id}"${p.id == locality.district.region.id ? ' selected' : ''}>${p.name}</option>
                         </c:forEach>
                     </select>
                 </div>
@@ -56,7 +66,10 @@
                     <div class="col-xs-12">
                         <label for="district.id">Район:</label>
                         <form:select path="district.id" id="districtId" class="form-control" required="required">
-                            <form:options items="${districtList}"/>
+                            <option></option>
+                            <c:forEach var="p" items="${districtList}">
+                                <form:option value="${p.id}" label="${p.name}"/>
+                            </c:forEach>
                         </form:select>
                     </div>
                 </div>

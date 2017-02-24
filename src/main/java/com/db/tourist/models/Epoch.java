@@ -1,8 +1,8 @@
 package com.db.tourist.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "epoch")
@@ -20,11 +20,15 @@ public class Epoch extends BaseEntity {
     private Integer finishYear;
 
     @OneToMany(mappedBy = "epoch", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
-    private List<Photo> photos = new ArrayList<>();
+    private Set<Photo> photos = new HashSet<>();
 
     @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_epoch", joinColumns = @JoinColumn(name = "epoch_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private List<User> userList = new ArrayList<>();
+    private Set<User> userList = new HashSet<>();
+
+    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @JoinTable(name = "object_epoch", joinColumns = @JoinColumn(name = "epoch_id"), inverseJoinColumns = @JoinColumn(name = "object_id"))
+    private Set<Object> objectList = new HashSet<>();
 
     public Epoch() {
     }
@@ -61,19 +65,27 @@ public class Epoch extends BaseEntity {
         this.finishYear = finishYear;
     }
 
-    public List<Photo> getPhotos() {
+    public Set<Photo> getPhotos() {
         return photos;
     }
 
-    public void setPhotos(List<Photo> photos) {
+    public void setPhotos(Set<Photo> photos) {
         this.photos = photos;
     }
 
-    public List<User> getUserList() {
+    public Set<User> getUserList() {
         return userList;
     }
 
-    public void setUserList(List<User> userList) {
+    public void setUserList(Set<User> userList) {
         this.userList = userList;
+    }
+
+    public Set<Object> getObjectList() {
+        return objectList;
+    }
+
+    public void setObjectList(Set<Object> objectList) {
+        this.objectList = objectList;
     }
 }

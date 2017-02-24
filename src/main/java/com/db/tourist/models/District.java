@@ -1,8 +1,8 @@
 package com.db.tourist.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "district")
@@ -15,7 +15,7 @@ public class District extends BaseEntity {
     private Region region;
 
     @OneToMany(mappedBy = "district", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
-    private List<Locality> localities = new ArrayList<>();
+    private Set<Locality> localities = new HashSet<>();
 
     public District() {
     }
@@ -36,11 +36,11 @@ public class District extends BaseEntity {
         this.region = region;
     }
 
-    public List<Locality> getLocalities() {
+    public Set<Locality> getLocalities() {
         return localities;
     }
 
-    public void setLocalities(List<Locality> localities) {
+    public void setLocalities(Set<Locality> localities) {
         this.localities = localities;
     }
 }

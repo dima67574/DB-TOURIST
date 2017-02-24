@@ -1,22 +1,21 @@
 package com.db.tourist.controllers.admin;
 
-import com.db.tourist.models.District;
 import com.db.tourist.models.Locality;
 import com.db.tourist.models.Region;
 import com.db.tourist.services.DistrictService;
 import com.db.tourist.services.LocalityService;
 import com.db.tourist.services.RegionService;
 import com.db.tourist.utils.View;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.Objects;
 
 @Controller
 public class LocalityController {
@@ -30,26 +29,10 @@ public class LocalityController {
     @Autowired
     private DistrictService districtService;
 
-    @ModelAttribute("districtList")
-    public Map populateDistricts()
-    {
-        List<District> districtList = districtService.findAll();
-        Map<String, String> map = new LinkedHashMap<String, String>();
-        for(District r : districtList) {
-            map.put(Objects.toString(r.getId()), r.getName());
-        }
-        return map;
-    }
-
     @ModelAttribute("regionList")
-    public Map populateRegions()
+    public List<Region> populateRegions()
     {
-        List<Region> regionList = regionService.findAll();
-        Map<String, String> map = new LinkedHashMap<String, String>();
-        for(Region r : regionList) {
-            map.put(Objects.toString(r.getId()), r.getName());
-        }
-        return map;
+        return regionService.findAll();
     }
 
     @RequestMapping(value = "/admin/locality", method = RequestMethod.GET)
@@ -88,6 +71,7 @@ public class LocalityController {
         View view = new View("locality/edit", true);
         view.addObject("title", "Редактирование населенного пункта");
         view.addObject("locality", localityService.findOne(id));
+        view.addObject("districtList", districtService.findByRegionId(id));
         return view;
     }
 
@@ -97,5 +81,19 @@ public class LocalityController {
             redirectAttributes.addFlashAttribute("success", "Населенный пункт успешно отредактирован");
         }
         return "redirect:/admin/locality";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/admin/locality/getLocalities", produces = {"application/json; charset=UTF-8"}, method = RequestMethod.GET)
+    public String getCustomers(@RequestParam("districtId") Long districtId) throws JSONException {
+        List<Locality> localities = localityService.findByDistrictId(districtId);
+        JSONArray array = new JSONArray();
+        for(Locality u: localities) {
+            JSONObject item = new JSONObject();
+            item.put("name", u.getName());
+            item.put("id", u.getId());
+            array.put(item);
+        }
+        return array.toString();
     }
 }

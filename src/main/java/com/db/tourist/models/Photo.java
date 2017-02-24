@@ -17,6 +17,9 @@ public class Photo extends BaseEntity {
     @ManyToOne(fetch = FetchType.EAGER)
     private Type type;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Object object;
+
     public Photo() {
     }
 
@@ -50,5 +53,13 @@ public class Photo extends BaseEntity {
 
     public void setType(Type type) {
         this.type = type;
+    }
+
+    public Object getObject() {
+        return object;
+    }
+
+    public void setObject(Object object) {
+        this.object = object;
     }
 }

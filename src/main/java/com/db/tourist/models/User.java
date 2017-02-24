@@ -1,8 +1,8 @@
 package com.db.tourist.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -40,15 +40,15 @@ public class User extends BaseEntity {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_epoch", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "epoch_id"))
-    private List<Epoch> epochList = new ArrayList<>();
+    private Set<Epoch> epochList = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_type", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private List<Type> typeList = new ArrayList<>();
+    private Set<Type> typeList = new HashSet<>();
 
     @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_style", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "style_id"))
-    private List<Style> styleList = new ArrayList<>();
+    private Set<Style> styleList = new HashSet<>();
 
     public User() {
         banned = false;
@@ -138,27 +138,27 @@ public class User extends BaseEntity {
         this.phoneNumber = phoneNumber;
     }
 
-    public List<Epoch> getEpochList() {
+    public Set<Epoch> getEpochList() {
         return epochList;
     }
 
-    public void setEpochList(List<Epoch> epochList) {
+    public void setEpochList(Set<Epoch> epochList) {
         this.epochList = epochList;
     }
 
-    public List<Type> getTypeList() {
+    public Set<Type> getTypeList() {
         return typeList;
     }
 
-    public void setTypeList(List<Type> typeList) {
+    public void setTypeList(Set<Type> typeList) {
         this.typeList = typeList;
     }
 
-    public List<Style> getStyleList() {
+    public Set<Style> getStyleList() {
         return styleList;
     }
 
-    public void setStyleList(List<Style> styleList) {
+    public void setStyleList(Set<Style> styleList) {
         this.styleList = styleList;
     }
 }

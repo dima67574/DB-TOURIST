@@ -29,4 +29,8 @@ public class LocalityServiceImpl implements LocalityService{
     public Locality save(Locality locality) {
         return localityRepository.save(locality);
     }
+
+    public List<Locality> findByDistrictId(Long id) {
+        return localityRepository.findByDistrictId(id);
+    }
 }

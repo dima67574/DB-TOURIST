@@ -8,8 +8,9 @@ import com.db.tourist.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class SettingsServiceImpl implements SettingsService {
@@ -28,9 +29,9 @@ public class SettingsServiceImpl implements SettingsService {
 
     public Boolean savePreferences(List<Long> epochs, List<Long> types, List<Long> styles) {
         User user = userService.getUser();
-        List<Epoch> epochList = new ArrayList<>();
-        List<Type> typeList = new ArrayList<>();
-        List<Style> styleList = new ArrayList<>();
+        Set<Epoch> epochList = new HashSet<>();
+        Set<Type> typeList = new HashSet<>();
+        Set<Style> styleList = new HashSet<>();
         if(epochs != null) epochs.forEach(id -> epochList.add(epochService.findOne(id)));
         if(types != null) types.forEach(id -> typeList.add(typeService.findOne(id)));
         if(styles != null) styles.forEach(id -> styleList.add(styleService.findOne(id)));

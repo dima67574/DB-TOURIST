@@ -1,6 +1,8 @@
 package com.db.tourist.models;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "locality")
@@ -11,6 +13,9 @@ public class Locality extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private District district;
+
+    @OneToMany(mappedBy = "locality", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Object> objects = new HashSet<>();
 
     public Locality() {
     }
@@ -29,5 +34,13 @@ public class Locality extends BaseEntity {
 
     public void setDistrict(District district) {
         this.district = district;
+    }
+
+    public Set<Object> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(Set<Object> objects) {
+        this.objects = objects;
     }
 }
