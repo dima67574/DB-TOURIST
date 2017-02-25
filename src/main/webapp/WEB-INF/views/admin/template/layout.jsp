@@ -52,6 +52,7 @@
     <link href="${resPath}/vendor/select2/select2.min.css" rel="stylesheet">
 
     <script src="${resPath}/vendor/select2/select2.full.min.js"></script>
+    <script type="text/javascript" src="${resPath}/vendor/select2/i18n/ru.js"></script>
     <!-- Parsly js -->
     <script type="text/javascript" src="${resPath}/vendor/parsleyjs/parsley.min.js"></script>
     <script type="text/javascript" src="${resPath}/vendor/parsleyjs/i18n/ru.js"></script>
@@ -82,7 +83,6 @@
                 </div>
             </div>
             <div class="row">
-
                 <jsp:include page="${content}"/>
             </div>
         </div>

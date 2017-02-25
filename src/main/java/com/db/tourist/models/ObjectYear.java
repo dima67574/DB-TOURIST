@@ -14,6 +14,11 @@ public class ObjectYear extends BaseEntity {
     public ObjectYear() {
     }
 
+    public ObjectYear(Object object, Integer year) {
+        this.object = object;
+        this.year = year;
+    }
+
     public Integer getYear() {
         return year;
     }

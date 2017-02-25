@@ -2,6 +2,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <script type="text/javascript">
+    $.extend($.fn.dataTable.defaults, {
+        autoWidth: false,
+        responsive: true,
+        dom: '<"datatable-header"fl><"datatable-scroll-wrapper"t><"datatable-footer"ip>',
+        language: datable_russian
+    });
+
     var table;
     $(function() {
         table = $('#usersTable').dataTable({

@@ -28,6 +28,13 @@
             "${style.id}",
             </c:forEach>
         ]);
+
+        $("#years").val([
+            <c:forEach items="${object.yearList}" var="year">
+            "${year.year}",
+            </c:forEach>
+        ]);
+
         $('select').select2();
 
         $('#regionId').select2({
@@ -84,9 +91,23 @@
         <c:if test="${empty object.parent.id}">
             $('#parentId').val('').trigger('change');
         </c:if>
+
+        $("#years").select2({
+            tags: "true",
+            placeholder: "Введите года объекта",
+            allowClear: true,
+            formatNoMatches: function() {
+                return '';
+            },
+            dropdownCssClass: 'select2-hidden'
+        });
     });
 </script>
-
+<style>
+    .select2-hidden {
+        display:none !important;
+    }
+</style>
 <div class="col-md-12">
     <div id="home-2-msg"></div>
     <div id="password-msg"></div>
@@ -219,10 +240,22 @@
                 </div>
             </spring:bind>
 
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <label>Года:</label>
+                    <select name="years" id="years" multiple="multiple" style="width: 100% !important;">
+                        <c:forEach items="${object.yearList}" var="year">
+                            <option value="${year.year}">${year.year}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+
             <div class="form-group ">
                 <div class="col-xs-12">
                 <form:label path="description">Описание:</form:label>
-                <form:textarea path="description" rows="5" cols="5" class="form-control" placeholder="Введите описание" name="description"
+                <form:textarea path="description" rows="5" cols="5" class="form-control" data-placeholder="Введите описание" name="description"
                                id="text" style="resize: vertical;"/>
                 </div>
             </div>

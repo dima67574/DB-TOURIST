@@ -10,7 +10,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.Date;
 
 @Controller
 public class StaticPageController {
@@ -57,7 +56,6 @@ public class StaticPageController {
 
     @RequestMapping(value = "/admin/pages/add", method = RequestMethod.POST)
     public String add(@ModelAttribute("page") StaticPage staticPage, RedirectAttributes redirectAttributes) {
-        staticPage.setCreateDate(new Date());
         staticPageService.save(staticPage);
         redirectAttributes.addFlashAttribute("success", "Страница успешно создана");
         return "redirect:/admin/pages/";

@@ -33,7 +33,7 @@
                 </ul>
             </li>
             <li>
-                <a href="/admin/comment"><i class="fa fa-volume-down fa-fw"></i> Отзывы <span class="label label-primary">2</span></a>
+                <a href="/admin/comment"><i class="fa fa-volume-down fa-fw"></i> Отзывы<c:if test="${!empty notCheckedCommentsCnt && notCheckedCommentsCnt > 0}"> <span class="label label-primary">${notCheckedCommentsCnt}</span></c:if></a>
             </li>
             <li>
                 <a href="/admin/pages"><i class="fa fa-file-text-o fa-fw"></i> Статические страницы</a>

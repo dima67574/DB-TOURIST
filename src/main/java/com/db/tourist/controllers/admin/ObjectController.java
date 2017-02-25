@@ -83,8 +83,9 @@ public class ObjectController {
                       @RequestParam(value = "epochs", required = false) List<Long> epochs,
                       @RequestParam(value = "types", required = false) List<Long> types,
                       @RequestParam(value = "styles", required = false) List<Long> styles,
+                      @RequestParam(value = "years", required = false) List<Integer> years,
                       RedirectAttributes redirectAttributes) {
-        Object o = objectService.save(object, epochs, types, styles);
+        Object o = objectService.save(object, epochs, types, styles, years);
         if(o != null) {
             redirectAttributes.addFlashAttribute("success", "Объект успешно создан. Теперь вы можете добавить фотографии");
             return "redirect:/admin/object/photo/" + o.getId();
@@ -115,8 +116,9 @@ public class ObjectController {
                        @RequestParam(value = "epochs", required = false) List<Long> epochs,
                        @RequestParam(value = "types", required = false) List<Long> types,
                        @RequestParam(value = "styles", required = false) List<Long> styles,
+                       @RequestParam(value = "years", required = false) List<Integer> years,
                        RedirectAttributes redirectAttributes) {
-        if(objectService.save(object, epochs, types, styles) != null) {
+        if(objectService.save(object, epochs, types, styles, years) != null) {
             redirectAttributes.addFlashAttribute("success", "Объект успешно отредактирован");
         }
         return "redirect:/admin/object";

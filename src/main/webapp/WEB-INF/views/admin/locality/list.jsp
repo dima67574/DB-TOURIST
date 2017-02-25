@@ -4,6 +4,13 @@
 <script type="text/javascript">
     var table;
     $(function() {
+        $.extend($.fn.dataTable.defaults, {
+            autoWidth: false,
+            responsive: true,
+            dom: '<"datatable-header"fl><"datatable-scroll-wrapper"t><"datatable-footer"ip>',
+            language: datable_russian
+        });
+
         table = $('#usersTable').dataTable({
             dom: "Bfrtip",
             "order": [[ 0, "asc" ]],

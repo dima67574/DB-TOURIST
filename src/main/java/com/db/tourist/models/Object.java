@@ -25,8 +25,8 @@ public class Object extends BaseEntity {
     @OneToMany(mappedBy = "object", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
     private Set<Photo> photos = new HashSet<>();
 
-    @OneToMany(mappedBy = "object", fetch = FetchType.EAGER, cascade= CascadeType.REMOVE, orphanRemoval = true)
-    private Set<ObjectYear> years = new HashSet<>();
+    @OneToMany(mappedBy = "object", fetch = FetchType.EAGER, cascade= CascadeType.ALL, orphanRemoval = true)
+    private Set<ObjectYear> yearList = new HashSet<>();
 
     @Column(name = "x_coordinate")
     private String xCoordinate;
@@ -36,6 +36,9 @@ public class Object extends BaseEntity {
 
     @Column(name = "address")
     private String address;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User author;
 
     @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "object_epoch", joinColumns = @JoinColumn(name = "object_id"), inverseJoinColumns = @JoinColumn(name = "epoch_id"))
@@ -148,11 +151,19 @@ public class Object extends BaseEntity {
         this.photos = photos;
     }
 
-    public Set<ObjectYear> getYears() {
-        return years;
+    public Set<ObjectYear> getYearList() {
+        return yearList;
     }
 
-    public void setYears(Set<ObjectYear> years) {
-        this.years = years;
+    public void setYearList(Set<ObjectYear> yearList) {
+        this.yearList = yearList;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

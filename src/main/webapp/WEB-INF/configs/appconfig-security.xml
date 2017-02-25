@@ -9,8 +9,8 @@
 
     <http pattern="/admin/**" auto-config="false" use-expressions="true">
         <csrf disabled="true"/>
+        <access-denied-handler error-page="/denied" />
         <intercept-url pattern="/admin/login" access="isAnonymous()"/>
-        <intercept-url pattern="/admin/" access="hasRole('ROLE_ADMIN')"/>
         <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
         <form-login login-page="/admin/login" login-processing-url="/admin/login"
                     default-target-url="/admin" authentication-failure-url="/admin/login?error=1"
@@ -21,6 +21,13 @@
 
     <http auto-config="true">
         <csrf disabled="true"/>
+        <intercept-url pattern="/denied/*" access="permitAll" />
+        <access-denied-handler error-page="/denied" />
+        <intercept-url pattern="/login" access="isAnonymous()"/>
+        <intercept-url pattern="/registration" access="isAnonymous()"/>
+        <intercept-url pattern="/restore" access="isAnonymous()"/>
+        <intercept-url pattern="/profile" access="hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/settings" access="hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')"/>
         <intercept-url pattern="/**" access="permitAll"/>
         <form-login login-page="/login" login-processing-url="/login"
                     default-target-url="/" authentication-failure-url="/login?error=1"

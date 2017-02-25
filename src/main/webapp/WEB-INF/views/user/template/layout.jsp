@@ -20,6 +20,7 @@
     <script type="text/javascript" src="${resPath}/vendor/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="${resPath}/vendor/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="${resPath}/vendor/select2/select2.full.min.js"></script>
+    <script type="text/javascript" src="${resPath}/vendor/select2/i18n/ru.js"></script>
     <script type="text/javascript" src="${resPath}/vendor/parsleyjs/parsley.min.js"></script>
     <script type="text/javascript" src="${resPath}/vendor/parsleyjs/i18n/ru.js"></script>
     <script type="text/javascript" src="${resPath}/scripts/main.js"></script>

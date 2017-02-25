@@ -12,7 +12,7 @@ public interface ObjectService {
 
     void delete(Long id);
 
-    Object save(Object object, List<Long> epochs, List<Long> types, List<Long> styles);
+    Object save(Object object, List<Long> epochs, List<Long> types, List<Long> styles, List<Integer> years);
 
     Boolean uploadPhoto(UploadedFile file, Long id);
 

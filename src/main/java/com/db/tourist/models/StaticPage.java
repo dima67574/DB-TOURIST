@@ -1,8 +1,6 @@
 package com.db.tourist.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
@@ -19,6 +17,9 @@ public class StaticPage extends BaseEntity {
 
     @Column(name = "create_date")
     private Date createDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private User author;
 
     public StaticPage() {
     }
@@ -53,5 +54,13 @@ public class StaticPage extends BaseEntity {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }

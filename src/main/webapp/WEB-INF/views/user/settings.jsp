@@ -23,7 +23,7 @@
 <div class="">
     <div class="tab-content">
         <div class="tab-pane active" id="home-2">
-            <div class="col-md-6">
+            <div class="col-md-6" style="padding-bottom: 15px">
                 <div id="home-2-msg">
                     <c:if test="${!empty success}">
                         <div class="alert alert-success alert-styled-left alert-arrow-left alert-bordered">
@@ -74,9 +74,11 @@
                     </button>
                 </form>
             </div>
+
         </div>
+
         <div class="tab-pane" id="profile-2">
-            <div class="col-md-6">
+            <div class="col-md-6" style="padding-bottom: 15px">
                 <div id="password-msg"></div>
                 <form id="changePasswordForm" class="form-horizontal">
                     <fieldset>
@@ -108,20 +110,19 @@
                     </button>
                 </form>
             </div>
+
         </div>
     </div>
     <div class="col-md-3">
         <ul class="nav nav-pills nav-stacked">
             <li class="active tab">
                 <a href="#home-2" data-toggle="tab" aria-expanded="false">
-                    <span class="visible-xs"><i class="fa fa-home"></i></span>
-                    <span class="hidden-xs">Мои предпочтения</span>
+                    Мои предпочтения
                 </a>
             </li>
             <li class="tab">
                 <a href="#profile-2" data-toggle="tab" aria-expanded="false">
-                    <span class="visible-xs"><i class="fa fa-user"></i></span>
-                    <span class="hidden-xs">Смена пароля</span>
+                    Смена пароля
                 </a>
             </li>
         </ul>

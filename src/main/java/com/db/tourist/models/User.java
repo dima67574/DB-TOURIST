@@ -50,6 +50,9 @@ public class User extends BaseEntity {
     @JoinTable(name = "user_style", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "style_id"))
     private Set<Style> styleList = new HashSet<>();
 
+    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    private Set<Object> objects = new HashSet<>();
+
     public User() {
         banned = false;
     }
@@ -160,5 +163,13 @@ public class User extends BaseEntity {
 
     public void setStyleList(Set<Style> styleList) {
         this.styleList = styleList;
+    }
+
+    public Set<Object> getObjects() {
+        return objects;
+    }
+
+    public void setObjects(Set<Object> objects) {
+        this.objects = objects;
     }
 }

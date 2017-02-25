@@ -4,6 +4,14 @@
 <script type="text/javascript">
     var table;
     $(function() {
+        $.extend($.fn.dataTable.defaults, {
+            autoWidth: false,
+            responsive: true,
+            dom: '<"datatable-header"fl><"datatable-scroll-wrapper"t><"datatable-footer"ip>',
+            language: datable_russian
+        });
+
+
         table = $('#usersTable').dataTable({
             dom: "Bfrtip",
             "order": [[ 0, "asc" ]],
@@ -30,7 +38,7 @@
             columnDefs: [{
                 orderable: false,
                 width: '30px',
-                targets: [ 9 ]
+                targets: [ 10 ]
             }]
         });
 
@@ -61,6 +69,7 @@
                     <th>Населенный пункт</th>
                     <th>Координаты</th>
                     <th>Адрес</th>
+                    <th>Добавил</th>
                     <th>Описание</th>
                     <th class="text-center"></th>
                 </tr>
@@ -89,6 +98,7 @@
                             <td>${o.locality.name}</td>
                             <td>x:${o.xCoordinate}, y:${o.yCoordinate}</td>
                             <td>${o.address}</td>
+                            <td>${o.author.fio}</td>
                             <td>${o.description}</td>
                             <td class="text-center row-actions">
                                 <div class="dropdown">

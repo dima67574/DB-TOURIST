@@ -4,6 +4,13 @@
 <script type="text/javascript">
     var table;
     $(function() {
+        $.extend($.fn.dataTable.defaults, {
+            autoWidth: false,
+            responsive: true,
+            dom: '<"datatable-header"fl><"datatable-scroll-wrapper"t><"datatable-footer"ip>',
+            language: datable_russian
+        });
+
         table = $('#usersTable').dataTable({
             dom: "Bfrtip",
             "order": [[ 2, "desc" ]],
@@ -19,7 +26,7 @@
             columnDefs: [{
                 orderable: false,
                 width: '30px',
-                targets: [ 3 ]
+                targets: [ 4 ]
             }]
         });
 
@@ -45,6 +52,7 @@
                     <th>Название</th>
                     <th>Адрес</th>
                     <th>Дата создания</th>
+                    <th>Автор</th>
                     <th class="text-center">Действия</th>
                 </tr>
                 </thead>
@@ -56,6 +64,7 @@
                             <td><a href="${url}page/${p.url}" target="_blank">${url}page/${p.url}</a></td>
                             <fmt:formatDate value="${p.createDate}" pattern="dd.MM.yyyy в HH:mm:ss" var="createDate" />
                             <td>${createDate}</td>
+                            <td>${p.author.fio}</td>
                             <td class="text-center row-actions">
                                 <div class="dropdown">
                                     <a href="#" class="dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
