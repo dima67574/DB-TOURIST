@@ -91,6 +91,7 @@
         });
     }
 </script>
+
 <div class="col-md-12">
             <div id="message-area">
                 <c:if test="${!empty success}">
@@ -100,7 +101,7 @@
                     </div>
                 </c:if>
             </div>
-            <table id="usersTable" class="table table-striped table-bordered">
+            <table id="usersTable" class="table table-striped table-bordered dt-responsive nowrap">
                 <thead>
                 <tr>
                     <th>№</th>

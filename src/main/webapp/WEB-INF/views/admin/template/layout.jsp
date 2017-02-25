@@ -39,8 +39,17 @@
     <!-- DataTables JavaScript -->
     <script src="${resPath}/vendor/datatables/js/jquery.dataTables.min.js"></script>
     <script src="${resPath}/vendor/datatables-plugins/dataTables.bootstrap.min.js"></script>
-    <script src="${resPath}/vendor/datatables-responsive/dataTables.responsive.js"></script>
+    <script type="text/javascript" language="javascript" src="${resPath}/vendor/datatables-responsive/dataTables.responsive.min.js"></script>
+    <script type="text/javascript" language="javascript" src="${resPath}/vendor/datatables-responsive/responsive.bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${resPath}/vendor/datatables-responsive/responsive.bootstrap.min.css">
+
+
     <script src="${resPath}/vendor/datatables-plugins/dataTables.buttons.min.js"></script>
+
+
+
+
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>

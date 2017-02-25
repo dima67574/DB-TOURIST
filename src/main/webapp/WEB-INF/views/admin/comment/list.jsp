@@ -87,7 +87,7 @@
     <ul class="nav nav-tabs nav-tabs-highlight tabpanel">
         <li class="active">
             <a href="#t1" data-toggle="tab">
-                Не проверенные <span class="label label-primary">${fn:length(notChecked)}</span>
+                Непроверенные <span class="label label-primary">${fn:length(notChecked)}</span>
             </a>
         </li>
         <li>
