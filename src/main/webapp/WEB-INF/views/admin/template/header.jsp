@@ -13,7 +13,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/admin"><spring:eval expression="@propertyConfigurer.getProperty('app.siteName')" /> / Админ-панель</a>
+        <a class="navbar-brand" href="/admin">${siteName} / Админ-панель</a>
     </div>
     <!-- /.navbar-header -->
 

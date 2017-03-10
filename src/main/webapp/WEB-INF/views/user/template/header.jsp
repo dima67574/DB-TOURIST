@@ -14,8 +14,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/"><spring:eval
-                    expression="@propertyConfigurer.getProperty('app.siteName')"/></a>
+            <a class="navbar-brand" href="/">${siteName}</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
