@@ -23,6 +23,9 @@
                     <a href="#">Топ-50</a>
                 </li>
                 <li>
+                    <a href="/epochs">Эпохи</a>
+                </li>
+                <li>
                     <a href="#">Типы</a>
                 </li>
                 <li>

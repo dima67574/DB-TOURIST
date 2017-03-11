@@ -10,12 +10,18 @@
             closeEffect: "none"
         });
     });
+    function setCover(id) {
+        $('#coverId').val(id);
+        $('#coverForm').submit();
+    }
 </script>
-
+<form method="post" id="coverForm" action="/admin/epoch/setCover">
+    <input type="hidden" name="coverId" id="coverId" value="" />
+    <input type="hidden" name="epochId" id="epochId" value="${epoch.id}" />
+</form>
 
 <link rel="stylesheet" href="/resources/vendor/fancybox/jquery.fancybox.min.css" media="screen">
 <script src="/resources/vendor/fancybox/jquery.fancybox.min.js"></script>
-
 
 <div class="col-md-12" style="margin-bottom: 15px;">
     <c:if test="${!empty success}">
@@ -48,7 +54,12 @@
                 </a>
                 <a class="fancybox-close" data-toggle="modal" data-target="#remove_modal"
                    data-id="${p.file}" style="z-index: 0;right: 0px;top: -15px;"></a>
-
+                <c:if test="${p.id == epoch.cover.id}">
+                    <span style="position: absolute;bottom: 5px;left: 80px;">главное фото</span>
+                </c:if>
+                <c:if test="${p.id != epoch.cover.id}">
+                <a onclick="setCover(${p.id});" href="#" style="position: absolute;bottom: 5px;left: 80px;">сделать главной</a>
+                </c:if>
             </div>
             <c:if test="${newPage == photosCount - 1 || fn:length(epoch.photos) == (i.index + 1)}">
                 </div>

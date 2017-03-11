@@ -1,6 +1,7 @@
 <%@page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <script type="text/javascript">
     var table;
     $(function() {
@@ -38,7 +39,7 @@
             columnDefs: [{
                 orderable: false,
                 width: '30px',
-                targets: [ 10 ]
+                targets: [ 6 ]
             }]
         });
 
@@ -62,16 +63,12 @@
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Родитель</th>
                     <th>Эпохи</th>
                     <th>Типы</th>
                     <th>Стили</th>
                     <th>Населенный пункт</th>
-                    <th>Координаты</th>
-                    <th>Адрес</th>
                     <th>Добавил</th>
-                    <th>Описание</th>
-                    <th class="text-center"></th>
+                    <th class="text-center">Действия</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -79,27 +76,23 @@
                     <c:forEach var="o" items="${objects}">
                         <tr id="row${o.id}">
                             <td>${o.name}</td>
-                            <td>${o.parent.name}</td>
                             <td>
-                                <c:forEach items="${o.epochList}" var="epoch">
-                                    ${epoch.name} (${epoch.startYear} - ${epoch.finishYear}),
+                                <c:forEach items="${o.epochList}" var="epoch" varStatus="i">
+                                    ${epoch.name} (${epoch.startYear} - ${epoch.finishYear})${(fn:length(o.epochList) - 1) > i.index ? ',' : ''}
                                 </c:forEach>
                             </td>
                             <td>
-                                <c:forEach items="${o.typeList}" var="type">
-                                    ${type.name},
+                                <c:forEach items="${o.typeList}" var="type" varStatus="i">
+                                    ${type.name}${(fn:length(o.typeList) - 1) > i.index ? ',' : ''}
                                 </c:forEach>
                             </td>
                             <td>
-                                <c:forEach items="${o.styleList}" var="style">
-                                    ${style.name},
+                                <c:forEach items="${o.styleList}" var="style" varStatus="i">
+                                    ${style.name}${(fn:length(o.styleList) - 1) > i.index ? ',' : ''}
                                 </c:forEach>
                             </td>
                             <td>${o.locality.name}</td>
-                            <td>x:${o.xCoordinate}, y:${o.yCoordinate}</td>
-                            <td>${o.address}</td>
                             <td>${o.author.fio}</td>
-                            <td>${o.description}</td>
                             <td class="text-center row-actions">
                                 <div class="dropdown">
                                     <a href="#" class="dropdown dropdown-toggle" data-toggle="dropdown" aria-expanded="false">

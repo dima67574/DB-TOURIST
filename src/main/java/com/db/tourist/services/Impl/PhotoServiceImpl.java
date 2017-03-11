@@ -36,4 +36,8 @@ public class PhotoServiceImpl implements PhotoService {
             e.printStackTrace();
         }
     }
+
+    public Photo findOne(Long id) {
+        return photoRepository.findOne(id);
+    }
 }

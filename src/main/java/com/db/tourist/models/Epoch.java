@@ -19,6 +19,9 @@ public class Epoch extends BaseEntity {
     @Column(name = "finish_year")
     private Integer finishYear;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Photo cover;
+
     @OneToMany(mappedBy = "epoch", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
     private Set<Photo> photos = new HashSet<>();
 
@@ -87,5 +90,13 @@ public class Epoch extends BaseEntity {
 
     public void setObjectList(Set<Object> objectList) {
         this.objectList = objectList;
+    }
+
+    public Photo getCover() {
+        return cover;
+    }
+
+    public void setCover(Photo cover) {
+        this.cover = cover;
     }
 }
