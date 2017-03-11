@@ -1,15 +1,17 @@
 package com.db.tourist.controllers.admin;
 
 import com.db.tourist.models.Epoch;
+import com.db.tourist.services.EpochService;
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.utils.UploadedFile;
-import com.db.tourist.services.EpochService;
 import com.db.tourist.utils.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 public class EpochController {
@@ -24,7 +26,9 @@ public class EpochController {
     public ModelAndView epochs() {
         View view = new View("epochs");
         view.addObject("title", "Эпохи");
-        view.addObject("epochs", epochService.findAll());
+        List<Epoch> epochList = epochService.findAll();
+        epochList.stream().sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
+        view.addObject("epochs", epochList);
         return view;
     }
 
@@ -79,6 +83,8 @@ public class EpochController {
 
     @RequestMapping(value = "/admin/epoch/edit/{id}", method = RequestMethod.POST)
     public String edit(Epoch epoch, RedirectAttributes redirectAttributes) {
+        Epoch e = epochService.findOne(epoch.getId());
+        epoch.setCover(e.getCover());
         if(epochService.save(epoch) != null) {
             redirectAttributes.addFlashAttribute("success", "Эпоха успешно отредактирована");
         }

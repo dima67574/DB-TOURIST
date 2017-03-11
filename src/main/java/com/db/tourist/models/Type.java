@@ -2,6 +2,7 @@ package com.db.tourist.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -14,7 +15,7 @@ public class Type extends BaseEntity {
     private String description;
 
     @OneToMany(mappedBy = "type", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Photo> photos = new HashSet<>();
+    private Set<Photo> photos = new LinkedHashSet<>();
 
     @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_type", joinColumns = @JoinColumn(name = "type_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
@@ -23,6 +24,9 @@ public class Type extends BaseEntity {
     @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "object_type", joinColumns = @JoinColumn(name = "type_id"), inverseJoinColumns = @JoinColumn(name = "object_id"))
     private Set<Object> objectList = new HashSet<>();
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Photo cover;
 
     public Type() {
     }
@@ -65,5 +69,13 @@ public class Type extends BaseEntity {
 
     public void setObjectList(Set<Object> objectList) {
         this.objectList = objectList;
+    }
+
+    public Photo getCover() {
+        return cover;
+    }
+
+    public void setCover(Photo cover) {
+        this.cover = cover;
     }
 }

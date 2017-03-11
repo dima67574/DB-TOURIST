@@ -19,7 +19,7 @@
 
                 var numberItems = count;
                 if(filter.length > 0) {
-                    $("#filter-count").text(count > 0 ? "Найдено эпох: " + count : 'Ничего не найдено');
+                    $("#filter-count").text(count > 0 ? "Найдено типов: " + count : 'Ничего не найдено');
                 } else {
                     $("#filter-count").text('');
                 }
@@ -31,11 +31,11 @@
                style="width: 50%;display: inline-block;"/>
         <span id="filter-count" style="margin-left: 10px;color: #717171;"></span>
     </div>
-    <c:forEach var="e" items="${epochs}">
+    <c:forEach var="e" items="${types}">
         <div>
             <div class="row">
                 <div class="col-md-5">
-                    <a href="/epoch/${e.id}/gallery">
+                    <a href="/type/${e.id}/gallery">
                         <img class="img-responsive"
                              src="<c:if test="${!empty e.cover.file}">/photo?name=${e.cover.file}</c:if><c:if test="${empty e.cover.file}">/resources/images/noimage.jpg</c:if>"
                              alt="">
@@ -43,9 +43,8 @@
                 </div>
                 <div class="col-md-6">
                     <h3 class="object-title">${e.name}</h3>
-                    <h4>${e.startYear} - ${e.finishYear}</h4>
                     <p>${e.description}</p>
-                    <a class="btn btn-primary" href="/epoch/${e.id}/objects">Показать все объекты <span
+                    <a class="btn btn-primary" href="/type/${e.id}/objects">Показать все объекты <span
                             class="glyphicon glyphicon-chevron-right"></span></a>
                 </div>
             </div>

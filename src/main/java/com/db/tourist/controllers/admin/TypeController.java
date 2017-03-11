@@ -1,6 +1,7 @@
 package com.db.tourist.controllers.admin;
 
 import com.db.tourist.models.Type;
+import com.db.tourist.services.PhotoService;
 import com.db.tourist.services.TypeService;
 import com.db.tourist.utils.UploadedFile;
 import com.db.tourist.utils.View;
@@ -10,10 +11,34 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class TypeController {
     @Autowired
     private TypeService typeService;
+
+    @Autowired
+    private PhotoService photoService;
+
+    @RequestMapping(value = "/types", method = RequestMethod.GET)
+    public ModelAndView types() {
+        View view = new View("types");
+        view.addObject("title", "Типы");
+        List<Type> typeList = typeService.findAll();
+        typeList.stream().sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
+        view.addObject("types", typeList);
+        return view;
+    }
+
+    @RequestMapping(value = "/type/{typeId}/gallery", method = RequestMethod.GET)
+    public ModelAndView epochs(@PathVariable("typeId") Long typeId) {
+        View view = new View("gallery");
+        Type type = typeService.findOne(typeId);
+        view.addObject("title", "Фотоальбом типа «" + type.getName() + "»");
+        view.addObject("object", type);
+        return view;
+    }
 
     @RequestMapping(value = "/admin/type", method = RequestMethod.GET)
     public ModelAndView list() {
@@ -57,10 +82,20 @@ public class TypeController {
 
     @RequestMapping(value = "/admin/type/edit/{id}", method = RequestMethod.POST)
     public String edit(Type type, RedirectAttributes redirectAttributes) {
+        Type t = typeService.findOne(type.getId());
+        type.setCover(t.getCover());
         if(typeService.save(type) != null) {
             redirectAttributes.addFlashAttribute("success", "Тип успешно отредактирован");
         }
         return "redirect:/admin/type";
+    }
+
+    @RequestMapping(value = "/admin/type/setCover", method = RequestMethod.POST)
+    public String setCover(@RequestParam("typeId") Long typeId, @RequestParam("coverId") Long coverId, RedirectAttributes ra) {
+        Type type = typeService.findOne(typeId);
+        type.setCover(photoService.findOne(coverId));
+        typeService.save(type);
+        return "redirect:/admin/type/photo/" + type.getId();
     }
 
     @RequestMapping(value = "/admin/type/photo/{id}", method = RequestMethod.GET)

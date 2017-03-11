@@ -2,6 +2,7 @@ package com.db.tourist.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -23,7 +24,7 @@ public class Epoch extends BaseEntity {
     private Photo cover;
 
     @OneToMany(mappedBy = "epoch", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Photo> photos = new HashSet<>();
+    private Set<Photo> photos = new LinkedHashSet<>();
 
     @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "user_epoch", joinColumns = @JoinColumn(name = "epoch_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))

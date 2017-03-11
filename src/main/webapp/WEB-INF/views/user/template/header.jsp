@@ -26,10 +26,10 @@
                     <a href="/epochs">Эпохи</a>
                 </li>
                 <li>
-                    <a href="#">Типы</a>
+                    <a href="/types">Типы</a>
                 </li>
                 <li>
-                    <a href="#">Стили</a>
+                    <a href="/styles">Стили</a>
                 </li>
                 <li>
                     <a href="#">Населенные пункты</a>

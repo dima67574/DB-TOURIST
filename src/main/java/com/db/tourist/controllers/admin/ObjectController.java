@@ -39,6 +39,9 @@ public class ObjectController {
     @Autowired
     private LocalityService localityService;
 
+    @Autowired
+    private PhotoService photoService;
+
     @RequestMapping(value = "/admin/object", method = RequestMethod.GET)
     public ModelAndView list() {
         View view = new View("object/list", true);
@@ -139,6 +142,14 @@ public class ObjectController {
     @RequestMapping(value = "/admin/object/upload", method = RequestMethod.POST)
     public Boolean saveFile(@ModelAttribute UploadedFile uploadedFile, @RequestParam("objectId") Long objectId) {
         return objectService.uploadPhoto(uploadedFile, objectId);
+    }
+
+    @RequestMapping(value = "/admin/object/setCover", method = RequestMethod.POST)
+    public String setCover(@RequestParam("objectId") Long objectId, @RequestParam("coverId") Long coverId, RedirectAttributes ra) {
+        Object object = objectService.findOne(objectId);
+        object.setCover(photoService.findOne(coverId));
+        objectService.save(object);
+        return "redirect:/admin/object/photo/" + object.getId();
     }
 
     @ResponseBody

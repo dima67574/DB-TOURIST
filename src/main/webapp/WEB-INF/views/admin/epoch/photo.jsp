@@ -58,7 +58,7 @@
                     <span style="position: absolute;bottom: 5px;left: 80px;">главное фото</span>
                 </c:if>
                 <c:if test="${p.id != epoch.cover.id}">
-                <a onclick="setCover(${p.id});" href="#" style="position: absolute;bottom: 5px;left: 80px;">сделать главной</a>
+                <a onclick="setCover(${p.id});" href="#" style="position: absolute;bottom: 5px;left: 80px;">сделать главным</a>
                 </c:if>
             </div>
             <c:if test="${newPage == photosCount - 1 || fn:length(epoch.photos) == (i.index + 1)}">

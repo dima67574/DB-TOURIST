@@ -14,6 +14,8 @@ public interface ObjectService {
 
     Object save(Object object, List<Long> epochs, List<Long> types, List<Long> styles, List<Integer> years);
 
+    Object save(Object object);
+
     Boolean uploadPhoto(UploadedFile file, Long id);
 
     List<Object> findByLocalityId(Long id);

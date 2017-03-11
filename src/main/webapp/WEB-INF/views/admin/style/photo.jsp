@@ -10,8 +10,15 @@
             closeEffect: "none"
         });
     });
+    function setCover(id) {
+        $('#coverId').val(id);
+        $('#coverForm').submit();
+    }
 </script>
-
+<form method="post" id="coverForm" action="/admin/style/setCover">
+    <input type="hidden" name="coverId" id="coverId" value="" />
+    <input type="hidden" name="styleId" id="styleId" value="${style.id}" />
+</form>
 
 <link rel="stylesheet" href="/resources/vendor/fancybox/jquery.fancybox.min.css" media="screen">
 <script src="/resources/vendor/fancybox/jquery.fancybox.min.js"></script>
@@ -48,7 +55,12 @@
                 </a>
                 <a class="fancybox-close" data-toggle="modal" data-target="#remove_modal"
                    data-id="${p.file}" style="z-index: 0;right: 0px;top: -15px;"></a>
-
+                <c:if test="${p.id == style.cover.id}">
+                    <span style="position: absolute;bottom: 5px;left: 80px;">главное фото</span>
+                </c:if>
+                <c:if test="${p.id != style.cover.id}">
+                    <a onclick="setCover(${p.id});" href="#" style="position: absolute;bottom: 5px;left: 80px;">сделать главным</a>
+                </c:if>
             </div>
             <c:if test="${newPage == photosCount - 1 || fn:length(style.photos) == (i.index + 1)}">
                 </div>

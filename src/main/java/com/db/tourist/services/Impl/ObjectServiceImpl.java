@@ -65,6 +65,10 @@ public class ObjectServiceImpl implements ObjectService {
         return objectRepository.save(o);
     }
 
+    public Object save(Object object) {
+        return objectRepository.save(object);
+    }
+
     public Object findOne(Long id) {
         return objectRepository.findOne(id);
     }

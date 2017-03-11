@@ -1,6 +1,7 @@
 package com.db.tourist.controllers.admin;
 
 import com.db.tourist.models.Style;
+import com.db.tourist.services.PhotoService;
 import com.db.tourist.services.StyleService;
 import com.db.tourist.utils.UploadedFile;
 import com.db.tourist.utils.View;
@@ -10,10 +11,42 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 public class StyleController {
     @Autowired
     private StyleService styleService;
+
+    @Autowired
+    private PhotoService photoService;
+
+    @RequestMapping(value = "/styles", method = RequestMethod.GET)
+    public ModelAndView epochs() {
+        View view = new View("styles");
+        view.addObject("title", "Стили");
+        List<Style> styleList = styleService.findAll();
+        styleList.stream().sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
+        view.addObject("styles", styleList);
+        return view;
+    }
+
+    @RequestMapping(value = "/style/{styleId}/gallery", method = RequestMethod.GET)
+    public ModelAndView epochs(@PathVariable("styleId") Long epochId) {
+        View view = new View("gallery");
+        Style style = styleService.findOne(epochId);
+        view.addObject("title", "Фотоальбом стиля «" + style.getName() + "»");
+        view.addObject("object", style);
+        return view;
+    }
+
+    @RequestMapping(value = "/admin/style/setCover", method = RequestMethod.POST)
+    public String setCover(@RequestParam("styleId") Long styleId, @RequestParam("coverId") Long coverId, RedirectAttributes ra) {
+        Style style = styleService.findOne(styleId);
+        style.setCover(photoService.findOne(coverId));
+        styleService.save(style);
+        return "redirect:/admin/style/photo/" + style.getId();
+    }
 
     @RequestMapping(value = "/admin/style", method = RequestMethod.GET)
     public ModelAndView list() {
@@ -57,6 +90,8 @@ public class StyleController {
 
     @RequestMapping(value = "/admin/style/edit/{id}", method = RequestMethod.POST)
     public String edit(Style style, RedirectAttributes redirectAttributes) {
+        Style s = styleService.findOne(style.getId());
+        style.setCover(s.getCover());
         if(styleService.save(style) != null) {
             redirectAttributes.addFlashAttribute("success", "Стиль успешно отредактирован");
         }
