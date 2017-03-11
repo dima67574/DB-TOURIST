@@ -1,5 +1,6 @@
 package com.db.tourist.controllers.admin;
 
+import com.db.tourist.models.District;
 import com.db.tourist.models.Locality;
 import com.db.tourist.models.Region;
 import com.db.tourist.services.DistrictService;
@@ -33,6 +34,31 @@ public class LocalityController {
     public List<Region> populateRegions()
     {
         return regionService.findAll();
+    }
+
+    @RequestMapping(value = "/regions", method = RequestMethod.GET)
+    public ModelAndView regions() {
+        View view = new View("locality/regions");
+        view.addObject("title", "Области");
+        view.addObject("regions", regionService.findAll());
+        return view;
+    }
+
+    @RequestMapping(value = "/localities/{regionId}", method = RequestMethod.GET)
+    public ModelAndView localities(@PathVariable("regionId") Long regionId) {
+        View view = new View("locality/localities");
+        District d = districtService.findOne(regionId);
+        view.addObject("title", "Населенные пункты района «" + d.getName() + "»");
+        view.addObject("localities", localityService.findByDistrictId(d.getId()));
+        return view;
+    }
+
+    @RequestMapping(value = "/localities", method = RequestMethod.GET)
+    public ModelAndView localities() {
+        View view = new View("locality/localities");
+        view.addObject("title", "Населенные пункты");
+        view.addObject("localities", localityService.findAll());
+        return view;
     }
 
     @RequestMapping(value = "/admin/locality", method = RequestMethod.GET)

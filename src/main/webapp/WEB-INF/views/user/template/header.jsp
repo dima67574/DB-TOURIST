@@ -31,9 +31,20 @@
                 <li>
                     <a href="/styles">Стили</a>
                 </li>
-                <li>
-                    <a href="#">Населенные пункты</a>
-                </li>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-star"></i>
+                            Населенные пункты <b class="caret"></b></a>
+                        <ul class="dropdown-menu dropdown-user">
+                            <li>
+                                <a href="/regions">По областям/районам</a>
+                            </li>
+                            <li>
+                                <a href="/localities">Все населенные пункты</a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
                 <li>
                     <a href="#">Карта</a>
                 </li>
