@@ -69,7 +69,7 @@
                     </h4>
 
                     <h4>
-                        Координаты: x:${e.xCoordinate}, y:${e.yCoordinate}
+                        Координаты: <a href="/map?xCoordinate=${e.xCoordinate}&yCoordinate=${e.yCoordinate}">x:${e.xCoordinate}, y:${e.yCoordinate}</a>
                     </h4>
 
 

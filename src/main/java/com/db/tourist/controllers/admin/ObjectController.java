@@ -123,6 +123,7 @@ public class ObjectController {
                        @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
         Object o = objectService.findOne(id);
         object.setCover(o.getCover());
+        object.setAuthor(o.getAuthor());
         if(objectService.save(object, epochs, types, styles, years) != null) {
             redirectAttributes.addFlashAttribute("success", "Объект успешно отредактирован");
         }
