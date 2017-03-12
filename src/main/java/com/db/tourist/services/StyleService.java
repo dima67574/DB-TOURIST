@@ -15,4 +15,6 @@ public interface StyleService {
     Style save(Style style);
 
     Boolean uploadPhoto(UploadedFile file, Long id);
+
+    List<Style> findAllByOrderByNameAsc();
 }

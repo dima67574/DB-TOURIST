@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 @Controller
 public class TypeController {
     @Autowired
@@ -25,9 +23,7 @@ public class TypeController {
     public ModelAndView types() {
         View view = new View("types");
         view.addObject("title", "Типы");
-        List<Type> typeList = typeService.findAll();
-        typeList.stream().sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
-        view.addObject("types", typeList);
+        view.addObject("types", typeService.findAllByOrderByNameAsc());
         return view;
     }
 

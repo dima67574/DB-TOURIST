@@ -86,5 +86,11 @@ public class ObjectServiceImpl implements ObjectService {
         return objectRepository.findByLocalityId(id);
     }
 
+    public List<Object> findAllByOrderByNameAsc() {
+        return objectRepository.findAllByOrderByNameAsc();
+    }
 
+    public List<Object> findByLocalityIdOrderByNameAsc(Long id) {
+        return objectRepository.findByLocalityIdOrderByNameAsc(id);
+    }
 }

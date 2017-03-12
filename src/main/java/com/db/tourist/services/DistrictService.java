@@ -14,4 +14,6 @@ public interface DistrictService {
     District save(District district);
 
     List<District> findByRegionId(Long id);
+
+    List<District> findAllByOrderByNameAsc();
 }

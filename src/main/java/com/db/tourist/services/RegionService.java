@@ -12,4 +12,6 @@ public interface RegionService {
     Region findOne(Long id);
 
     Region save(Region region);
+
+    List<Region> findAllByOrderByNameAsc();
 }

@@ -15,4 +15,6 @@ public interface TypeService {
     Type save(Type type);
 
     Boolean uploadPhoto(UploadedFile file, Long id);
+
+    List<Type> findAllByOrderByNameAsc();
 }

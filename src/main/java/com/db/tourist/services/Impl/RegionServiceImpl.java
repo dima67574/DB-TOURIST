@@ -29,4 +29,8 @@ public class RegionServiceImpl implements RegionService {
     public Region save(Region region) {
         return regionRepository.save(region);
     }
+
+    public List<Region> findAllByOrderByNameAsc() {
+        return regionRepository.findAllByOrderByNameAsc();
+    }
 }

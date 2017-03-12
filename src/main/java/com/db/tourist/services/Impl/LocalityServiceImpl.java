@@ -33,4 +33,8 @@ public class LocalityServiceImpl implements LocalityService{
     public List<Locality> findByDistrictId(Long id) {
         return localityRepository.findByDistrictId(id);
     }
+
+    public List<Locality> findAllByOrderByNameAsc() {
+        return localityRepository.findAllByOrderByNameAsc();
+    }
 }

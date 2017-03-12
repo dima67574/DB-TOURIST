@@ -19,4 +19,8 @@ public interface ObjectService {
     Boolean uploadPhoto(UploadedFile file, Long id);
 
     List<Object> findByLocalityId(Long id);
+
+    List<Object> findAllByOrderByNameAsc();
+
+    List<Object> findByLocalityIdOrderByNameAsc(Long id);
 }

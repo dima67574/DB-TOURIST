@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface ObjectRepository extends JpaRepository<Object, Long> {
     List<Object> findByLocalityId(Long id);
+    List<Object> findAllByOrderByNameAsc();
+    List<Object> findByLocalityIdOrderByNameAsc(Long id);
 }

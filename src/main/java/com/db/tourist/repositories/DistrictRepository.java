@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface DistrictRepository extends JpaRepository<District, Long> {
     List<District> findByRegionId(Long id);
+    List<District> findAllByOrderByNameAsc();
 }

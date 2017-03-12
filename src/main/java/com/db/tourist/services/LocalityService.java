@@ -14,4 +14,6 @@ public interface LocalityService {
     Locality save(Locality locality);
 
     List<Locality> findByDistrictId(Long id);
+
+    List<Locality> findAllByOrderByNameAsc();
 }

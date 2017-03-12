@@ -2,11 +2,11 @@ package com.db.tourist.services.Impl;
 
 import com.db.tourist.models.Epoch;
 import com.db.tourist.models.Photo;
-import com.db.tourist.utils.UploadedFile;
 import com.db.tourist.repositories.EpochRepository;
 import com.db.tourist.repositories.PhotoRepository;
 import com.db.tourist.services.EpochService;
 import com.db.tourist.utils.FileHelper;
+import com.db.tourist.utils.UploadedFile;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -47,5 +47,9 @@ public class EpochServiceImpl implements EpochService {
         photo.setEpoch(epochRepository.findOne(id));
         photo.setFile(uploadedFile);
         return photoRepository.save(photo) != null;
+    }
+
+    public List<Epoch> findAllByOrderByNameAsc() {
+        return epochRepository.findAllByOrderByNameAsc();
     }
 }

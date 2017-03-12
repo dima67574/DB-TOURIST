@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 @Controller
 public class StyleController {
     @Autowired
@@ -25,9 +23,7 @@ public class StyleController {
     public ModelAndView epochs() {
         View view = new View("styles");
         view.addObject("title", "Стили");
-        List<Style> styleList = styleService.findAll();
-        styleList.stream().sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
-        view.addObject("styles", styleList);
+        view.addObject("styles", styleService.findAllByOrderByNameAsc());
         return view;
     }
 

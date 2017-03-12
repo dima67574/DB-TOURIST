@@ -49,4 +49,8 @@ public class StyleServiceImpl implements StyleService {
         photo.setFile(uploadedFile);
         return photoRepository.save(photo) != null;
     }
+
+    public List<Style> findAllByOrderByNameAsc() {
+        return styleRepository.findAllByOrderByNameAsc();
+    }
 }

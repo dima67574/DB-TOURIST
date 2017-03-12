@@ -120,7 +120,9 @@ public class ObjectController {
                        @RequestParam(value = "types", required = false) List<Long> types,
                        @RequestParam(value = "styles", required = false) List<Long> styles,
                        @RequestParam(value = "years", required = false) List<Integer> years,
-                       RedirectAttributes redirectAttributes) {
+                       @PathVariable("id") Long id, RedirectAttributes redirectAttributes) {
+        Object o = objectService.findOne(id);
+        object.setCover(o.getCover());
         if(objectService.save(object, epochs, types, styles, years) != null) {
             redirectAttributes.addFlashAttribute("success", "Объект успешно отредактирован");
         }

@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
-
 @Controller
 public class EpochController {
 
@@ -26,9 +24,7 @@ public class EpochController {
     public ModelAndView epochs() {
         View view = new View("epochs");
         view.addObject("title", "Эпохи");
-        List<Epoch> epochList = epochService.findAll();
-        epochList.stream().sorted((object1, object2) -> object1.getName().compareTo(object2.getName()));
-        view.addObject("epochs", epochList);
+        view.addObject("epochs", epochService.findAllByOrderByNameAsc());
         return view;
     }
 

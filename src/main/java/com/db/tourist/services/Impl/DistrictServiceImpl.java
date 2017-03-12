@@ -33,4 +33,8 @@ public class DistrictServiceImpl implements DistrictService {
     public List<District> findByRegionId(Long id) {
         return districtRepository.findByRegionId(id);
     }
+
+    public List<District> findAllByOrderByNameAsc() {
+        return districtRepository.findAllByOrderByNameAsc();
+    }
 }

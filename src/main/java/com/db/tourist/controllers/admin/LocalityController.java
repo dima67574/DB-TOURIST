@@ -5,6 +5,7 @@ import com.db.tourist.models.Locality;
 import com.db.tourist.models.Region;
 import com.db.tourist.services.DistrictService;
 import com.db.tourist.services.LocalityService;
+import com.db.tourist.services.ObjectService;
 import com.db.tourist.services.RegionService;
 import com.db.tourist.utils.View;
 import org.json.JSONArray;
@@ -30,18 +31,13 @@ public class LocalityController {
     @Autowired
     private DistrictService districtService;
 
+    @Autowired
+    private ObjectService objectService;
+
     @ModelAttribute("regionList")
     public List<Region> populateRegions()
     {
         return regionService.findAll();
-    }
-
-    @RequestMapping(value = "/regions", method = RequestMethod.GET)
-    public ModelAndView regions() {
-        View view = new View("locality/regions");
-        view.addObject("title", "Области");
-        view.addObject("regions", regionService.findAll());
-        return view;
     }
 
     @RequestMapping(value = "/localities/{regionId}", method = RequestMethod.GET)
@@ -53,11 +49,20 @@ public class LocalityController {
         return view;
     }
 
+    @RequestMapping(value = "/locality/{id}", method = RequestMethod.GET)
+    public ModelAndView locality(@PathVariable("id") Long id) {
+        View view = new View("locality/locality");
+        Locality l = localityService.findOne(id);
+        view.addObject("title", "Достопримечательности нас. пункта «" + l.getName() + "»");
+        view.addObject("objects", objectService.findByLocalityIdOrderByNameAsc(id));
+        return view;
+    }
+
     @RequestMapping(value = "/localities", method = RequestMethod.GET)
     public ModelAndView localities() {
         View view = new View("locality/localities");
         view.addObject("title", "Населенные пункты");
-        view.addObject("localities", localityService.findAll());
+        view.addObject("localities", localityService.findAllByOrderByNameAsc());
         return view;
     }
 

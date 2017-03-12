@@ -1,5 +1,6 @@
 package com.db.tourist.controllers.admin;
 
+import com.db.tourist.models.District;
 import com.db.tourist.models.Region;
 import com.db.tourist.services.RegionService;
 import com.db.tourist.utils.View;
@@ -8,6 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 @Controller
 public class RegionController {
@@ -27,6 +32,25 @@ public class RegionController {
     @RequestMapping(value = "/admin/region/delete", method = RequestMethod.POST)
     public void delete(@RequestParam("id") Long id) {
         regionService.delete(id);
+    }
+
+    @RequestMapping(value = "/regions", method = RequestMethod.GET)
+    public ModelAndView regions() {
+        View view = new View("locality/regions");
+        view.addObject("title", "Области");
+        List<Region> regionList = regionService.findAllByOrderByNameAsc();
+        for (Region r: regionList) {
+            if (r.getDistricts().size() > 0) {
+                Collections.sort(r.getDistricts(), new Comparator<District>() {
+                    @Override
+                    public int compare(final District object1, final District object2) {
+                        return object1.getName().compareTo(object2.getName());
+                    }
+                });
+            }
+        }
+        view.addObject("regions", regionList);
+        return view;
     }
 
     @RequestMapping(value = "/admin/region/add", method = RequestMethod.GET)

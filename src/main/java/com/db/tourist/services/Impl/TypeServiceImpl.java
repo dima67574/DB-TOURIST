@@ -48,4 +48,8 @@ public class TypeServiceImpl implements TypeService {
         photo.setFile(uploadedFile);
         return photoRepository.save(photo) != null;
     }
+
+    public List<Type> findAllByOrderByNameAsc() {
+        return typeRepository.findAllByOrderByNameAsc();
+    }
 }

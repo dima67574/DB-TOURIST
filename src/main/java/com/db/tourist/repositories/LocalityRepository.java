@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface LocalityRepository extends JpaRepository<Locality, Long> {
     List<Locality> findByDistrictId(Long id);
+    List<Locality> findAllByOrderByNameAsc();
 }

@@ -15,4 +15,6 @@ public interface EpochService {
     Epoch save(Epoch epoch);
 
     Boolean uploadPhoto(UploadedFile file, Long id);
+
+    List<Epoch> findAllByOrderByNameAsc();
 }
