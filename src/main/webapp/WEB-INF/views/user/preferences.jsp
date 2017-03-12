@@ -3,7 +3,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="col-md-12">
     <b>Совпадения по типу, стилю и эпохе</b><br>
-    <c:forEach var="ф" items="${byTypeAndStyleAndEpoch}">
+    <c:forEach var="a" items="${byTypeAndStyleAndEpoch}">
         id: ${a.id}, name: ${a.name}<br>
     </c:forEach>
     <c:if test="${fn:length(byTypeAndStyleAndEpoch) == 0}">
