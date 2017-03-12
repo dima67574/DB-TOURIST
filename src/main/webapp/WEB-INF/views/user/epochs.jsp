@@ -18,7 +18,7 @@
                 });
 
                 var numberItems = count;
-                if(filter.length > 0) {
+                if (filter.length > 0) {
                     $("#filter-count").text(count > 0 ? "Найдено эпох: " + count : 'Ничего не найдено');
                 } else {
                     $("#filter-count").text('');
@@ -34,14 +34,14 @@
     <c:forEach var="e" items="${epochs}">
         <div>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-lg-5">
                     <a href="/epoch/${e.id}/gallery">
-                        <img class="img-responsive"
+                        <img style="width:100%"
                              src="<c:if test="${!empty e.cover.file}">/photo?name=${e.cover.file}</c:if><c:if test="${empty e.cover.file}">/resources/images/noimage.jpg</c:if>"
                              alt="">
                     </a>
                 </div>
-                <div class="col-md-6">
+                <div>
                     <h3 class="object-title">${e.name}</h3>
                     <h4>${e.startYear} - ${e.finishYear}</h4>
                     <p>${e.description}</p>

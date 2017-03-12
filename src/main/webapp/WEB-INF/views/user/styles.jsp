@@ -34,14 +34,14 @@
     <c:forEach var="e" items="${styles}">
         <div>
             <div class="row">
-                <div class="col-md-5">
+                <div class="col-lg-5">
                     <a href="/style/${e.id}/gallery">
                         <img class="img-responsive"
                              src="<c:if test="${!empty e.cover.file}">/photo?name=${e.cover.file}</c:if><c:if test="${empty e.cover.file}">/resources/images/noimage.jpg</c:if>"
                              alt="">
                     </a>
                 </div>
-                <div class="col-md-6">
+                <div>
                     <h3 class="object-title">${e.name}</h3>
                     <p>${e.description}</p>
                     <a class="btn btn-primary" href="/style/${e.id}/objects">Показать все объекты <span

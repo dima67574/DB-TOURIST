@@ -58,7 +58,7 @@
                     <ul>
                         <c:forEach var="e" items="${user.epochList}">
                         <li>
-                            ${e.name} (${e.startYear} - ${e.finishYear})
+                            <a href="/epoch/${e.id}/objects">${e.name} (${e.startYear} - ${e.finishYear})</a>
                         </li>
                         </c:forEach>
                     </ul>
@@ -67,7 +67,7 @@
                     <b>Стили:</b>
                     <ul>
                         <c:forEach var="s" items="${user.styleList}">
-                            <li>${s.name}</li>
+                            <li><a href="/style/${s.id}/objects">${s.name}</a></li>
                         </c:forEach>
                     </ul>
                     </c:if>
@@ -75,7 +75,7 @@
                     <b>Типы:</b>
                     <ul>
                         <c:forEach var="t" items="${user.typeList}">
-                            <li>${t.name}</li>
+                            <li><a href="/type/${t.id}/objects">${t.name}</a></li>
                         </c:forEach>
                     </ul>
                     </c:if>
@@ -86,7 +86,7 @@
                     <b>Объекты:</b>
                     <ul>
                         <c:forEach var="o" items="${user.objects}">
-                            <li>${o.name}</li>
+                            <li><a href="/object/${o.id}">${o.name}</a></li>
                         </c:forEach>
                     </ul>
                 </div>
