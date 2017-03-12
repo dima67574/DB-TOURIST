@@ -37,7 +37,7 @@ public class EpochController {
         return view;
     }
 
-    @RequestMapping(value = "/admin/epoch", method = RequestMethod.GET)
+    @RequestMapping(value = {"/admin", "/admin/epoch"}, method = RequestMethod.GET)
     public ModelAndView list() {
         View view = new View("epoch/list", true);
         view.addObject("title", "Эпохи");

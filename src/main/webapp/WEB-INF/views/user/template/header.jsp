@@ -20,8 +20,13 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 <li>
-                    <a href="#">Топ-50</a>
+                    <a href="/top">Топ-50</a>
                 </li>
+                <c:if test="${!isAnonymous}">
+                <li>
+                    <a href="/preferences">Стоит посетить</a>
+                </li>
+                </c:if>
                 <li>
                     <a href="/epochs">Эпохи</a>
                 </li>
@@ -31,7 +36,7 @@
                 <li>
                     <a href="/styles">Стили</a>
                 </li>
-                <ul class="nav navbar-nav">
+
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-star"></i>
                             Населенные пункты <b class="caret"></b></a>
@@ -44,7 +49,7 @@
                             </li>
                         </ul>
                     </li>
-                </ul>
+
                 <li>
                     <a href="/map">Карта</a>
                 </li>

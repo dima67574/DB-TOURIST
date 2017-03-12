@@ -26,13 +26,6 @@ public class AdminController {
         return view;
     }
 
-    @RequestMapping(value = "/admin", method = RequestMethod.GET)
-    public ModelAndView main() {
-        View view = new View("main", true);
-        view.addObject("title", "Главная");
-        return view;
-    }
-
     @RequestMapping(value = "/admin/photo/delete", method = RequestMethod.POST)
     @ResponseBody
     public Boolean deletePhoto(@RequestParam("photo") String photo) {

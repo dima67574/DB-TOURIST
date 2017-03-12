@@ -29,11 +29,9 @@
     <input type="text" class="form-control" id="filter" placeholder="Поиск"
            style="width: 50%;display: inline-block;"/>
     <span id="filter-count" style="margin-left: 10px;color: #717171;"></span>
-<ul class="list-group">
+    <div class="list-group panel" style="margin-top:20px">
     <c:forEach var="l" items="${localities}">
-        <li class="list-group-item col-xs-4" style="border: none;">
-            <a href="/locality/${l.id}" class="l-name">${l.name}</a>
-        </li>
+        <a class="list-group-item col-xs-4" href="/locality/${l.id}" class="l-name" style="border: none;">${l.name}</a>
     </c:forEach>
-</ul>
+    </div>
 </div>

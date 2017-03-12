@@ -178,4 +178,18 @@ public class Object extends BaseEntity {
     public void setCover(Photo cover) {
         this.cover = cover;
     }
+
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Object object = o;
+
+        return getId() != null ? getId().equals(object.getId()) : object.getId() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return getId() != null ? getId().hashCode() : 0;
+    }
 }

@@ -28,6 +28,7 @@
         <intercept-url pattern="/restore" access="isAnonymous()"/>
         <intercept-url pattern="/profile" access="hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')"/>
         <intercept-url pattern="/settings" access="hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')"/>
+        <intercept-url pattern="/preferences" access="hasRole('ROLE_ADMIN') || hasRole('ROLE_USER')"/>
         <intercept-url pattern="/**" access="permitAll"/>
         <form-login login-page="/login" login-processing-url="/login"
                     default-target-url="/" authentication-failure-url="/login?error=1"
