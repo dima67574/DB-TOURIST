@@ -2,27 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="col-md-12">
-    <b>Совпадения по типу, стилю и эпохе</b><br>
-    <c:forEach var="a" items="${byTypeAndStyleAndEpoch}">
-        id: ${a.id}, name: ${a.name}<br>
-    </c:forEach>
-    <c:if test="${fn:length(byTypeAndStyleAndEpoch) == 0}">
-        - ничего не найдено -<br>
-    </c:if>
-    <br>
-    <b>Совпадения по типу и стилю</b><br>
-    <c:forEach var="b" items="${byTypeAndStyle}">
-        id: ${b.id}, name: ${b.name}<br>
-    </c:forEach>
-    <c:if test="${fn:length(byTypeAndStyle) == 0}">
-        - ничего не найдено -<br>
-    </c:if>
-    <br>
-    <b>Совпадения по типу</b><br>
-    <c:forEach var="c" items="${byType}">
-        id: ${c.id}, name: ${c.name}<br>
-    </c:forEach>
-    <c:if test="${fn:length(byType) == 0}">
-        - ничего не найдено -<br>
-    </c:if>
+    <div class="row">
+        <c:forEach var="b" items="${objects}" varStatus="i">
+            <div class="col-md-4 portfolio-item">
+                <a href="/object/${b.id}">
+                    <img class="img-responsive" src="<c:if test="${!empty b.cover.file}">/photo?name=${b.cover.file}</c:if><c:if test="${empty b.cover.file}">/resources/images/noimage.jpg</c:if>" style="width:700px;height: 250px;">
+                </a>
+                <h3>
+                    <a href="/object/${b.id}">${b.name}</a>
+                </h3>
+                <p><a href="/locality/${b.locality.id}">${b.locality.name}</a></p>
+            </div>
+        </c:forEach>
+    </div>
 </div>

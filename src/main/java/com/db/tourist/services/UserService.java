@@ -39,4 +39,6 @@ public interface UserService {
     Boolean changePassword(User user, String password, Boolean resetToken);
 
     void authentication(User user);
+
+    Boolean isAuthentificated();
 }

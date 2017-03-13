@@ -11,9 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Service
 public class ObjectServiceImpl implements ObjectService {
@@ -44,6 +42,45 @@ public class ObjectServiceImpl implements ObjectService {
 
     public void delete(Long id) {
         objectRepository.delete(id);
+    }
+
+    public Collection<Object> findRelevant(Integer count) {
+        if(!userService.isAuthentificated())
+            return null;
+
+        User u = userService.findOne(userService.getUser().getId());
+        //добавляем сначала все объекты по типу
+        Set<Object> byType = new HashSet<>();
+        for (Type t : u.getTypeList()) {
+            byType.addAll(t.getObjectList());
+        }
+        //по типу и стилю
+        Set<Object> byTypeAndStyle = new HashSet<>();
+        for (Style s : u.getStyleList()) {
+            for (Object o : s.getObjectList()) {
+                if (byType.contains(o)) {
+                    byTypeAndStyle.add(o);
+                }
+            }
+        }
+        //по типу, стилю и эпохе
+        Set<Object> byTypeAndStyleAndEpoch = new HashSet<>();
+        for (Epoch e : u.getEpochList()) {
+            for (Object o : e.getObjectList()) {
+                if (byTypeAndStyle.contains(o)) {
+                    byTypeAndStyleAndEpoch.add(o);
+                }
+            }
+        }
+        Set<Object> objects = new LinkedHashSet<>();
+        objects.addAll(byTypeAndStyleAndEpoch);
+        objects.addAll(byTypeAndStyle);
+        objects.addAll(byType);
+        if(count != null) {
+            return (new LinkedList<Object>(objects)).subList(0, Math.min(count, objects.size()));
+        } else {
+            return objects;
+        }
     }
 
     public Object save(Object object, List<Long> epochs, List<Long> types, List<Long> styles, List<Integer> years) {

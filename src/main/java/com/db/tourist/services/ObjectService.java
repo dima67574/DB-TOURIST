@@ -3,6 +3,7 @@ package com.db.tourist.services;
 import com.db.tourist.models.Object;
 import com.db.tourist.utils.UploadedFile;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface ObjectService {
@@ -23,4 +24,6 @@ public interface ObjectService {
     List<Object> findAllByOrderByNameAsc();
 
     List<Object> findByLocalityIdOrderByNameAsc(Long id);
+
+    Collection<Object> findRelevant(Integer count);
 }
