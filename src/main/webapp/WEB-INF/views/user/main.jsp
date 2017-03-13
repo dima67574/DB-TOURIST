@@ -18,7 +18,7 @@
         <div class="row carousel-holder">
 
             <div class="col-md-12">
-                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="height: 650px;">
                     <ol class="carousel-indicators">
                         <c:forEach var="o" items="${objects}" varStatus="i">
                             <li data-target="#carousel-example-generic" data-slide-to="${i.index}" class="<c:if test="${i.index == 0}">active</c:if>"></li>
@@ -26,8 +26,8 @@
                     </ol>
                     <div class="carousel-inner">
                         <c:forEach var="o" items="${objects}" varStatus="i">
-                        <div class="item<c:if test="${i.index == 0}"> active</c:if>">
-                            <img class="slide-image" src="/photo?name=${o.cover.file}" alt="">
+                        <div class="item<c:if test="${i.index == 0}"> active</c:if>" style="height: 650px;">
+                            <a href=""><img class="slide-image" src="/photo?name=${o.cover.file}" alt=""></a>
                         </div>
                         </c:forEach>
                     </div>
