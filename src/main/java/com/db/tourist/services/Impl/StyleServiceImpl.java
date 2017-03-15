@@ -1,7 +1,9 @@
 package com.db.tourist.services.Impl;
 
+import com.db.tourist.models.Object;
 import com.db.tourist.models.Photo;
 import com.db.tourist.models.Style;
+import com.db.tourist.repositories.ObjectRepository;
 import com.db.tourist.repositories.PhotoRepository;
 import com.db.tourist.repositories.StyleRepository;
 import com.db.tourist.services.StyleService;

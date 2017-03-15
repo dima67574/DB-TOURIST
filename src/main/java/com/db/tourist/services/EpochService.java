@@ -1,6 +1,7 @@
 package com.db.tourist.services;
 
 import com.db.tourist.models.Epoch;
+import com.db.tourist.models.Object;
 import com.db.tourist.utils.UploadedFile;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.db.tourist.services;
 
+import com.db.tourist.models.Object;
 import com.db.tourist.models.Style;
 import com.db.tourist.utils.UploadedFile;
 
@@ -17,4 +18,5 @@ public interface StyleService {
     Boolean uploadPhoto(UploadedFile file, Long id);
 
     List<Style> findAllByOrderByNameAsc();
+
 }

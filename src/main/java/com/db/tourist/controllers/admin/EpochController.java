@@ -1,15 +1,22 @@
 package com.db.tourist.controllers.admin;
 
 import com.db.tourist.models.Epoch;
+import com.db.tourist.models.Object;
+import com.db.tourist.repositories.ObjectRepository;
 import com.db.tourist.services.EpochService;
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.utils.UploadedFile;
 import com.db.tourist.utils.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Controller
 public class EpochController {
@@ -19,6 +26,16 @@ public class EpochController {
 
     @Autowired
     private PhotoService photoService;
+
+    @Transactional
+    @RequestMapping(value = "/epoch/{epochId}/objects", method = RequestMethod.GET)
+    public ModelAndView objects(@PathVariable("epochId") Long id) {
+        View view = new View("objects");
+        Epoch e = epochService.findOne(id);
+        view.addObject("title", "Достопримечательности эпохи «" + e.getName() + "»");
+        view.addObject("objects", new ArrayList(e.getObjectList()));
+        return view;
+    }
 
     @RequestMapping(value = "/epochs", method = RequestMethod.GET)
     public ModelAndView epochs() {
