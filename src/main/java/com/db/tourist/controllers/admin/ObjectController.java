@@ -42,6 +42,17 @@ public class ObjectController {
     @Autowired
     private PhotoService photoService;
 
+    @RequestMapping(value = "/object/{id}", method = RequestMethod.GET)
+    public ModelAndView object(@PathVariable("id") Long id) {
+        View view = new View("object");
+        Object object = objectService.findOne(id);
+        if(object != null) {
+            view.addObject("title", "Достопримечательность «" + object.getName() + "»");
+            view.addObject("object", object);
+        }
+        return view;
+    }
+
     @RequestMapping(value = "/admin/object", method = RequestMethod.GET)
     public ModelAndView list() {
         View view = new View("object/list", true);
