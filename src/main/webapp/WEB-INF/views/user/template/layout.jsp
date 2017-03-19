@@ -34,11 +34,13 @@
 <body>
 <jsp:include page="header.jsp"/>
 <div class="container" style="padding-top: 70px;">
+    <c:if test="${empty noTitle}">
     <div class="row">
         <div class="col-lg-12">
             <h3 class="page-header">${title}</h3>
         </div>
     </div>
+    </c:if>
     <div class="row">
         <jsp:include page="${content}"/>
     </div>
