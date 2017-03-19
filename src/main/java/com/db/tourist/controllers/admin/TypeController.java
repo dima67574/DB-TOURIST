@@ -92,8 +92,9 @@ public class TypeController {
     @RequestMapping(value = "/admin/type/edit/{id}", method = RequestMethod.POST)
     public String edit(Type type, RedirectAttributes redirectAttributes) {
         Type t = typeService.findOne(type.getId());
-        type.setCover(t.getCover());
-        if(typeService.save(type) != null) {
+        t.setName(type.getName());
+        t.setDescription(type.getDescription());
+        if(typeService.save(t) != null) {
             redirectAttributes.addFlashAttribute("success", "Тип успешно отредактирован");
         }
         return "redirect:/admin/type";

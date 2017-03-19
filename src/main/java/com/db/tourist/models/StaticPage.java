@@ -18,7 +18,7 @@ public class StaticPage extends BaseEntity {
     @Column(name = "create_date")
     private Date createDate;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User author;
 
     public StaticPage() {

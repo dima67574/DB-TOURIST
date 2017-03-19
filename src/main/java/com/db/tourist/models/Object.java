@@ -2,7 +2,6 @@ package com.db.tourist.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -14,19 +13,22 @@ public class Object extends BaseEntity {
     @Column(name = "description", columnDefinition="LONGTEXT")
     private String description;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Locality locality;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Object parent;
 
-    @OneToMany(mappedBy = "parent", fetch = FetchType.EAGER, cascade= CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "parent", fetch = FetchType.LAZY, cascade= CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("name ASC")
     private Set<Object> childObjects = new HashSet<>();
 
-    @OneToMany(mappedBy = "object", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Photo> photos = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "object", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("id ASC")
+    private Set<Photo> photos = new HashSet<>();
 
-    @OneToMany(mappedBy = "object", fetch = FetchType.EAGER, cascade= CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "object", fetch = FetchType.LAZY, cascade= CascadeType.ALL, orphanRemoval = true)
+    @OrderBy("id ASC")
     private Set<ObjectYear> yearList = new HashSet<>();
 
     @Column(name = "x_coordinate")
@@ -38,22 +40,25 @@ public class Object extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private User author;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OrderBy("name ASC")
     @JoinTable(name = "object_epoch", joinColumns = @JoinColumn(name = "object_id"), inverseJoinColumns = @JoinColumn(name = "epoch_id"))
     private Set<Epoch> epochList = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OrderBy("name ASC")
     @JoinTable(name = "object_type", joinColumns = @JoinColumn(name = "object_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
     private Set<Type> typeList = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OrderBy("name ASC")
     @JoinTable(name = "object_style", joinColumns = @JoinColumn(name = "object_id"), inverseJoinColumns = @JoinColumn(name = "style_id"))
     private Set<Style> styleList = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Photo cover;
 
     public Object() {

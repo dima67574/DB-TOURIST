@@ -1,8 +1,8 @@
 package com.db.tourist.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "region")
@@ -11,8 +11,9 @@ public class Region extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "region", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
-    private List<District> districts = new ArrayList<>();
+    @OneToMany(mappedBy = "region", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("name ASC")
+    private Set<District> districts = new HashSet<>();
 
     public Region() {
     }
@@ -25,11 +26,11 @@ public class Region extends BaseEntity {
         this.name = name;
     }
 
-    public List<District> getDistricts() {
+    public Set<District> getDistricts() {
         return districts;
     }
 
-    public void setDistricts(List<District> districts) {
+    public void setDistricts(Set<District> districts) {
         this.districts = districts;
     }
 }

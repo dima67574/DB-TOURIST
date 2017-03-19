@@ -100,8 +100,9 @@ public class StyleController {
     @RequestMapping(value = "/admin/style/edit/{id}", method = RequestMethod.POST)
     public String edit(Style style, RedirectAttributes redirectAttributes) {
         Style s = styleService.findOne(style.getId());
-        style.setCover(s.getCover());
-        if(styleService.save(style) != null) {
+        s.setName(style.getName());
+        s.setDescription(style.getDescription());
+        if(styleService.save(s) != null) {
             redirectAttributes.addFlashAttribute("success", "Стиль успешно отредактирован");
         }
         return "redirect:/admin/style";

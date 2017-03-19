@@ -100,9 +100,10 @@ public class LocalityController {
     @RequestMapping(value = "/admin/locality/edit/{id}", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable("id") Long id) {
         View view = new View("locality/edit", true);
+        Locality l = localityService.findOne(id);
         view.addObject("title", "Редактирование населенного пункта");
-        view.addObject("locality", localityService.findOne(id));
-        view.addObject("districtList", districtService.findByRegionId(id));
+        view.addObject("locality", l);
+        view.addObject("districtList", districtService.findByRegionId(l.getDistrict().getRegion().getId()));
         return view;
     }
 

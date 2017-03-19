@@ -11,10 +11,11 @@ public class Locality extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private District district;
 
-    @OneToMany(mappedBy = "locality", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "locality", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("name ASC")
     private Set<Object> objects = new HashSet<>();
 
     public Locality() {

@@ -2,7 +2,6 @@ package com.db.tourist.models;
 
 import javax.persistence.*;
 import java.util.HashSet;
-import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -14,18 +13,21 @@ public class Type extends BaseEntity {
     @Column(name = "description", columnDefinition="LONGTEXT")
     private String description;
 
-    @OneToMany(mappedBy = "type", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
-    private Set<Photo> photos = new LinkedHashSet<>();
+    @OneToMany(mappedBy = "type", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("id ASC")
+    private Set<Photo> photos = new HashSet<>();
 
-    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @OrderBy("name ASC")
     @JoinTable(name = "user_type", joinColumns = @JoinColumn(name = "type_id"), inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> userList = new HashSet<>();
 
-    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.LAZY)
+    @OrderBy("name ASC")
     @JoinTable(name = "object_type", joinColumns = @JoinColumn(name = "type_id"), inverseJoinColumns = @JoinColumn(name = "object_id"))
     private Set<Object> objectList = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Photo cover;
 
     public Type() {

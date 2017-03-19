@@ -32,25 +32,29 @@ public class User extends BaseEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Role role;
 
     @Column(name = "banned", columnDefinition = "boolean default false", nullable = false)
     private Boolean banned;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OrderBy("name ASC")
     @JoinTable(name = "user_epoch", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "epoch_id"))
     private Set<Epoch> epochList = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OrderBy("name ASC")
     @JoinTable(name = "user_type", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "type_id"))
     private Set<Type> typeList = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade ={CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @OrderBy("name ASC")
     @JoinTable(name = "user_style", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "style_id"))
     private Set<Style> styleList = new HashSet<>();
 
-    @OneToMany(mappedBy = "author", fetch = FetchType.EAGER, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OneToMany(mappedBy = "author", fetch = FetchType.LAZY, cascade=CascadeType.REMOVE, orphanRemoval = true)
+    @OrderBy("name ASC")
     private Set<Object> objects = new HashSet<>();
 
     public User() {

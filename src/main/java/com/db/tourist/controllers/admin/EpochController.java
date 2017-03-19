@@ -93,8 +93,11 @@ public class EpochController {
     @RequestMapping(value = "/admin/epoch/edit/{id}", method = RequestMethod.POST)
     public String edit(Epoch epoch, RedirectAttributes redirectAttributes) {
         Epoch e = epochService.findOne(epoch.getId());
-        epoch.setCover(e.getCover());
-        if(epochService.save(epoch) != null) {
+        e.setName(epoch.getName());
+        e.setStartYear(epoch.getStartYear());
+        e.setFinishYear(epoch.getFinishYear());
+        e.setDescription(epoch.getDescription());
+        if(epochService.save(e) != null) {
             redirectAttributes.addFlashAttribute("success", "Эпоха успешно отредактирована");
         }
         return "redirect:/admin/epoch";

@@ -201,7 +201,7 @@
                         <label for="parent.id">Родительский объект:</label>
                         <form:select data-placeholder="Выберите родительский объект"  path="parent.id" id="parentId" class="form-control">
                             <c:forEach var="p" items="${parents}">
-                                <option value="${p.id}"${p.id == object.parent.id ? ' selected' : ''}>${p.name}</option>
+                                <option value="${p.id}"${p.id == object.parent.id ? ' selected' : ''}${p.id == object.id ? ' disabled' : ''}>${p.name}</option>
                             </c:forEach>
                         </form:select>
                     </div>

@@ -8,7 +8,7 @@ public class ObjectYear extends BaseEntity {
     @Column(name = "year")
     private Integer year;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     private Object object;
 
     public ObjectYear() {
