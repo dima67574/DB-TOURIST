@@ -49,17 +49,31 @@ public class ObjectServiceImpl implements ObjectService {
             return null;
 
         User u = userService.findOne(userService.getUser().getId());
-        //добавляем сначала все объекты по типу
-        Set<Object> objects = new HashSet<>();
+        //по типу
+        Set<Object> objects = new LinkedHashSet<>();
         for (Type t : u.getTypeList()) objects.addAll(t.getObjectList());
         //по стилю
         for (Style s : u.getStyleList()) objects.addAll(s.getObjectList());
         //по эпохе
         for (Epoch e : u.getEpochList()) objects.addAll(e.getObjectList());
-        List<Object> result = new ArrayList<>(objects);
-        Collections.shuffle(result);
+
+        Set<Object> relevantsBy3 = new LinkedHashSet<>();
+        Set<Object> relevantsBy2 = new LinkedHashSet<>();
+        for(Object o: objects) {
+            boolean isEpoch = false, isType = false, isStyle = false;
+            for (Epoch e : o.getEpochList()) { if (u.getEpochList().contains(e)) isEpoch = true; break; }
+            for (Type t : o.getTypeList()) { if (u.getTypeList().contains(t)) isType = true; break; }
+            for (Style s : o.getStyleList()) { if (u.getStyleList().contains(s)) isStyle = true; break; }
+            if(isEpoch && isType && isStyle) relevantsBy3.add(o);
+            if(isEpoch && isType || isEpoch && isStyle || isType && isStyle) relevantsBy2.add(o);
+        }
+
+        Set<Object> result = new LinkedHashSet<>();
+        result.addAll(relevantsBy3);
+        result.addAll(relevantsBy2);
+        result.addAll(objects);
         if(count != null) {
-            return result.subList(0, Math.min(count, objects.size()));
+            return (new LinkedList<>(result)).subList(0, Math.min(count, objects.size()));
         } else {
             return result;
         }
