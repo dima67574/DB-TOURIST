@@ -2,6 +2,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="col-md-12">
+    <c:if test="${fn:length(objects) == 0}">
+        <div class="no-info">
+            Нет достопримечательностей
+        </div>
+    </c:if>
     <c:forEach var="e" items="${objects}">
         <div class="col-md-6">
             <div class="row" style="margin-bottom: 15px;">

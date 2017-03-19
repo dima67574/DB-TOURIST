@@ -1,7 +1,8 @@
 package com.db.tourist.services.Impl;
 
-import com.db.tourist.models.Photo;
-import com.db.tourist.repositories.PhotoRepository;
+import com.db.tourist.models.*;
+import com.db.tourist.models.Object;
+import com.db.tourist.repositories.*;
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.utils.FileHelper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,50 @@ public class PhotoServiceImpl implements PhotoService {
     @Autowired
     private PhotoRepository photoRepository;
 
+    @Autowired
+    private ObjectRepository objectRepository;
+
+    @Autowired
+    private EpochRepository epochRepository;
+
+    @Autowired
+    private StyleRepository styleRepository;
+
+    @Autowired
+    private TypeRepository typeRepository;
+
     public Boolean deletePhoto(String photo) {
         if(fileHelper.delete(photo)) {
             Photo p = photoRepository.findByFile(photo);
             if(p != null) {
+                if(p.getObject() != null) {
+                    Object o = p.getObject();
+                    if(o.getCover().getId().equals(p.getId())) {
+                        o.setCover(null);
+                        objectRepository.save(o);
+                    }
+                }
+                if(p.getEpoch() != null) {
+                    Epoch o = p.getEpoch();
+                    if(o.getCover().getId().equals(p.getId())) {
+                        o.setCover(null);
+                        epochRepository.save(o);
+                    }
+                }
+                if(p.getType() != null) {
+                    Type o = p.getType();
+                    if(o.getCover().getId().equals(p.getId())) {
+                        o.setCover(null);
+                        typeRepository.save(o);
+                    }
+                }
+                if(p.getStyle() != null) {
+                    Style o = p.getStyle();
+                    if(o.getCover().getId().equals(p.getId())) {
+                        o.setCover(null);
+                        styleRepository.save(o);
+                    }
+                }
                 photoRepository.delete(p);
                 return true;
             }

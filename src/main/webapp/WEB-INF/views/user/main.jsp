@@ -30,7 +30,9 @@
                             <div class="item<c:if test="${i.index == 0}"> active</c:if>">
                                 <a href="/object/${o.id}">
                                     <div style="position: absolute;color: #fff;text-align: center;bottom: 0;background: rgba(0, 0, 0, 0.5);padding: 20px;width: 100%;">${o.name}</div>
-                                    <img class="slide-image" src="/photo?name=${o.cover.file}" alt="">
+                                    <img class="slide-image"
+                                         src="<c:if test="${!empty o.cover.file}">/photo?name=${o.cover.file}</c:if><c:if test="${empty o.cover.file}">/resources/images/noimage.jpg</c:if>"
+                                         alt="">
                                 </a>
                             </div>
                         </c:forEach>

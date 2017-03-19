@@ -1,5 +1,6 @@
 <%@page pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="col-md-12">
     <script type="text/JavaScript">
         $(document).ready(function () {
@@ -29,9 +30,15 @@
     <input type="text" class="form-control" id="filter" placeholder="Поиск"
            style="width: 50%;display: inline-block;"/>
     <span id="filter-count" style="margin-left: 10px;color: #717171;"></span>
+
     <div class="list-group panel" style="margin-top:20px">
     <c:forEach var="l" items="${localities}">
         <a class="list-group-item col-xs-4" href="/locality/${l.id}" class="l-name" style="border: none;">${l.name}</a>
     </c:forEach>
     </div>
+    <c:if test="${fn:length(localities) == 0}">
+        <div class="no-info">
+            Нет населенных пунктов
+        </div>
+    </c:if>
 </div>

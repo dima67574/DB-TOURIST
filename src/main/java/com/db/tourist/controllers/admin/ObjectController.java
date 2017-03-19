@@ -143,11 +143,14 @@ public class ObjectController {
 
     @RequestMapping(value = "/admin/object/photo/{id}", method = RequestMethod.GET)
     public ModelAndView photos(@PathVariable("id") Long id) {
-        View view = new View("object/photo", true);
+        View view = new View("photo", true);
         Object object = objectService.findOne(id);
         if(object != null) {
             view.addObject("title", "Фотоальбом объекта «" + object.getName() + "»");
             view.addObject("object", object);
+            view.addObject("objectName", "object");
+            view.addObject("backBtnText", "К списку объектов");
+            view.addObject("objectTitle", "объект");
         }
         return view;
     }

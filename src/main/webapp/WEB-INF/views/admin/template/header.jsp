@@ -17,20 +17,26 @@
     </div>
     <!-- /.navbar-header -->
 
-    <ul class="nav navbar-top-links navbar-right">
-        <!-- /.dropdown -->
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-star"></i> <security:authentication property="principal.user.name" /> <security:authentication property="principal.user.surname" /> <b class="caret"></b></a>
 
-            <ul class="dropdown-menu dropdown-user">
+
+
+
+    <ul class="nav navbar-top-links navbar-right">
+        <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#" aria-expanded="true">
+                <i class="icon-star"></i> <security:authentication property="principal.user.name" /> <security:authentication property="principal.user.surname" /> <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
                 <li><a href="/"><i class="fa fa-toggle-left fa-fw"></i> Перейти к сайту</a>
                 </li>
                 <li class="divider"></li>
                 <li><a href="#" onclick="$('#logoutForm').submit();"><i class="fa fa-sign-out fa-fw"></i> Выход</a>
                 </li>
             </ul>
-            <!-- /.dropdown-user -->
+            <!-- /.dropdown-messages -->
         </li>
+
+
         <!-- /.dropdown -->
     </ul>
     <!-- /.navbar-top-links -->

@@ -50,36 +50,18 @@ public class ObjectServiceImpl implements ObjectService {
 
         User u = userService.findOne(userService.getUser().getId());
         //добавляем сначала все объекты по типу
-        Set<Object> byType = new HashSet<>();
-        for (Type t : u.getTypeList()) {
-            byType.addAll(t.getObjectList());
-        }
-        //по типу и стилю
-        Set<Object> byTypeAndStyle = new HashSet<>();
-        for (Style s : u.getStyleList()) {
-            for (Object o : s.getObjectList()) {
-                if (byType.contains(o)) {
-                    byTypeAndStyle.add(o);
-                }
-            }
-        }
-        //по типу, стилю и эпохе
-        Set<Object> byTypeAndStyleAndEpoch = new HashSet<>();
-        for (Epoch e : u.getEpochList()) {
-            for (Object o : e.getObjectList()) {
-                if (byTypeAndStyle.contains(o)) {
-                    byTypeAndStyleAndEpoch.add(o);
-                }
-            }
-        }
-        Set<Object> objects = new LinkedHashSet<>();
-        objects.addAll(byTypeAndStyleAndEpoch);
-        objects.addAll(byTypeAndStyle);
-        objects.addAll(byType);
+        Set<Object> objects = new HashSet<>();
+        for (Type t : u.getTypeList()) objects.addAll(t.getObjectList());
+        //по стилю
+        for (Style s : u.getStyleList()) objects.addAll(s.getObjectList());
+        //по эпохе
+        for (Epoch e : u.getEpochList()) objects.addAll(e.getObjectList());
+        List<Object> result = new ArrayList<>(objects);
+        Collections.shuffle(result);
         if(count != null) {
-            return (new LinkedList<Object>(objects)).subList(0, Math.min(count, objects.size()));
+            return result.subList(0, Math.min(count, objects.size()));
         } else {
-            return objects;
+            return result;
         }
     }
 

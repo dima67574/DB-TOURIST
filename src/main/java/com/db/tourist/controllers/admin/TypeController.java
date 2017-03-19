@@ -1,6 +1,5 @@
 package com.db.tourist.controllers.admin;
 
-import com.db.tourist.models.Style;
 import com.db.tourist.models.Type;
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.services.TypeService;
@@ -110,11 +109,14 @@ public class TypeController {
 
     @RequestMapping(value = "/admin/type/photo/{id}", method = RequestMethod.GET)
     public ModelAndView photos(@PathVariable("id") Long id) {
-        View view = new View("type/photo", true);
+        View view = new View("photo", true);
         Type type = typeService.findOne(id);
         if(type != null) {
             view.addObject("title", "Фотоальбом типа «" + type.getName() + "»");
-            view.addObject("type", type);
+            view.addObject("object", type);
+            view.addObject("objectName", "type");
+            view.addObject("backBtnText", "К списку типов");
+            view.addObject("objectTitle", "тип");
         }
         return view;
     }

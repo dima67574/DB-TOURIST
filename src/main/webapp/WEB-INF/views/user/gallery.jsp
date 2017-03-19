@@ -14,29 +14,31 @@
 
 <link rel="stylesheet" href="/resources/vendor/fancybox/jquery.fancybox.min.css" media="screen">
 <script src="/resources/vendor/fancybox/jquery.fancybox.min.js"></script>
-
+<c:if test="${fn:length(object.photos) == 0}">
+    <div class="no-info">
+        Нет фотографий
+    </div>
+</c:if>
 <div class="col-md-12">
     <div class="row">
-        <div class='list-group gallery'>
-            <c:forEach var="p" items="${object.photos}" varStatus="i">
-                <c:set var="photosCount" scope="page" value="16"/>
-                <c:set var="totalPages" scope="page" value="${fn:length(object.photos) / photosCount}"/>
-                <fmt:formatNumber var="page" value="${(i.index / photosCount) + 1}" maxFractionDigits="0"/>
-                <c:set var="newPage" scope="page" value="${i.index % photosCount}"/>
-                <c:if test="${newPage == 0}">
-                    <div id="page${page}" style="${i.index > 0 ? 'display:none' : ''}" class="photo-page">
-                </c:if>
-                <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
-                    <a class="thumbnail photo-card fancybox" rel="ligthbox" href="/photo?name=${p.file}">
-                        <img class="img-responsive" src="/photo?name=thumb_${p.file}" alt=""
-                             style="width:230px;height: 145px;">
-                    </a>
+        <c:forEach var="p" items="${object.photos}" varStatus="i">
+            <c:set var="photosCount" scope="page" value="16"/>
+            <c:set var="totalPages" scope="page" value="${fn:length(object.photos) / photosCount}"/>
+            <fmt:formatNumber var="page" value="${(i.index / photosCount) + 1}" maxFractionDigits="0"/>
+            <c:set var="newPage" scope="page" value="${i.index % photosCount}"/>
+            <c:if test="${newPage == 0}">
+                <div id="page${page}" style="${i.index > 0 ? 'display:none' : ''}" class="photo-page">
+            </c:if>
+
+            <div class="col-md-4 portfolio-item">
+                <a class="thumbnail photo-card fancybox" rel="ligthbox" href="/photo?name=${p.file}" style="margin-bottom: 0px;">
+                    <img class="img-responsive" src="/photo?name=${p.file}">
+                </a>
+            </div>
+            <c:if test="${newPage == photosCount - 1 || fn:length(object.photos) == (i.index + 1)}">
                 </div>
-                <c:if test="${newPage == photosCount - 1 || fn:length(object.photos) == (i.index + 1)}">
-                    </div>
-                </c:if>
-            </c:forEach>
-        </div>
+            </c:if>
+        </c:forEach>
     </div>
 </div>
 

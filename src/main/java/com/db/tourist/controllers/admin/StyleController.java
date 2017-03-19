@@ -1,6 +1,5 @@
 package com.db.tourist.controllers.admin;
 
-import com.db.tourist.models.Epoch;
 import com.db.tourist.models.Style;
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.services.StyleService;
@@ -110,11 +109,14 @@ public class StyleController {
 
     @RequestMapping(value = "/admin/style/photo/{id}", method = RequestMethod.GET)
     public ModelAndView photos(@PathVariable("id") Long id) {
-        View view = new View("style/photo", true);
+        View view = new View("photo", true);
         Style style = styleService.findOne(id);
         if(style != null) {
             view.addObject("title", "Фотоальбом стиля «" + style.getName() + "»");
-            view.addObject("style", style);
+            view.addObject("object", style);
+            view.addObject("objectName", "style");
+            view.addObject("backBtnText", "К списку стилей");
+            view.addObject("objectTitle", "стиль");
         }
         return view;
     }

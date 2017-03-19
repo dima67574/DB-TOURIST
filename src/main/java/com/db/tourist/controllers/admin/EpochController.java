@@ -1,8 +1,6 @@
 package com.db.tourist.controllers.admin;
 
 import com.db.tourist.models.Epoch;
-import com.db.tourist.models.Object;
-import com.db.tourist.repositories.ObjectRepository;
 import com.db.tourist.services.EpochService;
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.utils.UploadedFile;
@@ -15,8 +13,6 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @Controller
 public class EpochController {
@@ -106,11 +102,14 @@ public class EpochController {
 
     @RequestMapping(value = "/admin/epoch/photo/{id}", method = RequestMethod.GET)
     public ModelAndView photos(@PathVariable("id") Long id) {
-        View view = new View("epoch/photo", true);
+        View view = new View("photo", true);
         Epoch epoch = epochService.findOne(id);
         if(epoch != null) {
             view.addObject("title", "Фотоальбом эпохи «" + epoch.getName() + "»");
-            view.addObject("epoch", epoch);
+            view.addObject("object", epoch);
+            view.addObject("objectName", "epoch");
+            view.addObject("backBtnText", "К списку эпох");
+            view.addObject("objectTitle", "эпоху");
         }
         return view;
     }

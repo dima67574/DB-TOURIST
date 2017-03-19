@@ -15,14 +15,13 @@
         $('#coverForm').submit();
     }
 </script>
-
-<form method="post" id="coverForm" action="/admin/object/setCover">
+<form method="post" id="coverForm" action="/admin/${objectName}/setCover">
     <input type="hidden" name="coverId" id="coverId" value="" />
-    <input type="hidden" name="objectId" id="objectId" value="${object.id}" />
+    <input type="hidden" name="${objectName}Id" id="${objectName}Id" value="${object.id}" />
 </form>
+
 <link rel="stylesheet" href="/resources/vendor/fancybox/jquery.fancybox.min.css" media="screen">
 <script src="/resources/vendor/fancybox/jquery.fancybox.min.js"></script>
-
 
 <div class="col-md-12" style="margin-bottom: 15px;">
     <c:if test="${!empty success}">
@@ -32,35 +31,44 @@
                 ${success}
         </div>
     </c:if>
-    <a href="/admin/object" class="btn btn-default" style="text-align: center">К списку объектов</a>
+    <a href="/admin/${objectName}" class="btn btn-default" style="text-align: center">${backBtnText}</a>
+    <a href="/admin/${objectName}/add" class="btn btn-primary" style="text-align: center">Добавить ${objectTitle}</a>
     <a href="#" data-toggle="modal" data-target="#upload_modal" class="btn btn-primary" style="text-align: center">Добавить
         фотографии в альбом</a>
 </div>
 
 <div class="col-md-12">
-<div class="row">
-    <div class='list-group gallery'>
+    <div class="row">
+        <c:if test="${fn:length(object.photos) == 0}">
+            <div class="no-info">
+            Нет фотографий
+            </div>
+        </c:if>
         <c:forEach var="p" items="${object.photos}" varStatus="i">
             <c:set var="photosCount" scope="page" value="16"/>
             <c:set var="totalPages" scope="page" value="${fn:length(object.photos) / photosCount}"/>
             <fmt:formatNumber var="page" value="${(i.index / photosCount) + 1}" maxFractionDigits="0"/>
             <c:set var="newPage" scope="page" value="${i.index % photosCount}"/>
             <c:if test="${newPage == 0}">
-                <div id="page${page}" style="${i.index > 0 ? 'display:none' : ''}" class="photo-page">
+            <div id="page${page}" style="${i.index > 0 ? 'display:none' : ''}" class="photo-page">
             </c:if>
-            <div class='col-sm-4 col-xs-6 col-md-3 col-lg-3'>
-                <a class="thumbnail photo-card fancybox" rel="ligthbox" href="/photo?name=${p.file}">
-                    <img class="img-responsive" src="/photo?name=thumb_${p.file}" alt=""
-                         style="width:230px;height: 145px;">
+
+            <div class="col-md-4 portfolio-item">
+                <a class="thumbnail photo-card fancybox" rel="ligthbox" href="/photo?name=${p.file}" style="margin-bottom: 0px;">
+                    <img class="img-responsive" src="/photo?name=${p.file}">
                 </a>
+
                 <a class="fancybox-close" data-toggle="modal" data-target="#remove_modal"
                    data-id="${p.file}" style="z-index: 0;right: 0px;top: -15px;"></a>
-                <c:if test="${p.id == object.cover.id}">
-                    <span style="position: absolute;bottom: 5px;left: 80px;">главное фото</span>
-                </c:if>
-                <c:if test="${p.id != object.cover.id}">
-                    <a onclick="setCover(${p.id});" href="#" style="position: absolute;bottom: 5px;left: 80px;">сделать главным</a>
-                </c:if>
+
+
+                    <c:if test="${p.id == object.cover.id}">
+                        <span style="display: block;text-align: center">главное фото</span>
+                    </c:if>
+                    <c:if test="${p.id != object.cover.id}">
+                        <a onclick="setCover(${p.id});" href="javascript:void(0)" style="display: block;text-align: center">сделать главным</a>
+                    </c:if>
+
             </div>
             <c:if test="${newPage == photosCount - 1 || fn:length(object.photos) == (i.index + 1)}">
                 </div>
@@ -68,13 +76,13 @@
         </c:forEach>
     </div>
 </div>
-</div>
+
 
 <script>
     $(function () {
         document.getElementById('files').addEventListener('change', onFileSelect, false);
         document.getElementById('uploadButton').addEventListener('click', function () {
-            startUpload("/admin/object/upload", ${object.id});
+            startUpload("/admin/${objectName}/upload", ${object.id});
         }, false);
 
         $('#pagination-here').bootpag({

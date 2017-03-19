@@ -175,3 +175,7 @@ footer {
 .carousel-indicators {
     bottom: 60px !important;
 }
+.no-info {
+    padding: 20px 25px 20px 25px;
+    color: #6b6b6b;
+}
