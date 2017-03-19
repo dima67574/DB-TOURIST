@@ -11,7 +11,7 @@
 <div class="col-md-12">
     <div class="row">
         <c:forEach var="b" items="${objects}" varStatus="i">
-            <div class="col-md-4 portfolio-item">
+            <div class="col-md-6 portfolio-item">
                 <a href="/object/${b.id}">
                     <img class="img-responsive" src="<c:if test="${!empty b.cover.file}">/photo?name=${b.cover.file}</c:if><c:if test="${empty b.cover.file}">/resources/images/noimage.jpg</c:if>">
                 </a>
