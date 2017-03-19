@@ -41,7 +41,7 @@
                              alt="">
                     </a>
                 </div>
-                <div>
+                <div style="margin-left: 20px;">
                     <h3 class="object-title">${e.name}</h3>
                     <h4>${e.startYear} - ${e.finishYear}</h4>
                     <p>${e.description}</p>

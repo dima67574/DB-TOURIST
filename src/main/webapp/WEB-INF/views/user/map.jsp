@@ -11,9 +11,28 @@
         margin: 0px;
         font-size: 14px;
     }
+    .iframe-container{
+        position: relative;
+        width: 100%;
+        padding-bottom: 70%;
+    }
+    .iframe-container > *{
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        width: 100%;
+    }
 </style>
 <div class="col-md-12">
-<div id="map_canvas" style="width: 100%; height: 800px;"></div>
+    <div class="iframe-container">
+<div id="map_canvas"></div>
+    </div>
 <script type="text/javascript">
     $(document).ready(function () {
         $('#map_canvas').gMap({
@@ -31,7 +50,10 @@
                 {
                     latitude: ${o.xCoordinate},
                     longitude: ${o.yCoordinate},
-                    html: '<div><a href="/object/${o.id}"><b>${o.name}</b></a></div><div style="font-weight:normal;margin:5px 0 5px 0"><a href="/locality/${o.locality.id}">${o.locality.name}</a></div><img src="<c:if test="${!empty o.cover.file}">/photo?name=thumb_${o.cover.file}</c:if><c:if test="${empty o.cover.file}">/resources/images/noimage.jpg</c:if>" style="width:230px">',
+                    html: '<div>' +
+                    '<a href="/object/${o.id}"><b>${o.name}</b></a></div>' +
+                    '<div style="font-weight:normal;margin:5px 0 5px 0"><a href="/locality/${o.locality.id}">${fn:escapeXml(o.locality.name)}</a></div>' +
+                    '<img src="<c:if test="${!empty o.cover.file}">/photo?name=thumb_${o.cover.file}</c:if><c:if test="${empty o.cover.file}">/resources/images/noimage.jpg</c:if>" style="width:230px">',
                     popup: false,
                 },
                 </c:forEach>

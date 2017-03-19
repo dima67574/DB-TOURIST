@@ -6,11 +6,11 @@
         <c:forEach var="b" items="${objects}" varStatus="i">
             <div class="col-md-4 portfolio-item">
                 <a href="/object/${b.id}">
-                    <img class="img-responsive" src="<c:if test="${!empty b.cover.file}">/photo?name=${b.cover.file}</c:if><c:if test="${empty b.cover.file}">/resources/images/noimage.jpg</c:if>" style="width:700px;height: 250px;">
+                    <img class="img-responsive" src="<c:if test="${!empty b.cover.file}">/photo?name=${b.cover.file}</c:if><c:if test="${empty b.cover.file}">/resources/images/noimage.jpg</c:if>">
                 </a>
-                <h3>
-                    <a href="/object/${b.id}">${b.name}</a>
-                </h3>
+                <h5>
+                    <a href="/object/${b.id}"><b>${b.name}</b></a>
+                </h5>
                 <p><a href="/locality/${b.locality.id}">${b.locality.name}</a></p>
             </div>
         </c:forEach>

@@ -36,11 +36,13 @@
     <div>
     <div class="row">
         <div class="col-lg-5">
+            <a href="/object/${e.id}">
             <img style="width:100%"
                  src="<c:if test="${!empty e.cover.file}">/photo?name=${e.cover.file}</c:if><c:if test="${empty e.cover.file}">/resources/images/noimage.jpg</c:if>"
                  alt="">
+            </a>
         </div>
-        <div>
+        <div style="margin-left: 20px">
             <h3 class="object-title"><a href="/object/${e.id}">${e.name}</a></h3>
             <h4>
                 <c:forEach var="y" items="${e.yearList}" varStatus="i">

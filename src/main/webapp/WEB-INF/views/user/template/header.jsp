@@ -39,7 +39,7 @@
 
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-star"></i>
-                            Населенные пункты <b class="caret"></b></a>
+                            Нас. пункты <b class="caret"></b></a>
                         <ul class="dropdown-menu dropdown-user">
                             <li>
                                 <a href="/regions">По областям/районам</a>
