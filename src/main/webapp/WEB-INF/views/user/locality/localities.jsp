@@ -11,9 +11,9 @@
 
                     // If the list item does not contain the text phrase fade it out
                     if ($(this).text().search(new RegExp(filter, "i")) < 0) {
-                        $(this).parent().hide();
+                        $(this).hide();
                     } else {
-                        $(this).parent().show();
+                        $(this).show();
                         count++;
                     }
                 });
@@ -33,7 +33,7 @@
 
     <div class="list-group panel" style="margin-top:20px">
     <c:forEach var="l" items="${localities}">
-        <a class="list-group-item col-xs-4" href="/locality/${l.id}" class="l-name" style="border: none;">${l.name}</a>
+        <a class="list-group-item col-xs-4 l-name" href="/locality/${l.id}" style="border: none;">${l.name}</a>
     </c:forEach>
     </div>
     <c:if test="${fn:length(localities) == 0}">
