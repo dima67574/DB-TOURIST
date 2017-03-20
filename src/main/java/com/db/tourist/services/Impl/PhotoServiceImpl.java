@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.transaction.Transactional;
 import java.io.IOException;
 
 @Service
@@ -31,34 +32,35 @@ public class PhotoServiceImpl implements PhotoService {
     @Autowired
     private TypeRepository typeRepository;
 
+    @Transactional
     public Boolean deletePhoto(String photo) {
         if(fileHelper.delete(photo)) {
             Photo p = photoRepository.findByFile(photo);
             if(p != null) {
                 if(p.getObject() != null) {
                     Object o = p.getObject();
-                    if(o.getCover().getId().equals(p.getId())) {
+                    if(o.getCover() != null && o.getCover().getId().equals(p.getId())) {
                         o.setCover(null);
                         objectRepository.save(o);
                     }
                 }
                 if(p.getEpoch() != null) {
                     Epoch o = p.getEpoch();
-                    if(o.getCover().getId().equals(p.getId())) {
+                    if(o.getCover() != null && o.getCover().getId().equals(p.getId())) {
                         o.setCover(null);
                         epochRepository.save(o);
                     }
                 }
                 if(p.getType() != null) {
                     Type o = p.getType();
-                    if(o.getCover().getId().equals(p.getId())) {
+                    if(o.getCover() != null && o.getCover().getId().equals(p.getId())) {
                         o.setCover(null);
                         typeRepository.save(o);
                     }
                 }
                 if(p.getStyle() != null) {
                     Style o = p.getStyle();
-                    if(o.getCover().getId().equals(p.getId())) {
+                    if(o.getCover() != null && o.getCover().getId().equals(p.getId())) {
                         o.setCover(null);
                         styleRepository.save(o);
                     }
