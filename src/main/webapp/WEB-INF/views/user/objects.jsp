@@ -18,26 +18,32 @@
                     </a>
                 </div>
                 <div style="margin-left: 20px">
-                    <h5 class="object-title"><a href="/object/${e.id}"><b>${e.name}</b></a></h5>
-                    <div style="font-size: 13px;margin-bottom:5px">
+                    <div class="object-title" style="margin-bottom:3px;margin-top:4px"><a href="/object/${e.id}"><b>${e.name}</b></a></div>
+                    <div style="font-size: 13px;margin-bottom:3px">
+                        Года: ${fn:length(e.yearList) == 0 ? 'не указаны' : ''}
                         <c:forEach var="y" items="${e.yearList}" varStatus="i">
                             ${y.year}${(fn:length(e.yearList) - 1) > i.index ? ',' : ''}
                         </c:forEach>
                     </div>
-                    <div style="font-size: 13px;margin-bottom:5px">
+                    <div style="font-size: 13px;margin-bottom:3px">
+                        Типы: ${fn:length(e.typeList) == 0 ? 'не указаны' : ''}
                         <c:forEach var="t" items="${e.typeList}" varStatus="i">
                             <a href="/type/${t.id}/objects">${t.name}</a>${(fn:length(e.typeList) - 1) > i.index ? ',' : ''}
                         </c:forEach>
                     </div>
-                    <div style="font-size: 13px;margin-bottom:5px">
+                    <div style="font-size: 13px;margin-bottom:3px">
+                        Стили: ${fn:length(e.styleList) == 0 ? 'не указаны' : ''}
                         <c:forEach var="s" items="${e.styleList}" varStatus="i">
                             <a href="/style/${s.id}/objects">${s.name}</a>${(fn:length(e.styleList) - 1) > i.index ? ',' : ''}
                         </c:forEach>
                     </div>
-                    <div style="font-size: 13px;margin-bottom:5px">Оценка:</div>
-                    <div style="font-size: 13px;margin-bottom:5px">${e.address}</div>
+                    <div style="font-size: 13px;margin-bottom:3px">Оценка: XXXXX</div>
+                    <div style="font-size: 13px;margin-bottom:3px">
+                        Адрес: ${empty e.address ? 'не указан' : e.address}
+                    </div>
                     <div style="font-size: 13px;">
-                        Координаты: <a href="/map?xCoordinate=${e.xCoordinate}&yCoordinate=${e.yCoordinate}">x:${e.xCoordinate},
+                        Координаты:
+                        <a href="/map?xCoordinate=${e.xCoordinate}&yCoordinate=${e.yCoordinate}">x:${e.xCoordinate},
                         y:${e.yCoordinate}</a>
                     </div>
                 </div>
