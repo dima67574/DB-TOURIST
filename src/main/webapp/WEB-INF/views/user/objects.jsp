@@ -36,7 +36,7 @@
                     </div>
                     <div style="font-size: 13px;margin-bottom:5px">Оценка:</div>
                     <div style="font-size: 13px;margin-bottom:5px">${e.address}</div>
-                    <div style="font-size: 13px;margin-bottom:5px">
+                    <div style="font-size: 13px;">
                         Координаты: <a href="/map?xCoordinate=${e.xCoordinate}&yCoordinate=${e.yCoordinate}">x:${e.xCoordinate},
                         y:${e.yCoordinate}</a>
                     </div>
