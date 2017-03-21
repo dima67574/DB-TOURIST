@@ -50,6 +50,18 @@
                     $(this).html('по рейтингу <i class="sort-icon glyphicon glyphicon-chevron-up"></i>');
                 }
             });
+            var regionOrder = new simpleSort('.ss-box', 'div');
+            regionOrder.order = 'desc';
+            $('#ss-region').on('click', function() {
+                $('.sort-icon').remove();
+                if(regionOrder.order === 'desc') {
+                    regionOrder.sort('data-region', 'asc');
+                    $(this).html('по населенному пункту <i class="sort-icon glyphicon glyphicon-chevron-down"></i>');
+                } else {
+                    regionOrder.sort('data-region', 'desc');
+                    $(this).html('по населенному пункту <i class="sort-icon glyphicon glyphicon-chevron-up"></i>');
+                }
+            });
         });
     </script>
     <c:if test="${fn:length(objects) == 0}">
@@ -64,12 +76,15 @@
         <span id="filter-count" style="margin-left: 10px;color: #717171;"></span>
     </div>
     <div style="margin-bottom: 20px;">
-        Упорядочить: <button class="btn btn-default" id="ss-name">по названию  <i class="sort-icon glyphicon glyphicon-chevron-up"></i></button> <button class="btn btn-default" id="ss-rate">по рейтингу</button>
+        Упорядочить: <button class="btn btn-default" id="ss-name">по названию  <i class="sort-icon glyphicon glyphicon-chevron-up"></i></button>
+        <button class="btn btn-default" id="ss-rate">по рейтингу</button>
+        <button class="btn btn-default" id="ss-region">по населенному пункту</button>
+
     </div>
     </c:if>
     <div class="ss-box">
     <c:forEach var="e" items="${objects}">
-        <div class="col-md-6" style="margin-left: -15px;" data-name="${e.name}" data-rate="123">
+        <div class="col-md-6" style="margin-left: -15px;" data-name="${e.name}" data-rate="123" data-region="${e.locality.name}">
             <div class="row" style="margin-bottom: 15px;">
                 <div class="col-lg-6">
                     <a href="/object/${e.id}">
@@ -100,7 +115,7 @@
                     </div>
                     <div style="font-size: 13px;margin-bottom:3px">Оценка: XXXXX</div>
                     <div style="font-size: 13px;margin-bottom:3px">
-                        Адрес: ${empty e.address ? 'не указан' : e.address}
+                        Нас. пункт: <a href="/locality/${e.locality.id}">${e.locality.name}</a>
                     </div>
                     <div style="font-size: 13px;">
                         Координаты:
