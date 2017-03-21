@@ -25,6 +25,30 @@
                 $("#filter-count").text('');
             }
         });
+        var nameOrder = new simpleSort('.ss-box', 'div');
+        nameOrder.order = 'desc';
+        $('#ss-name').on('click', function() {
+            $('.sort-icon').remove();
+            if(nameOrder.order === 'desc') {
+                nameOrder.sort('data-name', 'asc');
+                $(this).html('по названию <i class="sort-icon glyphicon glyphicon-chevron-down"></i>');
+            } else {
+                nameOrder.sort('data-name', 'desc');
+                $(this).html('по названию <i class="sort-icon glyphicon glyphicon-chevron-up"></i>');
+            }
+        });
+        var rateOrder = new simpleSort('.ss-box', 'div');
+        rateOrder.order = 'desc';
+        $('#ss-rate').on('click', function() {
+            $('.sort-icon').remove();
+            if(rateOrder.order === 'desc') {
+                rateOrder.sort('data-rate', 'asc');
+                $(this).html('по рейтингу <i class="sort-icon glyphicon glyphicon-chevron-down"></i>');
+            } else {
+                rateOrder.sort('data-rate', 'desc');
+                $(this).html('по рейтингу <i class="sort-icon glyphicon glyphicon-chevron-up"></i>');
+            }
+        });
     });
 </script>
 <div style="margin-bottom: 20px;">
@@ -32,8 +56,13 @@
            style="width: 50%;display: inline-block;"/>
     <span id="filter-count" style="margin-left: 10px;color: #717171;"></span>
 </div>
+    <div style="margin-bottom: 20px;">
+        Упорядочить: <button class="btn btn-default" id="ss-name">по названию  <i class="sort-icon glyphicon glyphicon-chevron-up"></i></button>
+        <button class="btn btn-default" id="ss-rate">по рейтингу</button>
+    </div>
+    <div class="ss-box">
 <c:forEach var="e" items="${objects}">
-    <div>
+    <div data-name="${e.name}" data-rate="123">
     <div class="row">
         <div class="col-lg-5">
             <a href="/object/${e.id}">
@@ -71,5 +100,6 @@
     <hr>
     </div>
 </c:forEach>
+    </div>
 </div>
 
