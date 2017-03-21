@@ -64,7 +64,7 @@
         <span id="filter-count" style="margin-left: 10px;color: #717171;"></span>
     </div>
     <div style="margin-bottom: 20px;">
-        Упорядочить: <button class="btn btn-default" id="ss-name">по названию</button> <button class="btn btn-default" id="ss-rate">по рейтингу</button>
+        Упорядочить: <button class="btn btn-default" id="ss-name">по названию  <i class="sort-icon glyphicon glyphicon-chevron-up"></i></button> <button class="btn btn-default" id="ss-rate">по рейтингу</button>
     </div>
     </c:if>
     <div class="ss-box">
