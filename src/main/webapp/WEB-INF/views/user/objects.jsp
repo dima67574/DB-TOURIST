@@ -2,13 +2,74 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="col-md-12">
+    <script type="text/JavaScript">
+        $(document).ready(function () {
+            $("#filter").keyup(function () {
+                var filter = $(this).val(), count = 0;
+
+                $(".object-title").each(function () {
+
+                    // If the list item does not contain the text phrase fade it out
+                    if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+                        $(this).parent().parent().parent().hide();
+                    } else {
+                        $(this).parent().parent().parent().show();
+                        count++;
+                    }
+                });
+
+                var numberItems = count;
+                if (filter.length > 0) {
+                    $("#filter-count").text(count > 0 ? "Найдено достопримечательностей: " + count : 'Ничего не найдено');
+                } else {
+                    $("#filter-count").text('');
+                }
+            });
+
+            var nameOrder = new simpleSort('.ss-box', 'div');
+            nameOrder.order = 'desc';
+            $('#ss-name').on('click', function() {
+                $('.sort-icon').remove();
+                if(nameOrder.order === 'desc') {
+                    nameOrder.sort('data-name', 'asc');
+                    $(this).html('по названию <i class="sort-icon glyphicon glyphicon-chevron-down"></i>');
+                } else {
+                    nameOrder.sort('data-name', 'desc');
+                    $(this).html('по названию <i class="sort-icon glyphicon glyphicon-chevron-up"></i>');
+                }
+            });
+            var rateOrder = new simpleSort('.ss-box', 'div');
+            rateOrder.order = 'desc';
+            $('#ss-rate').on('click', function() {
+                $('.sort-icon').remove();
+                if(rateOrder.order === 'desc') {
+                    rateOrder.sort('data-rate', 'asc');
+                    $(this).html('по рейтингу <i class="sort-icon glyphicon glyphicon-chevron-down"></i>');
+                } else {
+                    rateOrder.sort('data-rate', 'desc');
+                    $(this).html('по рейтингу <i class="sort-icon glyphicon glyphicon-chevron-up"></i>');
+                }
+            });
+        });
+    </script>
     <c:if test="${fn:length(objects) == 0}">
         <div class="no-info">
             Нет достопримечательностей
         </div>
     </c:if>
+    <c:if test="${fn:length(objects) > 0}">
+    <div style="margin-bottom: 20px;">
+        <input type="text" class="form-control" id="filter" placeholder="Поиск"
+               style="width: 50%;display: inline-block;"/>
+        <span id="filter-count" style="margin-left: 10px;color: #717171;"></span>
+    </div>
+    <div style="margin-bottom: 20px;">
+        Упорядочить: <button class="btn btn-default" id="ss-name">по названию</button> <button class="btn btn-default" id="ss-rate">по рейтингу</button>
+    </div>
+    </c:if>
+    <div class="ss-box">
     <c:forEach var="e" items="${objects}">
-        <div class="col-md-6">
+        <div class="col-md-6" style="margin-left: -15px;" data-name="${e.name}" data-rate="123">
             <div class="row" style="margin-bottom: 15px;">
                 <div class="col-lg-6">
                     <a href="/object/${e.id}">
@@ -50,5 +111,6 @@
             </div>
         </div>
     </c:forEach>
+    </div>
 </div>
 

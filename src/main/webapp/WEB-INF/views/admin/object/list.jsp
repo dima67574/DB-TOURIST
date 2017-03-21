@@ -63,10 +63,10 @@
                 <thead>
                 <tr>
                     <th>Название</th>
-                    <th>Эпохи</th>
+                    <th>Населенный пункт</th>
                     <th>Типы</th>
                     <th>Стили</th>
-                    <th>Населенный пункт</th>
+                    <th>Эпохи</th>
                     <th>Добавил</th>
                     <th class="text-center">Действия</th>
                 </tr>
@@ -76,11 +76,7 @@
                     <c:forEach var="o" items="${objects}">
                         <tr id="row${o.id}">
                             <td>${o.name}</td>
-                            <td>
-                                <c:forEach items="${o.epochList}" var="epoch" varStatus="i">
-                                    ${epoch.name} (${epoch.startYear} - ${epoch.finishYear})${(fn:length(o.epochList) - 1) > i.index ? ',' : ''}
-                                </c:forEach>
-                            </td>
+                            <td>${o.locality.name}</td>
                             <td>
                                 <c:forEach items="${o.typeList}" var="type" varStatus="i">
                                     ${type.name}${(fn:length(o.typeList) - 1) > i.index ? ',' : ''}
@@ -91,7 +87,11 @@
                                     ${style.name}${(fn:length(o.styleList) - 1) > i.index ? ',' : ''}
                                 </c:forEach>
                             </td>
-                            <td>${o.locality.name}</td>
+                            <td>
+                                <c:forEach items="${o.epochList}" var="epoch" varStatus="i">
+                                    ${epoch.name} (${epoch.startYear} - ${epoch.finishYear})${(fn:length(o.epochList) - 1) > i.index ? ',' : ''}
+                                </c:forEach>
+                            </td>
                             <td>${o.author.fio}</td>
                             <td class="text-center row-actions">
                                 <div class="dropdown">
