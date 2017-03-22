@@ -16,4 +16,10 @@ public interface CommentService {
     void delete(Long id);
 
     Boolean check(Long id);
+
+    Boolean send(Long objectId, Integer rate, String text, Long userId);
+
+    Integer checkCommented(Long objectId, Long userId);
+
+    List<Comment> getComments(Long objectId);
 }

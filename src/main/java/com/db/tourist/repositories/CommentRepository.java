@@ -13,4 +13,8 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Query("select count(f) from Comment f where f.checked = 0")
     Integer getNotCheckedCount();
+
+    List<Comment> findByObjectIdAndUserId(Long objectId, Long userId);
+
+    List<Comment> findByObjectIdAndCheckedIsTrueOrderByDateDesc(Long objectId);
 }

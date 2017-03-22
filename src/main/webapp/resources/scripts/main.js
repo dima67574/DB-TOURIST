@@ -110,12 +110,18 @@ function captch_refresh(el) {
     return false;
 }
 
-function message(el, msg, classes) {
+function message(el, msg, classes, noTop, noClosed) {
     var txt = '<div class="alert alert-' + classes + ' ' +
-        'alert-styled-left alert-arrow-left alert-bordered"> <button type="button" class="close" data-dismiss="alert">' +
-        '<span>×</span><span class="sr-only">Закрыть</span></button> <span class="alrt-msg">' + msg + '</span></div>';
+        'alert-styled-left alert-arrow-left alert-bordered">';
+    if(noClosed == undefined) {
+        txt += ' <button type="button" class="close" data-dismiss="alert">' +
+            '<span>×</span><span class="sr-only">Закрыть</span></button>';
+    }
+        txt += ' <span class="alrt-msg">' + msg + '</span></div>';
     $('#' + el).html(txt);
-    $(window).scrollTop(0);
+    if(noTop === undefined) {
+        $(window).scrollTop(0);
+    }
 }
 
 function getColHtml(t, rowId, colId) {

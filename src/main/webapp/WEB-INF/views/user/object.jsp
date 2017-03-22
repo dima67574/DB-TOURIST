@@ -3,10 +3,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<security:authorize access="isAnonymous()" var="isAnonymous"/>
 <script>
     function showRatingForm() {
         $('#rating_form').slideDown();
-        $('#addButton').attr('onclick', 'alert();');
+        $('#addButton').attr('onclick', 'sendComment();');
+    }
+    function sendComment() {
+        var form = $('#commentForm');
+        form.parsley().validate();
+        if (!form.parsley().isValid()){
+            return;
+        }
+        var rate = $('input[name="rating"]:checked').val();
+        var text = $('#addComment').val();
+        $.post('/sendComment', {objectId: ${object.id}, rate: rate, text: text}, function (d) {
+            $('#addButton').remove();
+            if(d) {
+                message('rating_form', 'Отзыв успешно добавлен и будет опубликован после проверки администрацией.', 'info m-b-0', 1, 1);
+            } else {
+                message('rating_form', 'Произошла ошибка.', 'info m-b-0', 1, 1);
+            }
+        });
     }
 </script>
 <div class="col-md-12">
@@ -54,10 +73,9 @@
                 </div>
             </div>
         </div>
-        <hr>
+        ${fn:length(object.childObjects) > 0 ? '<hr>' : ''}
         <div>
         <c:forEach var="e" items="${object.childObjects}">
-
             <div class="col-md-3" style="margin-left: -15px;">
                 <div class="row" style="margin-bottom: 15px;">
                     <div class="col-lg-12">
@@ -96,62 +114,74 @@
 }
 </style>
 
-<div class="col-md-12" style="margin-bottom:20px;margin-top:10px">
-    <h3 class="page-header">Отзывы</h3>
 
-    <div id="rating_form" style="display: none">
-    <div class="form-group">
-        <div><b>Ваша оценка:</b></div>
+<div class="col-md-12" style="margin-bottom:10px;margin-top:10px">
+    <h3 class="page-header" style="margin-top: 10px;">Отзывы</h3>
+    <c:choose>
+        <c:when test="${commentedStatus == 3}">
+            <div class="no-info">
+                Чтобы оставить отзыв, <a href="/login">войдите</a> или <a href="/registration">зарегистрируйтесь</a>
+            </div>
+        </c:when>
+        <c:when test="${commentedStatus == 1}">
+            <div class="alert alert-info alert-styled-left alert-arrow-left alert-bordered">
+                <span class="alrt-msg">Ваш отзыв будет опубликован после проверки администрацией.</span>
+            </div>
+        </c:when>
+        <c:when test="${commentedStatus == 2}"></c:when>
+        <c:otherwise>
+            <div id="rating_form" style="display: none">
+                <div class="form-group">
+                    <div><b>Ваша оценка:</b></div>
 
-    <div class="star-cb-group" style="float:left">
-      <input type="radio" id="rating-5" name="rating" value="5" /><label for="rating-5">5</label>
-      <input type="radio" id="rating-4" name="rating" value="4" /><label for="rating-4">4</label>
-      <input type="radio" id="rating-3" name="rating" value="3" checked="checked" /><label for="rating-3">3</label>
-      <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
-      <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
-      <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
-    </div>
+                    <div class="star-cb-group" style="float:left">
+                        <input type="radio" id="rating-5" name="rating" value="5" /><label for="rating-5">5</label>
+                        <input type="radio" id="rating-4" name="rating" value="4" /><label for="rating-4">4</label>
+                        <input type="radio" id="rating-3" name="rating" value="3" checked="checked" /><label for="rating-3">3</label>
+                        <input type="radio" id="rating-2" name="rating" value="2" /><label for="rating-2">2</label>
+                        <input type="radio" id="rating-1" name="rating" value="1" /><label for="rating-1">1</label>
+                        <input type="radio" id="rating-0" name="rating" value="0" class="star-cb-clear" /><label for="rating-0">0</label>
+                    </div>
 
 
-    </div>
+                </div>
 
-    <div class="form-group">
-        <textarea class="form-control" name="addComment" id="addComment" rows="5" style="resize:vertical;"></textarea>
-    </div>
+                <form id="commentForm">
+                    <div class="form-group">
+                        <textarea class="form-control" name="addComment" id="addComment" rows="5" style="resize:vertical;" required></textarea>
+                    </div>
+                </form>
+            </div>
 
-    </div>
-
-    <div class="form-group">
-        <button class="btn btn-primary" onclick="showRatingForm();" id="addButton">Добавить отзыв</button>
-    </div>
+            <div class="form-group">
+                <button class="btn btn-primary" onclick="showRatingForm();" id="addButton">Добавить отзыв</button>
+            </div>
+        </c:otherwise>
+    </c:choose>
 </div>
 
 <div class="col-md-12">
+    <c:if test="${fn:length(comments) == 0}">
+        <div class="no-info" style="padding-left:5px">
+            Нет отзывов о достопримечательности
+        </div>
+    </c:if>
+    <c:forEach var="c" items="${comments}">
     <div class="panel panel-default">
         <div class="panel-heading">
-            <strong>Бахир Дима</strong> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i>
+            <strong>${c.user.fio}</strong>
+            <c:forEach begin="1" end="${c.mark}">
+            <i class="fa fa-star" style="color:#f39c15;"></i>
+            </c:forEach>
         </div>
         <div class="panel-body">
-            <div class="text-muted" style="font-size:13px;margin-bottom:10px">21.01.2016 в 10:30:40</div>
-            фыфыывфвфывфы
-        </div><!-- /panel-body -->
-    </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <strong>Бахир Дима</strong> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i>
+            <div class="text-muted" style="font-size:13px;margin-bottom:10px">
+
+                <fmt:formatDate value="${c.date}" pattern="dd.MM.yyyy в HH:mm:ss" var="createDate" />
+                    ${createDate}
+            </div>
+                ${c.text}
         </div>
-        <div class="panel-body">
-            <div class="text-muted" style="font-size:13px;margin-bottom:10px">21.01.2016 в 10:30:40</div>
-            фыфыывфвфывфы
-        </div><!-- /panel-body -->
     </div>
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <strong>Бахир Дима</strong> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i> <i class="fa fa-star" style="color:#f39c15;"></i>
-        </div>
-        <div class="panel-body">
-            <div class="text-muted" style="font-size:13px;margin-bottom:10px">21.01.2016 в 10:30:40</div>
-            фыфыывфвфывфы
-        </div><!-- /panel-body -->
-    </div>
+    </c:forEach>
 </div>

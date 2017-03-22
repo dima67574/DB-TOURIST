@@ -1,6 +1,5 @@
 package com.db.tourist.controllers.admin;
 
-import com.db.tourist.models.Epoch;
 import com.db.tourist.models.Object;
 import com.db.tourist.services.*;
 import com.db.tourist.utils.UploadedFile;
@@ -43,13 +42,21 @@ public class ObjectController {
     @Autowired
     private PhotoService photoService;
 
+    @Autowired
+    private CommentService commentService;
+
+    @Autowired
+    private UserService userService;
+
     @RequestMapping(value = "/object/{id}", method = RequestMethod.GET)
     public ModelAndView object(@PathVariable("id") Long id) {
         View view = new View("object");
         Object object = objectService.findOne(id);
         if(object != null) {
             view.addObject("title", "Достопримечательность «" + object.getName() + "»");
+            view.addObject("commentedStatus", commentService.checkCommented(id, userService.getUser().getId()));
             view.addObject("object", object);
+            view.addObject("comments", commentService.getComments(id));
         }
         return view;
     }

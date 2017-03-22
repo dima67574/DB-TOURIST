@@ -2,6 +2,7 @@ package com.db.tourist.controllers.admin;
 
 import com.db.tourist.models.Comment;
 import com.db.tourist.services.CommentService;
+import com.db.tourist.services.UserService;
 import com.db.tourist.utils.View;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class CommentController {
     @Autowired
     private CommentService commentService;
+
+    @Autowired
+    private UserService userService;
 
     @RequestMapping(value = "/admin/comment", method = RequestMethod.GET)
     public ModelAndView list() {
@@ -45,5 +49,11 @@ public class CommentController {
             redirectAttributes.addFlashAttribute("success", "Отзыв одобрен");
         }
         return "redirect:/admin/comment";
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/sendComment", method = RequestMethod.POST)
+    public Boolean delete(@RequestParam("objectId") Long objectId, Integer rate, String text) {
+        return commentService.send(objectId, rate, text, userService.getUser().getId());
     }
 }
