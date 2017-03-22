@@ -3,6 +3,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<script>
+    function showRatingForm() {
+        $('#rating_form').slideDown();
+        $('#addButton').attr('onclick', 'alert();');
+    }
+</script>
 <div class="col-md-12">
 
         <div class="row">
@@ -93,6 +99,7 @@
 <div class="col-md-12" style="margin-bottom:20px;margin-top:10px">
     <h3 class="page-header">Отзывы</h3>
 
+    <div id="rating_form" style="display: none">
     <div class="form-group">
         <div><b>Ваша оценка:</b></div>
 
@@ -109,12 +116,13 @@
     </div>
 
     <div class="form-group">
-
-            <textarea class="form-control" name="addComment" id="addComment" rows="5" style="resize:vertical;"></textarea>
+        <textarea class="form-control" name="addComment" id="addComment" rows="5" style="resize:vertical;"></textarea>
+    </div>
 
     </div>
+
     <div class="form-group">
-        <button class="btn btn-primary">Добавить отзыв</button>
+        <button class="btn btn-primary" onclick="showRatingForm();" id="addButton">Добавить отзыв</button>
     </div>
 </div>
 
