@@ -1,5 +1,6 @@
 package com.db.tourist.controllers.admin;
 
+import com.db.tourist.models.Epoch;
 import com.db.tourist.models.Object;
 import com.db.tourist.services.*;
 import com.db.tourist.utils.UploadedFile;
@@ -59,6 +60,15 @@ public class ObjectController {
         view.addObject("title", "Объекты");
         List<Object> objects = objectService.findAll();
         view.addObject("objects", objects);
+        return view;
+    }
+
+    @RequestMapping(value = "/object/{objectId}/gallery", method = RequestMethod.GET)
+    public ModelAndView epochs(@PathVariable("objectId") Long objectId) {
+        View view = new View("gallery");
+        Object object = objectService.findOne(objectId);
+        view.addObject("title", "Фотоальбом достопримечательности «" + object.getName() + "»");
+        view.addObject("object", object);
         return view;
     }
 
