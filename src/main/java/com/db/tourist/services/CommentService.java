@@ -19,7 +19,7 @@ public interface CommentService {
 
     Boolean send(Long objectId, Integer rate, String text, Long userId);
 
-    Integer checkCommented(Long objectId, Long userId);
+    Integer checkCommented(Long objectId);
 
     List<Comment> getComments(Long objectId);
 }

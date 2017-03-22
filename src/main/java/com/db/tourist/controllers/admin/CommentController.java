@@ -31,7 +31,7 @@ public class CommentController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/admin/comment/show", method = RequestMethod.GET)
+    @RequestMapping(value = "/admin/comment/show", method = RequestMethod.GET, produces = "text/plain; charset=utf-8")
     public String show(@RequestParam("id") Long id) {
         Comment comment = commentService.findOne(id);
         return comment != null ? comment.getText() : "";

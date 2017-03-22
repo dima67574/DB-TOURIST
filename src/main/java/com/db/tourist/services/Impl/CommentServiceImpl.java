@@ -65,10 +65,10 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.findByObjectIdAndCheckedIsTrueOrderByDateDesc(objectId);
     }
 
-    public Integer checkCommented(Long objectId, Long userId) {
+    public Integer checkCommented(Long objectId) {
         if(!userService.isAuthentificated())
             return 3;
-        List<Comment> comments = commentRepository.findByObjectIdAndUserId(objectId, userId);
+        List<Comment> comments = commentRepository.findByObjectIdAndUserId(objectId, userService.getUser().getId());
         if(!comments.isEmpty()) {
             Comment c = comments.get(0);
             if(!c.getChecked()) {

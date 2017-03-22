@@ -54,7 +54,7 @@ public class ObjectController {
         Object object = objectService.findOne(id);
         if(object != null) {
             view.addObject("title", "Достопримечательность «" + object.getName() + "»");
-            view.addObject("commentedStatus", commentService.checkCommented(id, userService.getUser().getId()));
+            view.addObject("commentedStatus", commentService.checkCommented(id));
             view.addObject("object", object);
             view.addObject("comments", commentService.getComments(id));
         }
