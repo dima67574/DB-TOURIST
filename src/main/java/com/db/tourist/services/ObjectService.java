@@ -30,4 +30,6 @@ public interface ObjectService {
     Float getRating(Long id);
 
     Collection<Object> setRatings(Collection<Object> objects);
+
+    List<Object> getTopList();
 }

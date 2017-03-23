@@ -113,6 +113,20 @@ public class ObjectServiceImpl implements ObjectService {
         }
     }
 
+    public List<Object> getTopList() {
+        List<Object> objects = findAll();
+        if (objects.size() > 0) {
+            Collections.sort(objects, new Comparator<Object>() {
+                @Override
+                public int compare(final Object object1, final Object object2) {
+                    return object1.getRating().compareTo(object2.getRating());
+                }
+            });
+        }
+        Collections.reverse(objects);
+        return objects.subList(0, Math.min(50, objects.size()));
+    }
+
     public Object save(Object object, List<Long> epochs, List<Long> types, List<Long> styles, List<Integer> years) {
         Set<Epoch> epochList = new HashSet<>();
         Set<Type> typeList = new HashSet<>();

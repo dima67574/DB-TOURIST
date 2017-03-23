@@ -8,9 +8,9 @@
 <script>
     $(function () {
         <c:if test="${empty object.locality.id}">
-        $('#districtId').prop('disabled', true);
-        $('#localityId').prop('disabled', true);
-        $('#parentId').prop('disabled', true);
+        $('#districtId').val('').prop('disabled', true);
+        $('#localityId').val('').prop('disabled', true);
+        $('#parentId').val('').prop('disabled', true);
         </c:if>
 
         $("#epochs").val([
