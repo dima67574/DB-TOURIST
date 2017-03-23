@@ -10,10 +10,7 @@
     </div>
 </c:if>
 <div class="col-lg-12">
-    <c:if test="${isAnonymous}">
-        top 20 from top 50 random. slider
-    </c:if>
-    <c:if test="${!isAnonymous}">
+
 
         <div class="row carousel-holder">
 
@@ -47,5 +44,4 @@
             </div>
 
         </div>
-    </c:if>
 </div>

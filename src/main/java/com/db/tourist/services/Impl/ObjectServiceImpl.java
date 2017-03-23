@@ -127,6 +127,12 @@ public class ObjectServiceImpl implements ObjectService {
         return objects.subList(0, Math.min(50, objects.size()));
     }
 
+    public List<Object> getRandomTop() {
+        List<Object> top = getTopList();
+        Collections.shuffle(top);
+        return top.subList(0, Math.min(20, top.size()));
+    }
+
     public Object save(Object object, List<Long> epochs, List<Long> types, List<Long> styles, List<Integer> years) {
         Set<Epoch> epochList = new HashSet<>();
         Set<Type> typeList = new HashSet<>();

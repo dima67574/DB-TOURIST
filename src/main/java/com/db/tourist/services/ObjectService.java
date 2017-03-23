@@ -32,4 +32,6 @@ public interface ObjectService {
     Collection<Object> setRatings(Collection<Object> objects);
 
     List<Object> getTopList();
+
+    List<Object> getRandomTop();
 }
