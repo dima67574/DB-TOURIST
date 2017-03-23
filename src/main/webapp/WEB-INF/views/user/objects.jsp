@@ -84,7 +84,7 @@
     </c:if>
     <div class="ss-box">
     <c:forEach var="e" items="${objects}">
-        <div class="col-md-6" style="margin-left: -15px;" data-name="${e.name}" data-rate="123" data-region="${e.locality.name}">
+        <div class="col-md-6" style="margin-left: -15px;" data-name="${e.name}" data-rate="${e.rating}" data-region="${e.locality.name}">
             <div class="row" style="margin-bottom: 15px;">
                 <div class="col-lg-6">
                     <a href="/object/${e.id}">
@@ -113,7 +113,22 @@
                             <a href="/style/${s.id}/objects">${s.name}</a>${(fn:length(e.styleList) - 1) > i.index ? ',' : ''}
                         </c:forEach>
                     </div>
-                    <div style="font-size: 13px;margin-bottom:3px">Оценка: XXXXX</div>
+                    <div style="font-size: 13px;margin-bottom:3px">Оценка:
+                        <span class="star-rating">
+                        <c:forEach begin="0" end="4" varStatus="i">
+                            <c:set var="num" value="${i.index + 1}" />
+                            <c:if test="${e.rating > num && e.rating < (num + 1)}">
+                                <i class="fa fa-star-half-full" style="color:#f39c15;"></i>
+                            </c:if>
+                            <c:if test="${(e.rating > num && e.rating >= (num + 1)) || e.rating == num}">
+                                <i class="fa fa-star" style="color:#f39c15;"></i>
+                            </c:if>
+                            <c:if test="${e.rating < num}">
+                                <i class="fa fa-star-o" style="color:#f39c15;"></i>
+                            </c:if>
+                        </c:forEach>
+                    </span>
+                    </div>
                     <div style="font-size: 13px;margin-bottom:3px">
                         Нас. пункт: <a href="/locality/${e.locality.id}">${e.locality.name}</a>
                     </div>

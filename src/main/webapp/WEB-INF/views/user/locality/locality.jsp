@@ -62,7 +62,7 @@
     </div>
     <div class="ss-box">
 <c:forEach var="e" items="${objects}">
-    <div data-name="${e.name}" data-rate="123">
+    <div data-name="${e.name}" data-rate="${e.rating}">
     <div class="row">
         <div class="col-lg-5">
             <a href="/object/${e.id}">

@@ -1,6 +1,7 @@
-package com.db.tourist.controllers.admin;
+package com.db.tourist.controllers;
 
 import com.db.tourist.models.Style;
+import com.db.tourist.services.ObjectService;
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.services.StyleService;
 import com.db.tourist.utils.UploadedFile;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-
 @Controller
 public class StyleController {
     @Autowired
@@ -22,13 +21,16 @@ public class StyleController {
     @Autowired
     private PhotoService photoService;
 
+    @Autowired
+    private ObjectService objectService;
+
     @Transactional
     @RequestMapping(value = "/style/{epochId}/objects", method = RequestMethod.GET)
     public ModelAndView objects(@PathVariable("epochId") Long id) {
         View view = new View("objects");
         Style s = styleService.findOne(id);
         view.addObject("title", "Достопримечательности стиля «" + s.getName() + "»");
-        view.addObject("objects", new ArrayList(s.getObjectList()));
+        view.addObject("objects", objectService.setRatings(s.getObjectList()));
         return view;
     }
 

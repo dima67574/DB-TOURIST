@@ -1,6 +1,7 @@
-package com.db.tourist.controllers.admin;
+package com.db.tourist.controllers;
 
 import com.db.tourist.models.Type;
+import com.db.tourist.services.ObjectService;
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.services.TypeService;
 import com.db.tourist.utils.UploadedFile;
@@ -12,8 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.ArrayList;
-
 @Controller
 public class TypeController {
     @Autowired
@@ -22,13 +21,16 @@ public class TypeController {
     @Autowired
     private PhotoService photoService;
 
+    @Autowired
+    private ObjectService objectService;
+
     @Transactional
     @RequestMapping(value = "/type/{epochId}/objects", method = RequestMethod.GET)
     public ModelAndView objects(@PathVariable("epochId") Long id) {
         View view = new View("objects");
         Type t = typeService.findOne(id);
         view.addObject("title", "Достопримечательности типа «" + t.getName() + "»");
-        view.addObject("objects", new ArrayList(t.getObjectList()));
+        view.addObject("objects", objectService.setRatings(t.getObjectList()));
         return view;
     }
 

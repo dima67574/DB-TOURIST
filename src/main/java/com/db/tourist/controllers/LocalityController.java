@@ -1,4 +1,4 @@
-package com.db.tourist.controllers.admin;
+package com.db.tourist.controllers;
 
 import com.db.tourist.models.District;
 import com.db.tourist.models.Locality;
@@ -54,7 +54,7 @@ public class LocalityController {
         View view = new View("locality/locality");
         Locality l = localityService.findOne(id);
         view.addObject("title", "Достопримечательности нас. пункта «" + l.getName() + "»");
-        view.addObject("objects", objectService.findByLocalityIdOrderByNameAsc(id));
+        view.addObject("objects", objectService.setRatings(objectService.findByLocalityIdOrderByNameAsc(id)));
         return view;
     }
 

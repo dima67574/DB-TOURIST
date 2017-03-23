@@ -1,4 +1,4 @@
-package com.db.tourist.controllers.admin;
+package com.db.tourist.controllers;
 
 import com.db.tourist.models.Comment;
 import com.db.tourist.services.CommentService;

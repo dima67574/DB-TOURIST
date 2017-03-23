@@ -1,4 +1,4 @@
-package com.db.tourist.controllers.admin;
+package com.db.tourist.controllers;
 
 import com.db.tourist.services.PhotoService;
 import com.db.tourist.utils.View;

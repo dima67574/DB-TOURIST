@@ -61,6 +61,9 @@ public class Object extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Photo cover;
 
+    @Transient
+    private Float rating;
+
     public Object() {
     }
 
@@ -182,6 +185,14 @@ public class Object extends BaseEntity {
 
     public void setCover(Photo cover) {
         this.cover = cover;
+    }
+
+    public Float getRating() {
+        return rating;
+    }
+
+    public void setRating(Float rating) {
+        this.rating = rating;
     }
 
     public boolean equals(Object o) {

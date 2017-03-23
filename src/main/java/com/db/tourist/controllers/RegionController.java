@@ -1,4 +1,4 @@
-package com.db.tourist.controllers.admin;
+package com.db.tourist.controllers;
 
 import com.db.tourist.models.Region;
 import com.db.tourist.services.RegionService;

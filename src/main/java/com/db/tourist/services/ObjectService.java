@@ -26,4 +26,8 @@ public interface ObjectService {
     List<Object> findByLocalityIdOrderByNameAsc(Long id);
 
     Collection<Object> findRelevant(Integer count);
+
+    Float getRating(Long id);
+
+    Collection<Object> setRatings(Collection<Object> objects);
 }

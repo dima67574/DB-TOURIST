@@ -57,7 +57,22 @@
                         <a href="/style/${s.id}/objects">${s.name}</a>${(fn:length(object.styleList) - 1) > i.index ? ',' : ''}
                     </c:forEach>
                 </div>
-                <div style="font-size: 16px;margin-bottom:6px"><b>Оценка:</b> XXXXX</div>
+                <div style="font-size: 16px;margin-bottom:6px"><b>Оценка:</b>
+                    <span class="star-rating">
+                        <c:forEach begin="0" end="4" varStatus="i">
+                            <c:set var="num" value="${i.index + 1}" />
+                            <c:if test="${object.rating > num && object.rating < (num + 1)}">
+                                <i class="fa fa-star-half-full" style="color:#f39c15;"></i>
+                            </c:if>
+                            <c:if test="${(object.rating > num && object.rating >= (num + 1)) || object.rating == num}">
+                                <i class="fa fa-star" style="color:#f39c15;"></i>
+                            </c:if>
+                            <c:if test="${object.rating < num}">
+                                <i class="fa fa-star-o" style="color:#f39c15;"></i>
+                            </c:if>
+                        </c:forEach>
+                    </span>
+                </div>
                 <div style="font-size: 16px;margin-bottom:6px">
                     <b>Адрес:</b> ${empty object.address ? 'не указан' : object.address}
                 </div>
@@ -170,8 +185,14 @@
     <div class="panel panel-default">
         <div class="panel-heading">
             <strong>${c.user.fio}</strong>
-            <c:forEach begin="1" end="${c.mark}">
-            <i class="fa fa-star" style="color:#f39c15;"></i>
+            <c:forEach begin="0" end="4" varStatus="i">
+                <c:set var="num" value="${i.index + 1}" />
+                <c:if test="${c.mark > num || c.mark == num}">
+                    <i class="fa fa-star" style="color:#f39c15;"></i>
+                </c:if>
+                <c:if test="${c.mark < num}">
+                    <i class="fa fa-star-o" style="color:#f39c15;"></i>
+                </c:if>
             </c:forEach>
         </div>
         <div class="panel-body">

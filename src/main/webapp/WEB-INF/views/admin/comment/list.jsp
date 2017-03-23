@@ -118,8 +118,14 @@
                             <td>${p.object.name}</td>
                             <td>${p.user.fio}</td>
                             <td>
-                                <c:forEach begin="1" end="${p.mark}">
-                                    <i class="fa fa-star" style="color:#f39c15;"></i>
+                                <c:forEach begin="0" end="4" varStatus="i">
+                                    <c:set var="num" value="${i.index + 1}" />
+                                    <c:if test="${p.mark > num || p.mark == num}">
+                                        <i class="fa fa-star" style="color:#f39c15;"></i>
+                                    </c:if>
+                                    <c:if test="${p.mark < num}">
+                                        <i class="fa fa-star-o" style="color:#f39c15;"></i>
+                                    </c:if>
                                 </c:forEach>
                             </td>
                             <td class="text-center row-actions">
@@ -161,8 +167,14 @@
                             <td>${p.object.name}</td>
                             <td>${p.user.fio}</td>
                             <td>
-                                <c:forEach begin="1" end="${p.mark}">
-                                    <i class="fa fa-star" style="color:#f39c15;"></i>
+                                <c:forEach begin="0" end="4" varStatus="i">
+                                    <c:set var="num" value="${i.index + 1}" />
+                                    <c:if test="${p.mark > num || p.mark == num}">
+                                        <i class="fa fa-star" style="color:#f39c15;"></i>
+                                    </c:if>
+                                    <c:if test="${p.mark < num}">
+                                        <i class="fa fa-star-o" style="color:#f39c15;"></i>
+                                    </c:if>
                                 </c:forEach>
                             </td>
                             <td>${p.moderator.fio}</td>

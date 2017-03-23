@@ -1,4 +1,4 @@
-package com.db.tourist.controllers.admin;
+package com.db.tourist.controllers;
 
 import com.db.tourist.models.Object;
 import com.db.tourist.services.*;
@@ -84,7 +84,7 @@ public class ObjectController {
         View view = new View("object/list", true);
         Object object = objectService.findOne(id);
         view.addObject("title", "Дочерние объекты «" + object.getName() + "»");
-        view.addObject("objects", object.getChildObjects());
+        view.addObject("objects", objectService.setRatings(object.getChildObjects()));
         view.addObject("childs", true);
         return view;
     }
